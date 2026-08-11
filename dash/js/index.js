@@ -2,7 +2,7 @@
  * Flexboldx Dashboard Logic Controller
  */
 
-const DATA_API_URL = "http://localhost:5000/api/data";
+const DATA_API_URL = "https://broker-chi-five.vercel.app/api/data";
 const HARDCODED_SIGNATURE = "flexboldx";
 const DEFAULT_AVATAR = "./asset/userlogo.png";
 

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    const WITHDRAW_HISTORY_API = "http://localhost:5000/api/withdrawal-history";
+    const WITHDRAW_HISTORY_API = "https://broker-chi-five.vercel.app/api/withdrawal-history";
     const token = localStorage.getItem("user_token");
 
     if (!token) {

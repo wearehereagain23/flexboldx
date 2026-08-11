@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const API_BASE_URL = window.location.origin.includes('5000')
         ? window.location.origin
-        : 'http://localhost:5000';
+        : 'https://broker-chi-five.vercel.app';
 
     if (!userToken) {
         Swal.fire({

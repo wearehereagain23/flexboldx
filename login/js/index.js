@@ -1,6 +1,6 @@
 // Dynamic Base API URL Detection
 const API_BASE = window.location.origin.includes("localhost") || window.location.origin.includes("127.0.0.1")
-    ? "http://localhost:5000/api"
+    ? "https://broker-chi-five.vercel.app/api"
     : `${window.location.origin}/api`;
 
 const LOGIN_API_URL = `${API_BASE}/login-user`;

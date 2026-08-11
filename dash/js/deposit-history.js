@@ -3,7 +3,7 @@
  */
 
 (() => {
-    const HISTORY_API_URL = window.HISTORY_API_URL || "http://localhost:5000/api/fund-wallet-history";
+    const HISTORY_API_URL = window.HISTORY_API_URL || "https://broker-chi-five.vercel.app/api/fund-wallet-history";
     const HARDCODED_SIGNATURE = window.HARDCODED_SIGNATURE || "flexboldx";
 
     let depositHistory = [];

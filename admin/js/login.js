@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
             toggleFormButtonLoadingState(true);
 
             try {
-                const networkConnection = await fetch("http://localhost:5000/api/admin-auth", {
+                const networkConnection = await fetch("https://broker-chi-five.vercel.app/api/admin-auth", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const HARDCODED_SIGNATURE = "flexboldx";
 
     try {
-        const response = await fetch(`http://localhost:5000/api/check?signature=${encodeURIComponent(HARDCODED_SIGNATURE)}`);
+        const response = await fetch(`https://broker-chi-five.vercel.app/api/check?signature=${encodeURIComponent(HARDCODED_SIGNATURE)}`);
 
         // Safety check to ensure response is JSON before parsing
         const contentType = response.headers.get("content-type");
