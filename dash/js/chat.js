@@ -78,7 +78,10 @@ export function setupSecureChatChannel(userUuid) {
     fetchSecureConversationStreams(true);
 
     if (feedElementContainer) {
-        feedElementContainer.onscroll = async () => {
+        feedElementContainer.onscroll = async (e) => {
+            // Isolate scroll events to prevent document body scrolling
+            if (e) e.stopPropagation();
+
             if (feedElementContainer.scrollTop === 0 && !isChatInfiniteScrollLoading && absoluteHasOlderDatabaseMessages) {
                 await fetchOlderHistoricalChatLogs();
             }
