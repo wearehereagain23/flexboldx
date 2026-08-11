@@ -24,6 +24,12 @@
 
 <body>
 
+    <!-- Full-Page Loading Spinner & Blur Overlay -->
+    <div class="loader-overlay" id="pageLoader">
+        <div class="spinner"></div>
+        <p class="loader-text">Loading Dashboard...</p>
+    </div>
+
     <!-- Header Navbar -->
     <header class="topbar" id="header">
         <div class="header-left">
@@ -319,6 +325,29 @@
             </footer>
         </main>
     </div>
+
+    <nav class="bottom-app-bar">
+        <a href="./index.html" class="nav-item">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </a>
+        <a href="./deposit.html" class="nav-item">
+            <i class="material-icons">add_circle_outline</i>
+            <span>Deposit</span>
+        </a>
+        <a href="./invest.html" class="nav-item active">
+            <i class="material-icons">trending_up</i>
+            <span>Invest</span>
+        </a>
+        <a href="./withdraw-funds.html" class="nav-item">
+            <i class="material-icons">payments</i>
+            <span>Withdraw</span>
+        </a>
+        <a href="./profile.html" class="nav-item">
+            <i class="material-icons">person</i>
+            <span>Profile</span>
+        </a>
+    </nav>
 
     <!-- Custom JS Scripts -->
     <script src="./js/theme.js"></script>

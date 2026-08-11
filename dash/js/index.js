@@ -7,6 +7,10 @@ const HARDCODED_SIGNATURE = "flexboldx";
 const DEFAULT_AVATAR = "./asset/userlogo.png";
 
 document.addEventListener("DOMContentLoaded", async () => {
+    // 1. Instantly activate body blur state
+    document.body.classList.add("loading-active");
+    const loaderOverlay = document.getElementById("pageLoader");
+
     const token = localStorage.getItem("user_token");
 
     // Redirect to login if unauthenticated
@@ -15,18 +19,25 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
+    // Delay helper promise
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
     try {
-        const response = await fetch(DATA_API_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify({
-                token: token,
-                signature: HARDCODED_SIGNATURE
-            })
-        });
+        // 2. Fetch API data and wait at least 2000ms simultaneously
+        const [response] = await Promise.all([
+            fetch(DATA_API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    token: token,
+                    signature: HARDCODED_SIGNATURE
+                })
+            }),
+            delay(2000) // Guarantees a minimum 2-second loader visibility
+        ]);
 
         const result = await response.json();
 
@@ -118,7 +129,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         setElementText("active", user.accountStatus);
         setElementText("kycStatus", kycDisplay);
         setElementText("tradeStatus", user.tradeStatus);
-        setElementText("withdrawStatus", user.withdrawStatus === true ? 'ligible' : 'Ineligible');
+        setElementText("withdrawStatus", user.withdrawStatus === true ? 'Eligible' : 'Ineligible');
 
         // -------------------------------------------------------------
         // 3. REFERRALS & COMMISSIONS METRICS
@@ -142,6 +153,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     } catch (err) {
         console.error("Dashboard Loading Error:", err);
         Swal.fire("Connection Error", "Unable to load dashboard data. Please try again.", "error");
+    } finally {
+        // 3. Remove blur and hide loader overlay once data & 2-second timer finish
+        document.body.classList.remove("loading-active");
+        if (loaderOverlay) {
+            loaderOverlay.classList.add("hidden");
+        }
     }
 
     // -------------------------------------------------------------
