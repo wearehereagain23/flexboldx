@@ -362,6 +362,8 @@
     <script src="./js/index.js"></script>
     <script src="./js/trade-history.js"></script>
 
+
+    <!-- Chat Drawer Controller Script -->
     <script type="module">
         import { setupSecureChatChannel } from './js/chat.js';
 
@@ -369,10 +371,16 @@
         const chatOverlay = document.getElementById('chatDrawerOverlay');
         const openBtn = document.getElementById('openChatDrawerBtn');
         const closeBtn = document.getElementById('closeChatDrawerBtn');
+        const chatInput = document.getElementById('chat-terminal-text-field');
+        const chatFeed = document.getElementById('chat-message-feed');
 
         function openChat() {
             chatDrawer.classList.add('open');
             chatOverlay.classList.add('active');
+
+            // Prevent underlying page body from scrolling while chat is active
+            document.body.style.overflow = 'hidden';
+
             const userUuid = localStorage.getItem("user_uuid") || "current_user_uuid";
             setupSecureChatChannel(userUuid);
         }
@@ -380,11 +388,25 @@
         function closeChat() {
             chatDrawer.classList.remove('open');
             chatOverlay.classList.remove('active');
+
+            // Restore page body scrolling
+            document.body.style.overflow = '';
         }
 
         openBtn?.addEventListener('click', openChat);
         closeBtn?.addEventListener('click', closeChat);
         chatOverlay?.addEventListener('click', closeChat);
+
+        // Fix iOS keyboard focus shift and feed jumping
+        chatInput?.addEventListener('focus', () => {
+            setTimeout(() => {
+                if (chatFeed) {
+                    chatFeed.scrollTop = chatFeed.scrollHeight;
+                }
+                // Keeps the address bar fixed on iOS Safari
+                window.scrollTo(0, 0);
+            }, 300);
+        });
     </script>
 </body>
 
