@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdraw & Transfer Funds | Flexboldx</title>
+
+    <!-- Material Icons & Google Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/withdraw.css">
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+
+    <!-- Header Navbar -->
+    <header class="topbar" id="header">
+        <div class="header-left">
+
+            <a href="../index.html" class="brand-logo">
+                <img src="./asset/logo.png" alt="Flexboldx Logo">
+            </a>
+        </div>
+
+        <div class="header-right">
+            <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+                <i class="material-icons" id="themeIcon">brightness_4</i>
+            </button>
+
+            <div class="header-icon-item">
+                <button type="button" id="openChatDrawerBtn" class="agent-assist-btn" title="Agent Assist / Support">
+                    <i class="material-icons">chat_bubble_outline</i>
+                    <span class="badge-count">1</span>
+                </button>
+            </div>
+
+            <div class="header-user-profile">
+                <a class="profile-button" href="./profile.html">
+                    <div class="avatar-status-wrapper">
+                        <img src="./asset/userlogo.png" id="pmler" alt="User Avatar" class="user-avatar-img">
+                        <span class="status-indicator online"></span>
+                    </div>
+                    <span class="user-name-text hide-mobile" id="weuss_header"></span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="app-layout">
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-user-card">
+                <img id="pmler2" src="./asset/userlogo.png" alt="User" class="avatar-circle">
+                <div class="user-details">
+                    <span class="user-name" id="weuss"></span>
+                    <span class="user-country" id="country">United States</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="./index.html"><i class="material-icons">dashboard</i><span>Dashboard</span></a></li>
+                    <li><a href="./deposit.html"><i class="material-icons">account_balance_wallet</i><span>Fund
+                                Account</span></a></li>
+                    <li><a href="./deposit-history.html"><i class="material-icons">dns</i><span>Deposit
+                                History</span></a></li>
+                    <li><a href="./invest.html"><i class="material-icons">shopping_bag</i><span>Invest</span></a></li>
+                    <li><a href="./trade-history.html"><i class="material-icons">history</i><span>Trade
+                                History</span></a></li>
+                    <li class="active"><a href="#"><i class="material-icons">attach_money</i><span>Withdraw
+                                Funds</span></a></li>
+
+                    <li><a href="./withdrawal-history.html"><i class="material-icons">folder_open</i><span>Withdrawal
+                                History</span></a></li>
+                    <li><a href="./kyc.html"><i class="material-icons">folder</i><span>KYC</span></a></li>
+                    <li><a href="./referrals.html"><i class="material-icons">group</i><span>Referrals</span></a></li>
+                    <li><a href="./profile.html"><i class="material-icons">person</i><span>Profile</span></a>
+                    </li>
+                    <li><a href="./settings.html"><i class="material-icons">settings</i><span>Settings</span></a></li>
+                    <li id="out"><a href="#"><i class="material-icons">exit_to_app</i><span>Logout</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Workspace Content -->
+        <main class="main-content">
+
+            <!-- Page Header -->
+            <div class="page-heading">
+                <h2>Withdraw & Transfer Funds</h2>
+                <p>Transfer capital internally or request payout to your external account.</p>
+            </div>
+
+            <!-- Top Balance Metrics -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="material-icons">account_balance_wallet</i>
+                    </div>
+                    <div class="stat-info">
+                        <p>ACCOUNT BALANCE</p>
+                        <h4 id="user-balance">$0.00</h4>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="material-icons">sync_alt</i></div>
+                    <div class="stat-info">
+                        <p>WITHDRAWAL STATUS</p>
+                        <h4 id="withdrawStatus"></h4>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="material-icons">payments</i>
+                    </div>
+                    <div class="stat-info">
+                        <p>TOTAL WITHDRAWN</p>
+                        <h4 id="total-withdrawn">$0.00</h4>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Advanced Quick Access Section (Replaced Transfer with Invest) -->
+            <section class="quick-actions-bar">
+                <div class="quick-actions-header">
+                    <h4><i class="material-icons">bolt</i> Quick Shortcuts</h4>
+                </div>
+                <div class="quick-actions-grid">
+                    <a href="./invest.html" class="quick-action-card">
+                        <div class="action-icon invest-icon">
+                            <i class="material-icons">trending_up</i>
+                        </div>
+                        <div class="action-text">
+                            <span class="action-title">Invest Portfolios</span>
+                            <span class="action-sub">Explore trading plans</span>
+                        </div>
+                        <i class="material-icons action-arrow">chevron_right</i>
+                    </a>
+
+                    <a href="./withdrawal-history.html" class="quick-action-card">
+                        <div class="action-icon history-icon">
+                            <i class="material-icons">folder_open</i>
+                        </div>
+                        <div class="action-text">
+                            <span class="action-title">Payout History</span>
+                            <span class="action-sub">View past transactions</span>
+                        </div>
+                        <i class="material-icons action-arrow">chevron_right</i>
+                    </a>
+
+                    <a href="./deposit-history.html" class="quick-action-card">
+                        <div class="action-icon deposit-icon">
+                            <i class="material-icons">dns</i>
+                        </div>
+                        <div class="action-text">
+                            <span class="action-title">Deposit Records</span>
+                            <span class="action-sub">Check funding history</span>
+                        </div>
+                        <i class="material-icons action-arrow">chevron_right</i>
+                    </a>
+
+                    <a href="./kyc.html" class="quick-action-card">
+                        <div class="action-icon kyc-icon">
+                            <i class="material-icons">verified_user</i>
+                        </div>
+                        <div class="action-text">
+                            <span class="action-title">KYC Verification</span>
+                            <span class="action-sub">Account security status</span>
+                        </div>
+                        <i class="material-icons action-arrow">chevron_right</i>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Withdrawal & Transfer Form Card -->
+            <section class="card withdraw-form-card">
+                <div class="withdraw-header">
+                    <img class="withdraw-banner-img" src="" alt="Payout Methods"
+                        onerror="this.src='https://images.unsplash.com/photo-1621416894569-0f39ed31d247?w=500&auto=format&fit=crop&q=60'">
+                    <h3>Payout Application</h3>
+                </div>
+
+                <form id="withdrawForm" class="withdraw-form">
+
+                    <!-- Method Selector Dropdown -->
+                    <div class="form-group">
+                        <label for="withdrawalMethod" class="form-label">Select Action Method</label>
+                        <select name="withdrawalMethod" class="form-control" id="withdrawalMethod">
+                            <option value="Crypto Transfer" selected>Crypto Withdrawal</option>
+                            <option value="Bank Transfer">Bank Withdrawal</option>
+                            <option value="Internal Transfer">Internal Transfer</option>
+                        </select>
+                    </div>
+
+                    <!-- Dynamic Context Description Banner -->
+                    <div id="methodDescriptionBox" class="method-desc-banner">
+                        <i class="material-icons" id="descIcon">info</i>
+                        <p id="descText">Crypto withdrawal is sending your funds securely to an external cryptocurrency
+                            wallet address.</p>
+                    </div>
+
+                    <!-- CRYPTO SECTION -->
+                    <div id="cryptofom" class="withdraw-section-group">
+                        <div class="form-group">
+                            <label for="pay_method" class="form-label">Select Network / Coin</label>
+                            <select name="pay_method" id="pay_method" class="form-control">
+                                <option value="" disabled selected>Please Select Network</option>
+                                <option value="Bitcoin">Bitcoin</option>
+                                <option value="Bitcoin Cash">Bitcoin Cash</option>
+                                <option value="Ethereum">Ethereum</option>
+                                <option value="Litecoin">Litecoin</option>
+                                <option value="Dogecoin">Dogecoin</option>
+                                <option value="Tron">Tron</option>
+                                <option value="Payeer">Payeer</option>
+                                <option value="USDT">USDT</option>
+                                <option value="USDT-BEP20">USDT-BEP20</option>
+                                <option value="USDT-ERC20">USDT-ERC20</option>
+                                <option value="USDT-TRC20">USDT-TRC20</option>
+                                <option value="Matic">Matic</option>
+                                <option value="Ada">Ada</option>
+                                <option value="XRP">XRP</option>
+                                <option value="Perfect Money">Perfect Money</option>
+                                <option value="BNB">BNB</option>
+                                <option value="Solana">Solana</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="btc_address" class="form-label">Wallet Address</label>
+                            <div class="input-icon-wrapper">
+                                <i class="material-icons">qr_code</i>
+                                <input name="btc_address" id="btc_address" class="form-control with-icon" type="text"
+                                    placeholder="Enter recipient wallet address">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BANK SECTION -->
+                    <div id="banksection" class="withdraw-section-group hide">
+                        <div class="form-group">
+                            <label for="bank_name" class="form-label">Bank Name</label>
+                            <div class="input-icon-wrapper">
+                                <i class="material-icons">account_balance</i>
+                                <input name="bank_name" id="bank_name" class="form-control with-icon" type="text"
+                                    placeholder="e.g. Chase Bank">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="acct_no" class="form-label">Account Number</label>
+                            <div class="input-icon-wrapper">
+                                <i class="material-icons">tag</i>
+                                <input name="acct_no" id="acct_no" class="form-control with-icon" type="number"
+                                    placeholder="Enter bank account number">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="acct_name" class="form-label">Account Name</label>
+                            <div class="input-icon-wrapper">
+                                <i class="material-icons">person</i>
+                                <input name="acct_name" id="acct_name" class="form-control with-icon" type="text"
+                                    placeholder="Account holder full name">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="acct_swift" class="form-label">Swift / BIC Code</label>
+                            <div class="input-icon-wrapper">
+                                <i class="material-icons">code</i>
+                                <input name="acct_swift" id="acct_swift" class="form-control with-icon" type="text"
+                                    placeholder="Enter Swift or Routing code">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- INTERNAL TRANSFER SECTION -->
+                    <div id="transfersection" class="withdraw-section-group hide">
+                        <div class="form-group">
+                            <label for="recipient_username" class="form-label">Recipient Username</label>
+                            <div class="input-icon-wrapper">
+                                <i class="material-icons">alternate_email</i>
+                                <input name="recipient_username" id="recipient_username" class="form-control with-icon"
+                                    type="text" placeholder="Enter recipient's username">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AMOUNT SECTION (COMMON) -->
+                    <div class="form-group">
+                        <label for="amount" class="form-label">Amount ($)</label>
+                        <div class="input-icon-wrapper">
+                            <i class="material-icons">attach_money</i>
+                            <input name="amount" id="amount" class="form-control with-icon" type="number" step="any"
+                                placeholder="0.00" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="form_submit" class="btn-primary withdraw-submit-btn">
+                        <span id="submitBtnText">Apply for Withdrawal</span>
+                    </button>
+                </form>
+            </section>
+
+            <!-- Footer -->
+            <footer class="app-footer">
+                <p>&copy; 2026 Flexboldx. All rights reserved.</p>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Chat Drawer Overlay & Panel -->
+    <div class="chat-drawer-overlay" id="chatDrawerOverlay"></div>
+    <div class="chat-drawer" id="chatDrawer">
+        <div class="chat-drawer-header">
+            <div class="chat-title">
+                <i data-lucide="message-square"></i>
+                <span>Support Channel</span>
+            </div>
+            <div class="chat-header-actions">
+                <button type="button" id="closeChatDrawerBtn" class="chat-action-btn" title="Close Chat">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="chat-feed-container" id="chat-message-feed"></div>
+
+        <div class="chat-drawer-footer">
+            <input type="file" id="chat-image-attachment-input" style="display: none;" accept="image/*">
+            <button type="button" id="chat-attachment-trigger-btn" class="chat-tool-btn" title="Attach Document/Image">
+                <i data-lucide="paperclip"></i>
+            </button>
+            <input type="text" id="chat-terminal-text-field" class="chat-input-field" placeholder="Type a message...">
+            <button type="button" id="chat-send-message-btn" class="btn-primary chat-send-btn">
+                <i data-lucide="send"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom App Bar -->
+    <nav class="bottom-app-bar">
+        <a href="index.html" class="nav-item">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </a>
+        <a href="./deposit.html" class="nav-item">
+            <i class="material-icons">add_circle_outline</i>
+            <span>Deposit</span>
+        </a>
+        <a href="./invest.html" class="nav-item">
+            <i class="material-icons">trending_up</i>
+            <span>Invest</span>
+        </a>
+        <a href="#" class="nav-item active">
+            <i class="material-icons">payments</i>
+            <span>Withdraw</span>
+        </a>
+        <a href="./profile.html" class="nav-item">
+            <i class="material-icons">person</i>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <!-- Custom JS Scripts -->
+    <script src="./js/theme.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/withdraw.js"></script>
+
+    <script type="module">
+        import { setupSecureChatChannel } from './js/chat.js';
+
+        const chatDrawer = document.getElementById('chatDrawer');
+        const chatOverlay = document.getElementById('chatDrawerOverlay');
+        const openBtn = document.getElementById('openChatDrawerBtn');
+        const closeBtn = document.getElementById('closeChatDrawerBtn');
+
+        function openChat() {
+            chatDrawer.classList.add('open');
+            chatOverlay.classList.add('active');
+            const userUuid = localStorage.getItem("user_uuid") || "current_user_uuid";
+            setupSecureChatChannel(userUuid);
+        }
+
+        function closeChat() {
+            chatDrawer.classList.remove('open');
+            chatOverlay.classList.remove('active');
+        }
+
+        openBtn?.addEventListener('click', openChat);
+        closeBtn?.addEventListener('click', closeChat);
+        chatOverlay?.addEventListener('click', closeChat);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referral Program | Flexboldx</title>
+
+    <!-- Material Icons & Google Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/referrals.css">
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+
+    <!-- Header Navbar -->
+    <header class="topbar" id="header">
+        <div class="header-left">
+
+            <a href="../index.html" class="brand-logo">
+                <img src="./asset/logo.png" alt="Flexboldx Logo">
+            </a>
+        </div>
+
+        <div class="header-right">
+            <!-- Theme Toggle Button -->
+            <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+                <i class="material-icons" id="themeIcon">brightness_4</i>
+            </button>
+
+            <!-- Agent Assist Chat Icon Trigger -->
+            <div class="header-icon-item">
+                <button type="button" id="openChatDrawerBtn" class="agent-assist-btn" title="Agent Assist / Support">
+                    <i class="material-icons">chat_bubble_outline</i>
+                    <span class="badge-count">1</span>
+                </button>
+            </div>
+
+            <!-- User Profile Link -->
+            <div class="header-user-profile">
+                <a class="profile-button" href="./profile.html">
+                    <div class="avatar-status-wrapper">
+                        <img src="./asset/userlogo.png" id="pmler" alt="User Avatar" class="user-avatar-img">
+                        <span class="status-indicator online"></span>
+                    </div>
+                    <span class="user-name-text hide-mobile" id="weuss_header"></span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Overlay for Mobile Sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- App Body Layout -->
+    <div class="app-layout">
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-user-card">
+                <img id="pmler2" src="./asset/userlogo.png" alt="User" class="avatar-circle">
+                <div class="user-details">
+                    <span class="user-name" id="weuss">loading...</span>
+                    <span class="user-country" id="country">loading...</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="./index.html"><i class="material-icons">dashboard</i><span>Dashboard</span></a></li>
+                    <li><a href="./deposit.html"><i class="material-icons">account_balance_wallet</i><span>Fund
+                                Account</span></a></li>
+                    <li><a href="deposit-history.html"><i class="material-icons">dns</i><span>Deposit History</span></a>
+                    </li>
+                    <li><a href="./invest.html"><i class="material-icons">shopping_bag</i><span>Invest</span></a></li>
+                    <li><a href="./trade-history.html"><i class="material-icons">history</i><span>Trade
+                                History</span></a></li>
+                    <li><a href="./withdraw-funds.html"><i class="material-icons">attach_money</i><span>Withdraw
+                                Funds</span></a></li>
+                    <li><a href="withdrawal-history.html"><i class="material-icons">folder_open</i><span>Withdrawal
+                                History</span></a></li>
+                    <li><a href="./kyc.html"><i class="material-icons">folder</i><span>KYC</span></a></li>
+                    <li class="active"><a href="#"><i class="material-icons">group</i><span>Referrals</span></a></li>
+                    <li><a href="./profile.html"><i class="material-icons">person</i><span>Profile</span></a>
+                    </li>
+                    <li><a href="./settings.html"><i class="material-icons">settings</i><span>Settings</span></a></li>
+                    <li id="out"><a href="#"><i class="material-icons">exit_to_app</i><span>Logout</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Workspace Content -->
+        <main class="main-content">
+
+            <section class="card profile-banner-card trading-hero-bg ref-hero-card">
+                <div class="ref-hero-content">
+                    <span class="ref-badge"><i class="material-icons">stars</i> Affiliate Program</span>
+                    <h2>Invite Friends & Earn Rewards</h2>
+                    <p>Share your unique referral link or code to invite network partners. Receive instant bonuses
+                        whenever someone signs up and invests using your link.</p>
+
+                    <!-- Link & Code Box Container -->
+                    <div class="ref-link-wrapper">
+                        <div class="ref-input-container">
+                            <i class="material-icons ref-input-icon">link</i>
+                            <input type="text" id="referralLinkInput" readonly value="Loading link...">
+                        </div>
+
+                        <div class="ref-input-container code-only-container">
+                            <i class="material-icons ref-input-icon">vpn_key</i>
+                            <input type="text" id="referralCodeInput" readonly value="Loading code...">
+                        </div>
+
+                        <div class="ref-action-btns">
+                            <button id="copyRefBtn" class="btn-primary ref-btn">
+                                <i class="material-icons">content_copy</i> <span>Copy Link</span>
+                            </button>
+                            <button id="copyRefCodeBtn" class="btn-primary ref-btn ref-btn-secondary">
+                                <i class="material-icons">code</i> <span>Copy Code</span>
+                            </button>
+                            <button id="shareRefBtn" class="btn-primary ref-btn ref-btn-secondary">
+                                <i class="material-icons">share</i> <span>Share</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Quick Metrics Grid -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="material-icons">group_add</i>
+                    </div>
+                    <div class="stat-info">
+                        <p>TOTAL REFERRALS</p>
+                        <h4 id="totalReferralsCount">0</h4>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="material-icons">how_to_reg</i>
+                    </div>
+                    <div class="stat-info">
+                        <p>ACTIVE INVESTORS</p>
+                        <h4 id="activeReferralsCount">0</h4>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="material-icons">monetization_on</i>
+                    </div>
+                    <div class="stat-info">
+                        <p>TOTAL COMMISSIONS</p>
+                        <h4 id="totalCommissions">$0.00</h4>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Network Referrals Table -->
+            <section class="card ref-table-card">
+                <div class="card-header-flex">
+                    <div class="header-titles">
+                        <h3>Referral Network</h3>
+                        <p>Track people registered via your referral code</p>
+                    </div>
+                    <div class="table-search-box">
+                        <i class="material-icons">search</i>
+                        <input type="text" id="searchRefTable" placeholder="Search user or status...">
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="custom-data-table" id="referralTable">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Date Joined</th>
+                                <th>Plan</th>
+                                <th>Status</th>
+                                <th>Earned Commission</th>
+                            </tr>
+                        </thead>
+                        <tbody id="referralTableBody">
+                            <!-- Populated dynamically by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="app-footer">
+                <p>&copy; 2026 Flexboldx. All rights reserved.</p>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Slide-in Chat UI Panel -->
+    <div class="chat-drawer-overlay" id="chatDrawerOverlay"></div>
+    <div class="chat-drawer" id="chatDrawer">
+        <div class="chat-drawer-header">
+            <div class="chat-title">
+                <i data-lucide="message-square"></i>
+                <span>Support Channel</span>
+            </div>
+            <div class="chat-header-actions">
+                <button type="button" id="closeChatDrawerBtn" class="chat-action-btn" title="Close Chat">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="chat-feed-container" id="chat-message-feed"></div>
+
+        <div class="chat-drawer-footer">
+            <input type="file" id="chat-image-attachment-input" style="display: none;" accept="image/*">
+            <button type="button" id="chat-attachment-trigger-btn" class="chat-tool-btn" title="Attach Document/Image">
+                <i data-lucide="paperclip"></i>
+            </button>
+            <input type="text" id="chat-terminal-text-field" class="chat-input-field" placeholder="Type a message...">
+            <button type="button" id="chat-send-message-btn" class="btn-primary chat-send-btn">
+                <i data-lucide="send"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom App Bar -->
+    <nav class="bottom-app-bar">
+        <a href="index.html" class="nav-item">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </a>
+        <a href="./deposit.html" class="nav-item">
+            <i class="material-icons">add_circle_outline</i>
+            <span>Deposit</span>
+        </a>
+        <a href="./invest.html" class="nav-item">
+            <i class="material-icons">trending_up</i>
+            <span>Invest</span>
+        </a>
+        <a href="./withdraw-funds.html" class="nav-item">
+            <i class="material-icons">payments</i>
+            <span>Withdraw</span>
+        </a>
+        <a href="./profile.html" class="nav-item">
+            <i class="material-icons">person</i>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <!-- Custom JS Scripts -->
+    <script src="./js/theme.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/referrals.js"></script>
+
+    <!-- Chat Drawer Controller Script -->
+    <script type="module">
+        import { setupSecureChatChannel } from './js/chat.js';
+
+        const chatDrawer = document.getElementById('chatDrawer');
+        const chatOverlay = document.getElementById('chatDrawerOverlay');
+        const openBtn = document.getElementById('openChatDrawerBtn');
+        const closeBtn = document.getElementById('closeChatDrawerBtn');
+
+        function openChat() {
+            chatDrawer?.classList.add('open');
+            chatOverlay?.classList.add('active');
+            const userUuid = localStorage.getItem("user_uuid") || "current_user_uuid";
+            setupSecureChatChannel(userUuid);
+        }
+
+        function closeChat() {
+            chatDrawer?.classList.remove('open');
+            chatOverlay?.classList.remove('active');
+        }
+
+        openBtn?.addEventListener('click', openChat);
+        closeBtn?.addEventListener('click', closeChat);
+        chatOverlay?.addEventListener('click', closeChat);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Account Dashboard | Flexboldx</title>
+
+    <!-- Material Icons & Google Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons (Required for chat UI icons) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="./css/style.css">
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+
+    <!-- Header Navbar -->
+    <header class="topbar" id="header">
+        <div class="header-left">
+
+            <a href="../index.html" class="brand-logo">
+                <img src="./asset/logo.png" alt="Flexboldx Logo">
+            </a>
+        </div>
+
+        <div class="header-right">
+            <!-- Theme Toggle Button -->
+            <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+                <i class="material-icons" id="themeIcon">brightness_4</i>
+            </button>
+
+            <!-- Agent Assist Chat Icon Trigger -->
+            <div class="header-icon-item">
+                <button type="button" id="openChatDrawerBtn" class="agent-assist-btn" title="Agent Assist / Support">
+                    <i class="material-icons">chat_bubble_outline</i>
+                    <span class="badge-count">1</span>
+                </button>
+            </div>
+
+            <!-- User Profile Link -->
+            <div class="header-user-profile">
+                <a class="profile-button" href="./profile.html">
+                    <div class="avatar-status-wrapper">
+                        <img src="./asset/userlogo.png" id="pmler" alt="User Avatar" class="user-avatar-img">
+                        <span class="status-indicator online"></span>
+                    </div>
+                    <span class="user-name-text hide-mobile" id="weuss_header"></span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Overlay for Mobile Sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- App Body Layout -->
+    <div class="app-layout">
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-user-card">
+                <img id="pmler2" src="./asset/userlogo.png" alt="User" class="avatar-circle">
+                <div class="user-details">
+                    <span class="user-name" id="weuss"></span>
+                    <span class="user-country" id="country"></span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="#"><i class="material-icons">dashboard</i><span>Dashboard</span></a>
+                    </li>
+                    <li><a href="./deposit.html"><i class="material-icons">account_balance_wallet</i><span>Fund
+                                Account</span></a></li>
+                    <li><a href="./deposit-history.html"><i class="material-icons">dns</i><span>Deposit
+                                History</span></a></li>
+                    <li><a href="./invest.html"><i class="material-icons">shopping_bag</i><span>Invest</span></a></li>
+                    <li><a href="./trade-history.html"><i class="material-icons">history</i><span>Trade
+                                History</span></a></li>
+                    <li><a href="./withdraw-funds.html"><i class="material-icons">attach_money</i><span>Withdraw
+                                Funds</span></a></li>
+                    <li><a href="./withdrawal-history.html"><i class="material-icons">folder_open</i><span>Withdrawal
+                                History</span></a></li>
+                    <li><a href="./kyc.html"><i class="material-icons">folder</i><span>KYC</span></a></li>
+                    <li><a href="./referrals.html"><i class="material-icons">group</i><span>Referrals</span></a></li>
+                    <li><a href="./profile.html"><i class="material-icons">person</i><span>Profile</span></a></li>
+                    <li><a href="./settings.html"><i class="material-icons">settings</i><span>Settings</span></a></li>
+                    <li id="out"><a href="#"><i class="material-icons">exit_to_app</i><span>Logout</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Workspace Content -->
+        <main class="main-content">
+
+            <!-- Account Banner Card with Trading Wallpaper Background -->
+            <section class="card profile-banner-card trading-hero-bg">
+                <div class="profile-header">
+                    <h2>ACCOUNT DASHBOARD</h2>
+                    <img src="./asset/userlogo.png" id="pmler3" alt="User Profile" class="avatar-large">
+                    <h3 id="weuss2"></h3>
+                </div>
+
+                <div class="ask-box">
+                    <div class="ask-circle">
+                        <img src="./asset/forex.svg" alt="Forex">
+                    </div>
+                    <div class="ask-info">
+                        <h3>It's time to Take Control of Your Investment!</h3>
+                        <p>Invest how you want, with maximum profits. Wrap your account in an ISA to invest up to
+                            $20,000 a year tax-free.</p>
+                    </div>
+                    <a href="new-investment/index.html" class="btn-primary ask-arrow">
+                        <i class="material-icons">arrow_forward</i>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Ticker Widget -->
+            <section class="card widget-card">
+                <div class="tradingview-widget-container">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript"
+                        src="https://s3.tradingview.com/external-embedding/embed-widget-tickers.js" async>
+                            {
+                                "symbols": [
+                                    { "proName": "FOREXCOM:SPXUSD", "title": "S&P 500" },
+                                    { "proName": "FOREXCOM:NSXUSD", "title": "Nasdaq 100" },
+                                    { "proName": "FX_IDC:EURUSD", "title": "EUR/USD" },
+                                    { "proName": "BITSTAMP:BTCUSD", "title": "BTC/USD" },
+                                    { "proName": "BITSTAMP:ETHUSD", "title": "ETH/USD" }
+                                ],
+                                    "colorTheme": "dark",
+                                        "isTransparent": true,
+                                            "locale": "en"
+                            }
+                        </script>
+                </div>
+            </section>
+
+            <!-- Stat Metric Cards -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="material-icons">account_balance_wallet</i></div>
+                    <div class="stat-info">
+                        <p>ACCOUNT BALANCE</p>
+                        <h4 id="xxpol"></h4>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="material-icons">attach_money</i></div>
+                    <div class="stat-info">
+                        <p>TOTAL DEPOSIT</p>
+                        <h4 id="totaldeposit"></h4>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="material-icons">show_chart</i></div>
+                    <div class="stat-info">
+                        <p>PENDING DEPOSIT</p>
+                        <h4 id="pendingdeposit"></h4>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="material-icons">file_upload</i></div>
+                    <div class="stat-info">
+                        <p>TOTAL WITHDRAWAL</p>
+                        <h4 id="totalwithdraw"></h4>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="material-icons">hourglass_empty</i></div>
+                    <div class="stat-info">
+                        <p>PENDING WITHDRAWALS</p>
+                        <h4 id="pendingwithdraw"></h4>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="material-icons">person</i></div>
+                    <div class="stat-info">
+                        <p id="plan-title">ACCOUNT PLAN</p>
+                        <h4 id="plan"></h4>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="material-icons">speed</i></div>
+                    <div class="stat-info">
+                        <p>ACCOUNT STATUS</p>
+                        <h4 id="active"></h4>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="material-icons">verified_user</i></div>
+                    <div class="stat-info">
+                        <p>KYC STATUS</p>
+                        <h4 id="kycStatus"></h4>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="material-icons">bar_chart</i></div>
+                    <div class="stat-info">
+                        <p>TRADE STATUS</p>
+                        <h4 id="tradeStatus"></h4>
+                    </div>
+                </div>
+
+
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="material-icons">group_add</i>
+                    </div>
+                    <div class="stat-info">
+                        <p>TOTAL REFERRALS</p>
+                        <h4 id="totalReferralsCount">0</h4>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="material-icons">how_to_reg</i>
+                    </div>
+                    <div class="stat-info">
+                        <p>ACTIVE INVESTORS</p>
+                        <h4 id="activeReferralsCount">0</h4>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="material-icons">moving</i>
+                    </div>
+                    <div class="stat-info">
+                        <p>PENDING COMMISSIONS</p>
+                        <h4 id="pendingCommissions">$0.00</h4>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="material-icons">monetization_on</i>
+                    </div>
+                    <div class="stat-info">
+                        <p>TOTAL COMMISSIONS</p>
+                        <h4 id="totalCommissions">$0.00</h4>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="material-icons">sync_alt</i></div>
+                    <div class="stat-info">
+                        <p>WITHDRAWAL STATUS</p>
+                        <h4 id="withdrawStatus"></h4>
+                    </div>
+                </div>
+
+                <div class="stat-card trade-progress-box">
+                    <div class="stat-info" style="width: 100%;">
+                        <div class="progress-header">
+                            <i class="material-icons">hourglass_bottom</i>
+                            <p>TRADE PROGRESS: <b id="pp2">0%</b></p>
+                        </div>
+                        <div class="custom-progress-track">
+                            <div class="custom-progress-bar" id="customProgressBar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Charting Widgets Section -->
+            <section class="charts-grid">
+                <div class="card chart-card">
+                    <div id="tradingview_19631" style="height: 450px;"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                    <script type="text/javascript">
+                        new TradingView.widget({
+                            "autosize": true,
+                            "symbol": "COINBASE:BTCUSD",
+                            "interval": "D",
+                            "timezone": "Etc/UTC",
+                            "theme": "dark",
+                            "style": "1",
+                            "locale": "en",
+                            "toolbar_bg": "#f1f3f6",
+                            "enable_publishing": false,
+                            "allow_symbol_change": true,
+                            "container_id": "tradingview_19631"
+                        });
+                    </script>
+                </div>
+
+                <div class="card chart-card">
+                    <div class="tradingview-widget-container">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript"
+                            src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+                                {
+                                    "width": "100%",
+                                        "height": "450",
+                                            "defaultColumn": "overview",
+                                                "screener_type": "crypto_mkt",
+                                                    "displayCurrency": "USD",
+                                                        "colorTheme": "dark",
+                                                            "locale": "en"
+                                }
+                            </script>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="app-footer">
+                <p>&copy; 2026 Flexboldx. All rights reserved.</p>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Slide-in Chat UI Panel -->
+    <div class="chat-drawer-overlay" id="chatDrawerOverlay"></div>
+    <div class="chat-drawer" id="chatDrawer">
+        <div class="chat-drawer-header">
+            <div class="chat-title">
+                <i data-lucide="message-square"></i>
+                <span>Support Channel</span>
+            </div>
+            <div class="chat-header-actions">
+                <button type="button" id="closeChatDrawerBtn" class="chat-action-btn" title="Close Chat">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="chat-feed-container" id="chat-message-feed">
+            <!-- Dynamically Hydrated by chat.js -->
+        </div>
+
+        <div class="chat-drawer-footer">
+            <input type="file" id="chat-image-attachment-input" style="display: none;" accept="image/*">
+            <button type="button" id="chat-attachment-trigger-btn" class="chat-tool-btn" title="Attach Document/Image">
+                <i data-lucide="paperclip"></i>
+            </button>
+            <input type="text" id="chat-terminal-text-field" class="chat-input-field" placeholder="Type a message...">
+            <button type="button" id="chat-send-message-btn" class="btn-primary chat-send-btn">
+                <i data-lucide="send"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom App Bar -->
+    <nav class="bottom-app-bar">
+        <a href="#" class="nav-item active">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </a>
+        <a href="./deposit.html" class="nav-item">
+            <i class="material-icons">add_circle_outline</i>
+            <span>Deposit</span>
+        </a>
+        <a href="./invest.html" class="nav-item">
+            <i class="material-icons">trending_up</i>
+            <span>Invest</span>
+        </a>
+        <a href="./withdraw-funds.html" class="nav-item">
+            <i class="material-icons">payments</i>
+            <span>Withdraw</span>
+        </a>
+        <a href="./profile.html" class="nav-item">
+            <i class="material-icons">person</i>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <!-- Custom JS Scripts -->
+    <script src="./js/theme.js"></script>
+    <!-- <script src="./js/index.js"></script> -->
+
+    <!-- Chat Drawer Controller Script -->
+    <script type="module">
+        import { setupSecureChatChannel } from './js/chat.js';
+
+        const chatDrawer = document.getElementById('chatDrawer');
+        const chatOverlay = document.getElementById('chatDrawerOverlay');
+        const openBtn = document.getElementById('openChatDrawerBtn');
+        const closeBtn = document.getElementById('closeChatDrawerBtn');
+
+        function openChat() {
+            chatDrawer.classList.add('open');
+            chatOverlay.classList.add('active');
+            const userUuid = localStorage.getItem("user_uuid") || "current_user_uuid";
+            setupSecureChatChannel(userUuid);
+        }
+
+        function closeChat() {
+            chatDrawer.classList.remove('open');
+            chatOverlay.classList.remove('active');
+        }
+
+        openBtn?.addEventListener('click', openChat);
+        closeBtn?.addEventListener('click', closeChat);
+        chatOverlay?.addEventListener('click', closeChat);
+    </script>
+</body>
+
+</html>

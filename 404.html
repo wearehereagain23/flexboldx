@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - Not Found</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            height: 100vh;
+            background: url('https://illustrations.popsy.co/gray/web-error.svg') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #2c3e50;
+            padding: 20px;
+        }
+
+        .content {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 500px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .content h1 {
+            font-size: 6rem;
+            color: #ff6b6b;
+        }
+
+        .content h2 {
+            font-size: 2rem;
+            margin: 10px 0;
+        }
+
+        .content p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #1e90ff;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0f78d1;
+        }
+
+        @media (max-width: 600px) {
+            .content h1 {
+                font-size: 4rem;
+            }
+
+            .content h2 {
+                font-size: 1.5rem;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+    <div class="content">
+        <h1>404</h1>
+        <h2>Oops! We Are Offline</h2>
+        <p id="mees"></p>
+        <a href="404.html" class="btn">Refresh page</a>
+    </div>
+    <script src="config.js"></script>
+    <script type="module">
+        import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+        // 1. Initialize Supabase
+        const supabase = createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY);
+
+        /**
+         * REAL-TIME MONITOR
+         * Listens for the admin to turn the website visibility back to TRUE
+         */
+        function startVisibilityMonitor() {
+            supabase
+                .channel('site_status_monitor')
+                .on(
+                    'postgres_changes',
+                    {
+                        event: 'UPDATE',
+                        schema: 'public',
+                        table: 'admin',
+                        filter: 'id=eq.1'
+                    },
+                    (payload) => {
+                        // If the admin sets visibility back to true, redirect home immediately
+                        if (payload.new.website_visibility === true) {
+                            window.location.href = 'index.html';
+                        }
+                    }
+                )
+                .subscribe();
+        }
+
+        /**
+         * DOUBLE CHECK ON LOAD
+         * Just in case the site was turned on while the user was navigating to this page
+         */
+        async function checkInitialStatus() {
+            const { data, error } = await supabase
+                .from('admin')
+                .select('website_visibility')
+                .eq('id', 1)
+                .single();
+
+            if (data && data.website_visibility === true) {
+                window.location.href = 'index.html';
+            } else {
+                // If still false, keep the monitor running
+                startVisibilityMonitor();
+            }
+        }
+
+        // Run the check
+        checkInitialStatus();
+    </script>
+</body>
+
+</html>

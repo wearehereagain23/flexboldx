@@ -1,0 +1,607 @@
+/* ==========================================================================
+   QUICK SHORTCUTS BAR
+   ========================================================================== */
+.quick-actions-bar {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--card-border-radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+}
+
+.quick-actions-header {
+    margin-bottom: 16px;
+}
+
+.quick-actions-header h4 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.quick-actions-header h4 i {
+    color: var(--color-warning);
+}
+
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+}
+
+.quick-action-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--btn-border-radius);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+}
+
+.quick-action-card:hover {
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+.action-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.action-icon i {
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+.withdraw-icon {
+    background-color: #0284c7;
+}
+
+.invest-icon {
+    background-color: #16a34a;
+}
+
+.history-icon {
+    background-color: #9333ea;
+}
+
+.deposit-icon {
+    background-color: #ea580c;
+}
+
+.kyc-icon {
+    background-color: #2563eb;
+}
+
+.action-text {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.action-title {
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.action-sub {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.action-arrow {
+    color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   TABLE HEADER & FILTER TABS
+   ========================================================================== */
+.table-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.header-left-title h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.record-counter {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.table-filter-tabs {
+    display: flex;
+    gap: 6px;
+    background: var(--bg-main);
+    padding: 4px;
+    border-radius: var(--btn-border-radius);
+    border: 1px solid var(--border-color);
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    padding: 6px 14px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tab-btn.active,
+.tab-btn:hover {
+    background-color: var(--accent-color);
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   RESPONSIVE TABLE UI & DEPOSIT STYLE
+   ========================================================================== */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.responsive-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.88rem;
+}
+
+.responsive-table th,
+.responsive-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.responsive-table th {
+    background-color: var(--bg-main);
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+.responsive-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Status Pills */
+.status-pill {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.status-pill.completed {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+}
+
+.status-pill.pending {
+    background-color: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+}
+
+.status-pill.rejected {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+/* View Button */
+.btn-view-tx {
+    background-color: rgba(99, 102, 241, 0.1);
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s ease;
+}
+
+.btn-view-tx:hover {
+    background-color: var(--accent-color);
+    color: #ffffff;
+}
+
+.btn-view-tx i {
+    font-size: 1rem;
+}
+
+/* Pagination */
+.pagination-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.pagination-btn {
+    height: 36px;
+    font-size: 0.82rem;
+}
+
+.page-indicator {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   MOBILE CARD VIEW OVERRIDES
+   ========================================================================== */
+@media (max-width: 768px) {
+    .table-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .table-filter-tabs {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .responsive-table thead {
+        display: none;
+    }
+
+    .responsive-table,
+    .responsive-table tbody,
+    .responsive-table tr,
+    .responsive-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .responsive-table tr {
+        background: var(--bg-main);
+        border: 1px solid var(--border-color);
+        border-radius: var(--btn-border-radius);
+        padding: 14px;
+        margin-bottom: 12px;
+    }
+
+    .responsive-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px dashed var(--border-color);
+        text-align: right;
+    }
+
+    .responsive-table td:last-child {
+        border-bottom: none;
+        padding-top: 12px;
+    }
+
+    .responsive-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--text-secondary);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        text-align: left;
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVE TRANSACTION RECEIPT MODAL
+   ========================================================================== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1200;
+    padding: 10px;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+/* Modal Wrapper */
+.receipt-modal-wrapper {
+    max-width: 580px;
+    width: 96%;
+    padding: 14px;
+    border-radius: 16px;
+    background: var(--bg-card, #121929);
+    position: relative;
+    box-shadow: var(--shadow);
+}
+
+/* Designed Receipt Box */
+.receipt-card-container {
+    background: #0d1322;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 16px 12px;
+    color: #ffffff;
+}
+
+.receipt-brand-header {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.receipt-brand-logo {
+    height: 34px;
+    object-fit: contain;
+}
+
+.receipt-status-header {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.receipt-success-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+}
+
+.receipt-success-icon.status-success {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+}
+
+.receipt-success-icon.status-pending {
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+}
+
+.receipt-success-icon.status-rejected {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+.receipt-main-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.receipt-sub-title {
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+/* Sections */
+.receipt-section-box {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    padding: 12px 10px;
+    margin-bottom: 12px;
+}
+
+.receipt-section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #38bdf8;
+    margin-bottom: 10px;
+}
+
+.receipt-grid-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.receipt-grid-2col:last-child {
+    margin-bottom: 0;
+}
+
+.receipt-grid-item label {
+    display: block;
+    font-size: 0.72rem;
+    color: #94a3b8;
+    margin-bottom: 2px;
+}
+
+.receipt-value-bold {
+    font-size: 0.85rem;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.receipt-value-green {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #10b981;
+    word-break: break-word;
+}
+
+.receipt-value-subtext {
+    display: block;
+    font-size: 0.7rem;
+    color: #64748b;
+}
+
+.receipt-user-flex {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.receipt-user-icon-box {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    flex-shrink: 0;
+}
+
+.receipt-user-info h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.receipt-user-info p {
+    font-size: 0.78rem;
+    color: #94a3b8;
+    word-break: break-all;
+}
+
+/* Status Pills */
+.receipt-status-pill {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.status-completed,
+.status-approved {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+}
+
+.status-pending {
+    background: rgba(245, 158, 11, 0.2);
+    color: #f59e0b;
+}
+
+.status-rejected,
+.status-failed {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+.receipt-bottom-branding {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.receipt-branding-text {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    color: #94a3b8;
+}
+
+.receipt-shield-icon {
+    color: #10b981;
+}
+
+.receipt-qr-code img {
+    width: 44px;
+    height: 44px;
+    border-radius: 6px;
+}
+
+.modal-actions {
+    margin-top: 14px;
+    text-align: center;
+}
+
+.save-receipt-btn {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+/* Medium & Desktop viewports spacing relaxation */
+@media (min-width: 480px) {
+    .modal-overlay {
+        padding: 20px;
+    }
+
+    .receipt-modal-wrapper {
+        width: 90%;
+        padding: 24px;
+    }
+
+    .receipt-card-container {
+        padding: 24px;
+    }
+
+    .receipt-section-box {
+        padding: 16px;
+        margin-bottom: 16px;
+    }
+
+    .receipt-grid-2col {
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+
+    .receipt-value-bold {
+        font-size: 0.9rem;
+    }
+
+    .receipt-value-green {
+        font-size: 1.1rem;
+    }
+}

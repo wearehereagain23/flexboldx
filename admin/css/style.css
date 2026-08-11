@@ -1,0 +1,240 @@
+/* Custom System Component Architecture Palettes */
+:root {
+    --bg-terminal-dark: #090d16;
+    --bg-card-dark: #111827;
+    --border-slate-line: #1f2937;
+    --border-focus-glow: #3b82f6;
+
+    --text-primary-light: #f8fafc;
+    --text-secondary-muted: #94a3b8;
+
+    --accent-admin-blue: #2563eb;
+    --accent-hover-blue: #1d4ed8;
+    --error-crimson-red: #ef4444;
+
+    --font-stack-inter: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Base Body Framework Setup Blocks */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-stack-inter);
+}
+
+body {
+    background-color: var(--bg-terminal-dark);
+    color: var(--text-primary-light);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+/* Master Grid Card Positioning Elements */
+.admin-auth-wrapper {
+    width: 100%;
+    max-width: 440px;
+    padding: 20px;
+}
+
+.auth-matrix-card {
+    background-color: var(--bg-card-dark);
+    border: 1px solid var(--border-slate-line);
+    border-radius: 16px;
+    padding: 40px 32px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+/* Branding Metadata Blocks */
+.auth-card-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.terminal-logo-container {
+    background: rgba(37, 99, 235, 0.1);
+    border: 1px solid rgba(37, 99, 235, 0.2);
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px auto;
+}
+
+.secure-brand-icon {
+    color: var(--border-focus-glow);
+    width: 28px;
+    height: 28px;
+}
+
+.terminal-title {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+}
+
+.terminal-subtitle {
+    font-size: 14px;
+    color: var(--text-secondary-muted);
+}
+
+/* Interactive Input Elements Logic Form Stack */
+.auth-form-pipeline {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-input-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-secondary-muted);
+}
+
+.field-interactive-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.field-vector-icon {
+    position: absolute;
+    left: 14px;
+    color: var(--text-secondary-muted);
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+}
+
+.auth-input-element {
+    width: 100%;
+    background-color: var(--bg-terminal-dark);
+    border: 1px solid var(--border-slate-line);
+    border-radius: 8px;
+    padding: 12px 16px 12px 44px;
+    color: var(--text-primary-light);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.auth-input-element:focus {
+    border-color: var(--border-focus-glow);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.eye-reveal-action-btn {
+    position: absolute;
+    right: 14px;
+    background: none;
+    border: none;
+    color: var(--text-secondary-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+}
+
+.eye-reveal-action-btn:hover {
+    color: var(--text-primary-light);
+}
+
+.eye-reveal-action-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Authentication Processing Button Elements */
+.submit-auth-action-btn {
+    background-color: var(--accent-admin-blue);
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.15s ease;
+    margin-top: 8px;
+}
+
+.submit-auth-action-btn:hover {
+    background-color: var(--accent-hover-blue);
+}
+
+.btn-arrow-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* Footer Element Configuration Meta Slots */
+.auth-card-footer {
+    margin-top: 32px;
+    text-align: center;
+    border-top: 1px solid var(--border-slate-line);
+    padding-top: 20px;
+}
+
+.crypto-status-text {
+    font-size: 11px;
+    color: var(--text-secondary-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.inline-status-icon {
+    width: 12px;
+    height: 12px;
+    color: #10b981;
+}
+
+/* Interface Layout Responsiveness Logic */
+@media (max-width: 480px) {
+    .auth-matrix-card {
+        padding: 32px 20px;
+    }
+}
+
+
+html,
+body {
+    /* Disables pinch-zoom and double-tap zoom gestures */
+    touch-action: pan-x pan-y;
+
+    /* Prevents native iOS elastic bounce scroll if desired */
+    overscroll-behavior-y: none;
+
+    /* Prevents text selection on UI elements */
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* Allow text selection inside inputs and textareas so users can copy/paste */
+input,
+textarea {
+    -webkit-user-select: text;
+    user-select: text;
+    font-size: 16px;
+    /* Prevents iOS auto-zoom on focus */
+}

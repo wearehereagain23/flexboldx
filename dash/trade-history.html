@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade History | Flexboldx</title>
+
+    <!-- Material Icons & Google Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/trade-history.css">
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- HTML2Canvas (Required for saving receipt modal preview as an image) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Header Navbar -->
+    <header class="topbar" id="header">
+        <div class="header-left">
+
+            <a href="../index.html" class="brand-logo">
+                <img src="./asset/logo.png" alt="Flexboldx Logo">
+            </a>
+        </div>
+
+        <div class="header-right">
+            <!-- Theme Toggle Button -->
+            <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+                <i class="material-icons" id="themeIcon">brightness_4</i>
+            </button>
+
+            <!-- Agent Assist Chat Icon Trigger -->
+            <div class="header-icon-item">
+                <button type="button" id="openChatDrawerBtn" class="agent-assist-btn" title="Agent Assist / Support">
+                    <i class="material-icons">chat_bubble_outline</i>
+                    <span class="badge-count">1</span>
+                </button>
+            </div>
+
+            <!-- User Profile Link -->
+            <div class="header-user-profile">
+                <a class="profile-button" href="./profile.html">
+                    <div class="avatar-status-wrapper">
+                        <img src="./asset/userlogo.png" id="pmler" alt="User Avatar" class="user-avatar-img">
+                        <span class="status-indicator online"></span>
+                    </div>
+                    <span class="user-name-text hide-mobile" id="weuss_header"></span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Overlay for Mobile Sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- App Body Layout -->
+    <div class="app-layout">
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-user-card">
+                <img id="pmler2" src="./asset/userlogo.png" alt="User" class="avatar-circle">
+                <div class="user-details">
+                    <span class="user-name" id="weuss"></span>
+                    <span class="user-country" id="country">United States</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="./index.html"><i class="material-icons">dashboard</i><span>Dashboard</span></a></li>
+                    <li><a href="./deposit.html"><i class="material-icons">account_balance_wallet</i><span>Fund
+                                Account</span></a></li>
+                    <li><a href="deposit-history.html"><i class="material-icons">dns</i><span>Deposit History</span></a>
+                    </li>
+                    <li><a href="./invest.html"><i class="material-icons">shopping_bag</i><span>Invest</span></a></li>
+                    <li class="active"><a href="#"><i class="material-icons">history</i><span>Trade History</span></a>
+                    </li>
+                    <li><a href="./withdraw-funds.html"><i class="material-icons">attach_money</i><span>Withdraw
+                                Funds</span></a></li>
+                    <li><a href="./withdrawal-history.html"><i class="material-icons">folder_open</i><span>Withdrawal
+                                History</span></a></li>
+                    <li><a href="./kyc.html"><i class="material-icons">folder</i><span>KYC</span></a></li>
+                    <li><a href="./referrals.html"><i class="material-icons">group</i><span>Referrals</span></a></li>
+                    <li><a href="./profile.html"><i class="material-icons">person</i><span>Profile</span></a>
+                    </li>
+                    <li><a href="./settings.html"><i class="material-icons">settings</i><span>Settings</span></a></li>
+                    <li id="out"><a href="#"><i class="material-icons">exit_to_app</i><span>Logout</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Workspace Content -->
+        <main class="main-content">
+
+            <!-- Page Heading -->
+            <div class="page-heading">
+                <h2>Trade History</h2>
+                <p>Track your investment portfolios, active trades, generated profits, and bonuses.</p>
+            </div>
+
+
+            <!-- Top Balance Metrics Box -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="material-icons">account_balance_wallet</i>
+                    </div>
+                    <div class="stat-info">
+                        <p>ACCOUNT BALANCE</p>
+                        <h4 id="user-balance">$0.00</h4>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="material-icons">person</i>
+                    </div>
+                    <div class="stat-info">
+                        <p>ACCOUNT PLAN</p>
+                        <h4 id="account-plan">No Active Plan</h4>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="material-icons">payments</i>
+                    </div>
+                    <div class="stat-info">
+                        <p>TOTAL PROFIT / BONUS</p>
+                        <h4 id="total-trade-profit">$0.00</h4>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Quick Shortcuts Section -->
+            <section class="quick-actions-bar">
+                <div class="quick-actions-header">
+                    <h4><i class="material-icons">bolt</i> Quick Shortcuts</h4>
+                </div>
+                <div class="quick-actions-grid">
+                    <a href="./invest.html" class="quick-action-card">
+                        <div class="action-icon invest-icon">
+                            <i class="material-icons">trending_up</i>
+                        </div>
+                        <div class="action-text">
+                            <span class="action-title">Start New Trade</span>
+                            <span class="action-sub">Explore investment plans</span>
+                        </div>
+                        <i class="material-icons action-arrow">chevron_right</i>
+                    </a>
+
+                    <a href="./withdraw-funds.html" class="quick-action-card">
+                        <div class="action-icon withdraw-icon">
+                            <i class="material-icons">attach_money</i>
+                        </div>
+                        <div class="action-text">
+                            <span class="action-title">Request Payout</span>
+                            <span class="action-sub">Withdraw profit or funds</span>
+                        </div>
+                        <i class="material-icons action-arrow">chevron_right</i>
+                    </a>
+
+                    <a href="./deposit.html" class="quick-action-card">
+                        <div class="action-icon deposit-icon">
+                            <i class="material-icons">account_balance_wallet</i>
+                        </div>
+                        <div class="action-text">
+                            <span class="action-title">Fund Account</span>
+                            <span class="action-sub">Add money to start trading</span>
+                        </div>
+                        <i class="material-icons action-arrow">chevron_right</i>
+                    </a>
+
+                    <a href="./withdrawal-history.html" class="quick-action-card">
+                        <div class="action-icon history-icon">
+                            <i class="material-icons">folder_open</i>
+                        </div>
+                        <div class="action-text">
+                            <span class="action-title">Payout Logs</span>
+                            <span class="action-sub">Check withdrawal history</span>
+                        </div>
+                        <i class="material-icons action-arrow">chevron_right</i>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Trade History Table Card -->
+            <section class="card history-table-card">
+                <div class="table-card-header">
+                    <div class="header-left-title">
+                        <h3><i class="material-icons">history</i> Trade Executions</h3>
+                        <span class="record-counter" id="recordCounter">Showing 0 entries</span>
+                    </div>
+
+                    <!-- Type Filters -->
+                    <div class="table-filter-tabs">
+                        <button type="button" class="tab-btn active" data-tab="all">All</button>
+                        <button type="button" class="tab-btn" data-tab="Active">Active</button>
+                        <button type="button" class="tab-btn" data-tab="Completed">Completed</button>
+                        <button type="button" class="tab-btn" data-tab="Closed">Closed</button>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table class="responsive-table">
+                        <thead>
+                            <tr>
+                                <th>Transaction ID</th>
+                                <th>Date</th>
+                                <th>Amount ($)</th>
+                                <th>Profit / Bonus ($)</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tradeTableBody">
+                            <!-- Populated dynamically via trade-history.js -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination Nav Controls -->
+                <div class="pagination-container" id="paginationControls">
+                    <button id="prevBtn" class="btn-primary pagination-btn" style="display: none;">
+                        <i class="material-icons">chevron_left</i> Previous
+                    </button>
+                    <span id="pageIndicator" class="page-indicator">Page 1</span>
+                    <button id="nextBtn" class="btn-primary pagination-btn" style="display: none;">
+                        Next <i class="material-icons">chevron_right</i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="app-footer">
+                <p>&copy; 2026 Flexboldx. All rights reserved.</p>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Trade Details Receipt Modal -->
+    <div class="modal-overlay" id="txModalOverlay">
+        <div class="modal-card">
+            <button class="modal-close-btn" id="closeModalBtn" title="Close"><i
+                    class="material-icons">close</i></button>
+
+            <div id="receiptPreviewBox" class="receipt-preview-box">
+                <div class="receipt-header">
+                    <img src="./asset/logo.png" alt="Flexboldx Logo" class="receipt-logo">
+                    <h3>Trade Statement</h3>
+                    <p class="receipt-subtitle">Flexboldx Digital Asset Management</p>
+                </div>
+                <div class="receipt-divider"></div>
+                <div class="receipt-body">
+                    <div class="receipt-row">
+                        <span>Transaction ID:</span>
+                        <strong id="modalTxId">-</strong>
+                    </div>
+                    <div class="receipt-row">
+                        <span>Date & Time:</span>
+                        <strong id="modalDate">-</strong>
+                    </div>
+                    <div class="receipt-row">
+                        <span>Invested Amount:</span>
+                        <strong id="modalAmount">$0.00</strong>
+                    </div>
+                    <div class="receipt-row">
+                        <span>Profit / Bonus Yield:</span>
+                        <strong id="modalProfit" class="highlight-text">$0.00</strong>
+                    </div>
+                    <div class="receipt-row">
+                        <span>Status:</span>
+                        <span id="modalStatus" class="status-pill">-</span>
+                    </div>
+                </div>
+                <div class="receipt-footer">
+                    <p>Thank you for trading with Flexboldx.</p>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" id="saveReceiptBtn" class="btn-primary save-receipt-btn">
+                    <i class="material-icons">download</i> Save Statement as Image
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide-in Chat Panel -->
+    <div class="chat-drawer-overlay" id="chatDrawerOverlay"></div>
+    <div class="chat-drawer" id="chatDrawer">
+        <div class="chat-drawer-header">
+            <div class="chat-title">
+                <i data-lucide="message-square"></i>
+                <span>Support Channel</span>
+            </div>
+            <div class="chat-header-actions">
+                <button type="button" id="closeChatDrawerBtn" class="chat-action-btn" title="Close Chat">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="chat-feed-container" id="chat-message-feed"></div>
+
+        <div class="chat-drawer-footer">
+            <input type="file" id="chat-image-attachment-input" style="display: none;" accept="image/*">
+            <button type="button" id="chat-attachment-trigger-btn" class="chat-tool-btn" title="Attach Document/Image">
+                <i data-lucide="paperclip"></i>
+            </button>
+            <input type="text" id="chat-terminal-text-field" class="chat-input-field" placeholder="Type a message...">
+            <button type="button" id="chat-send-message-btn" class="btn-primary chat-send-btn">
+                <i data-lucide="send"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom App Bar -->
+    <nav class="bottom-app-bar">
+        <a href="index.html" class="nav-item">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </a>
+        <a href="./deposit.html" class="nav-item">
+            <i class="material-icons">add_circle_outline</i>
+            <span>Deposit</span>
+        </a>
+        <a href="#" class="nav-item active">
+            <i class="material-icons">trending_up</i>
+            <span>Invest</span>
+        </a>
+        <a href="./withdraw-funds.html" class="nav-item">
+            <i class="material-icons">payments</i>
+            <span>Withdraw</span>
+        </a>
+        <a href="./profile.html" class="nav-item">
+            <i class="material-icons">person</i>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <script src="./js/theme.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/trade-history.js"></script>
+
+    <script type="module">
+        import { setupSecureChatChannel } from './js/chat.js';
+
+        const chatDrawer = document.getElementById('chatDrawer');
+        const chatOverlay = document.getElementById('chatDrawerOverlay');
+        const openBtn = document.getElementById('openChatDrawerBtn');
+        const closeBtn = document.getElementById('closeChatDrawerBtn');
+
+        function openChat() {
+            chatDrawer.classList.add('open');
+            chatOverlay.classList.add('active');
+            const userUuid = localStorage.getItem("user_uuid") || "current_user_uuid";
+            setupSecureChatChannel(userUuid);
+        }
+
+        function closeChat() {
+            chatDrawer.classList.remove('open');
+            chatOverlay.classList.remove('active');
+        }
+
+        openBtn?.addEventListener('click', openChat);
+        closeBtn?.addEventListener('click', closeChat);
+        chatOverlay?.addEventListener('click', closeChat);
+    </script>
+</body>
+
+</html>

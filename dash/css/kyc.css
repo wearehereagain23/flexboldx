@@ -1,0 +1,440 @@
+/* ==========================================================================
+   QUICK SHORTCUTS BAR
+   ========================================================================== */
+.quick-actions-bar {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--card-border-radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+}
+
+.quick-actions-header {
+    margin-bottom: 16px;
+}
+
+.quick-actions-header h4 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.quick-actions-header h4 i {
+    color: var(--color-warning);
+}
+
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+}
+
+.quick-action-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--btn-border-radius);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+}
+
+.quick-action-card:hover {
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+.action-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.action-icon i {
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+.invest-icon {
+    background-color: #16a34a;
+}
+
+.withdraw-icon {
+    background-color: #0284c7;
+}
+
+.deposit-icon {
+    background-color: #ea580c;
+}
+
+.settings-icon {
+    background-color: #6366f1;
+}
+
+.action-text {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.action-title {
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.action-sub {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.action-arrow {
+    color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   KYC CONTAINER & STATE UI SWITCHES
+   ========================================================================== */
+.kyc-container-card {
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.kyc-container-card.hidden {
+    display: none !important;
+}
+
+/* KYC Intro Section */
+.kyc-hero-box {
+    text-align: center;
+    padding: 20px 10px;
+}
+
+.kyc-icon-badge {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: rgba(99, 102, 241, 0.12);
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px auto;
+}
+
+.kyc-icon-badge i {
+    font-size: 2.2rem;
+}
+
+.kyc-hero-box h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.kyc-intro-text {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto 28px auto;
+    line-height: 1.5;
+}
+
+.kyc-features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: left;
+    max-width: 600px;
+    margin: 0 auto 32px auto;
+}
+
+.feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: var(--bg-main);
+    padding: 16px;
+    border-radius: var(--btn-border-radius);
+    border: 1px solid var(--border-color);
+}
+
+.feature-item i {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin-top: 2px;
+}
+
+.feature-item h5 {
+    font-size: 0.92rem;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.feature-item p {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+}
+
+.start-kyc-btn {
+    padding: 0 32px;
+    height: var(--btn-height-lg);
+    font-size: 1rem;
+}
+
+/* Status Result Cards (Pending / Approved) */
+.status-state-box {
+    text-align: center;
+    padding: 30px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.status-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.status-icon-wrapper.yellow {
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+}
+
+.status-icon-wrapper.green {
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+}
+
+.status-icon-wrapper i {
+    font-size: 2.8rem;
+}
+
+.status-state-box h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.status-state-box p {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    max-width: 500px;
+    margin: 0 auto 20px auto;
+    line-height: 1.5;
+}
+
+.status-pill-large {
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.88rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.warning-pill {
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+}
+
+.success-pill {
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+}
+
+.dashboard-link-btn {
+    margin-top: 16px;
+}
+
+/* ==========================================================================
+   WIZARD STEPPER STYLING
+   ========================================================================== */
+.stepper-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.step-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.step-item.active {
+    opacity: 1;
+}
+
+.step-counter {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--bg-main);
+    border: 2px solid var(--border-color);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.step-item.active .step-counter {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+}
+
+.step-item.completed .step-counter {
+    background-color: var(--color-success);
+    border-color: var(--color-success);
+    color: #ffffff;
+}
+
+.step-name {
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.step-divider {
+    flex: 1;
+    height: 2px;
+    background-color: var(--border-color);
+    margin: 0 16px;
+}
+
+/* Form Steps */
+.form-step {
+    display: none;
+}
+
+.form-step.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.step-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.step-title i {
+    color: var(--color-primary);
+}
+
+.step-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+.form-grid,
+.upload-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+/* Previews */
+.file-preview-img {
+    max-height: 120px;
+    width: auto;
+    object-fit: contain;
+    border-radius: 6px;
+    margin-top: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.file-preview-img.hidden {
+    display: none;
+}
+
+/* Actions */
+.wizard-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    height: var(--btn-height-md);
+    padding: 0 var(--btn-padding-x);
+    border-radius: var(--btn-border-radius);
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-secondary:hover {
+    background-color: var(--border-color);
+}
+
+/* Responsive Overrides */
+@media (max-width: 768px) {
+    .stepper-wrapper {
+        overflow-x: auto;
+    }
+
+    .step-name {
+        display: none;
+    }
+
+    .form-grid,
+    .upload-grid {
+        grid-template-columns: 1fr;
+    }
+}

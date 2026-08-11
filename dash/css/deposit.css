@@ -1,0 +1,123 @@
+/* ==========================================================================
+   DEPOSIT PAGE SPECIFIC STYLES
+   ========================================================================== */
+.deposit-card {
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.deposit-header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+}
+
+.deposit-header h2 {
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
+.deposit-header p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* Address & QR Code Display Box */
+.payment-address-box {
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--card-border-radius);
+    padding: 20px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: all 0.3s ease;
+}
+
+.payment-address-box.hidden {
+    display: none;
+}
+
+.qr-container {
+    background: #ffffff;
+    padding: 8px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.qr-container img {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+}
+
+.address-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.network-badge {
+    align-self: flex-start;
+    background-color: rgba(99, 102, 241, 0.15);
+    color: var(--accent-color);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+
+.address-instruction {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.copy-address-field {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.copy-address-field input {
+    font-family: monospace;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.copy-btn {
+    height: var(--input-height);
+    width: var(--input-height);
+    padding: 0;
+    flex-shrink: 0;
+}
+
+/* Submit Action Button */
+.submit-deposit-btn {
+    width: 100%;
+    height: var(--btn-height-lg);
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+    .payment-address-box {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .network-badge {
+        align-self: center;
+    }
+}

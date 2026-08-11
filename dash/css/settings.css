@@ -1,0 +1,202 @@
+/* ==========================================================================
+   SETTINGS PAGE STYLES
+   ========================================================================== */
+
+/* Hero Header */
+.settings-hero {
+    padding: 30px 20px !important;
+    text-align: center;
+}
+
+.settings-hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.settings-hero-icon {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+}
+
+.settings-hero h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.settings-hero p {
+    font-size: 0.88rem;
+    color: #cbd5e1;
+    max-width: 500px;
+}
+
+/* Two-Column Grid Layout for Forms */
+.settings-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.settings-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.card-section-title h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.card-section-title h3 i {
+    color: var(--color-primary);
+}
+
+.card-section-title p {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+.settings-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-actions-bar {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Danger Zone Card */
+.danger-zone-card {
+    border: 1px solid rgba(239, 68, 68, 0.3) !important;
+    background: rgba(239, 68, 68, 0.03);
+}
+
+.danger-header h3 i {
+    color: var(--color-danger) !important;
+}
+
+.danger-actions-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.danger-action-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.danger-action-info h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.danger-action-info p {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.danger-divider {
+    border: 0;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Action Buttons */
+.btn-secondary-logout {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    height: var(--btn-height-md);
+    padding: 0 var(--btn-padding-x);
+    border-radius: var(--btn-border-radius);
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-secondary-logout:hover {
+    background-color: var(--bg-main);
+    border-color: var(--text-secondary);
+}
+
+.btn-danger {
+    background-color: var(--color-danger);
+    color: #ffffff;
+    border: none;
+    height: var(--btn-height-md);
+    padding: 0 var(--btn-padding-x);
+    border-radius: var(--btn-border-radius);
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-danger:hover {
+    background-color: var(--color-danger-hover);
+}
+
+.btn-danger:active {
+    transform: scale(0.98);
+}
+
+/* Media Queries */
+@media (max-width: 992px) {
+    .settings-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .danger-action-box {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .btn-secondary-logout,
+    .btn-danger {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+.label-with-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.forgot-pass-link {
+    font-size: 0.8rem;
+    color: var(--color-primary, #6366f1);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.forgot-pass-link:hover {
+    text-decoration: underline;
+}

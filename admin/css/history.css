@@ -1,0 +1,313 @@
+/* --- Tab Switcher & Active Highlights --- */
+.history-tab-btn {
+    background: #182229;
+    color: #8696a0;
+    border: 1px solid #222d34;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.history-tab-btn:hover {
+    background: #202c33;
+    color: #e9edef;
+}
+
+.history-tab-btn.active {
+    background: #00a884 !important;
+    color: #ffffff !important;
+    border-color: #00a884 !important;
+    box-shadow: 0 0 12px rgba(0, 168, 132, 0.4);
+}
+
+/* --- Table Container & Micro Formatting --- */
+.modern-history-table-container {
+    background: #111b21;
+    border-radius: 10px;
+    border: 1px solid #222d34;
+    padding: 12px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.modern-history-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    table-layout: fixed;
+}
+
+.modern-history-table th {
+    background: #182229;
+    color: #8696a0;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    padding: 10px 12px;
+    border-bottom: 1px solid #222d34;
+    text-align: left;
+}
+
+.modern-history-table td {
+    padding: 12px;
+    border-bottom: 1px solid #1f2c34;
+    color: #e9edef;
+    vertical-align: middle;
+}
+
+.modern-history-table tr.clickable-row-item {
+    cursor: pointer;
+    transition: background 0.15s ease-in-out;
+}
+
+.modern-history-table tr.clickable-row-item:hover {
+    background: #182229;
+}
+
+.row-id-tag {
+    font-family: monospace;
+    color: #8696a0;
+    font-size: 12px;
+}
+
+.row-amount-cell {
+    color: #4ade80;
+    font-weight: 700;
+    font-family: monospace;
+}
+
+.table-state-cell {
+    text-align: center;
+    padding: 20px !important;
+    color: #8696a0;
+    font-family: monospace;
+}
+
+.table-state-cell.error-text {
+    color: #ef4444;
+}
+
+/* --- Status Badges --- */
+.badge-status-pill {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.badge-status-pill.status-approved,
+.badge-status-pill.status-win {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+}
+
+.badge-status-pill.status-pending {
+    background: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+}
+
+.badge-status-pill.status-rejected,
+.badge-status-pill.status-loss {
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+}
+
+/* --- Modal Overlay & Responsive Window --- */
+.custom-ledger-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.custom-ledger-modal-overlay.modal-active-state {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.custom-ledger-modal-window {
+    background: #111b21;
+    border: 1px solid #222d34;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 580px;
+    max-height: 85vh !important;
+    height: auto;
+    display: flex !important;
+    flex-direction: column !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    transform: translateY(10px);
+    transition: transform 0.2s ease;
+    overflow: hidden !important;
+}
+
+.custom-ledger-modal-overlay.modal-active-state .custom-ledger-modal-window {
+    transform: translateY(0);
+}
+
+.custom-ledger-modal-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #222d34;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #182229;
+    flex-shrink: 0;
+}
+
+.custom-ledger-modal-header h4 {
+    margin: 0;
+    color: #e9edef;
+    font-size: 15px;
+}
+
+.custom-ledger-modal-close-trigger {
+    background: transparent;
+    border: none;
+    color: #8696a0;
+    font-size: 22px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+/* Fix for form wrapper inside modal flex box */
+#historyEditModalForm {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+}
+
+.custom-ledger-modal-body {
+    padding: 20px;
+    overflow-y: auto !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.modal-form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.email-trigger-box {
+    margin-top: 10px;
+    background: #182229;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #2b3942;
+}
+
+.highlight-select {
+    border-color: #3b82f6 !important;
+}
+
+.custom-ledger-modal-footer {
+    padding: 14px 20px;
+    border-top: 1px solid #222d34;
+    background: #182229;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+    flex-shrink: 0 !important;
+}
+
+/* --- Modal Buttons --- */
+.modal-btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background 0.15s ease;
+}
+
+.modal-btn-primary {
+    background: #00a884;
+    color: #fff;
+}
+
+.modal-btn-primary:hover {
+    background: #008f70;
+}
+
+.modal-btn-danger {
+    background: #ef4444;
+    color: #fff;
+}
+
+.modal-btn-danger:hover {
+    background: #dc2626;
+}
+
+.modal-btn-secondary {
+    background: #2a3942;
+    color: #d1d5db;
+}
+
+.modal-btn-secondary:hover {
+    background: #374955;
+}
+
+/* --- Form Control Visibility Rules --- */
+.spa-form-grid .form-control,
+.custom-ledger-modal-body .form-control {
+    background-color: #182229 !important;
+    color: #f1f5f9 !important;
+    border: 1px solid #3b4a54 !important;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.spa-form-grid .form-control:focus,
+.custom-ledger-modal-body .form-control:focus {
+    border-color: #00a884 !important;
+    box-shadow: 0 0 0 2px rgba(0, 168, 132, 0.25);
+    outline: none;
+}
+
+.spa-form-grid .form-control::placeholder,
+.custom-ledger-modal-body .form-control::placeholder {
+    color: #64748b !important;
+    font-weight: 400;
+}
+
+.spa-form-grid .form-label,
+.custom-ledger-modal-body .form-label {
+    color: #94a3b8;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 6px;
+    display: block;
+}

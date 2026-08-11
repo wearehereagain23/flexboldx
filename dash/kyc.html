@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KYC Verification | Flexboldx</title>
+
+    <!-- Material Icons & Google Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/kyc.css">
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+
+    <!-- Header Navbar -->
+    <header class="topbar" id="header">
+        <div class="header-left">
+
+            <a href="../index.html" class="brand-logo">
+                <img src="./asset/logo.png" alt="Flexboldx Logo">
+            </a>
+        </div>
+
+        <div class="header-right">
+            <!-- Theme Toggle Button -->
+            <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+                <i class="material-icons" id="themeIcon">brightness_4</i>
+            </button>
+
+            <!-- Agent Assist Chat Icon Trigger -->
+            <div class="header-icon-item">
+                <button type="button" id="openChatDrawerBtn" class="agent-assist-btn" title="Agent Assist / Support">
+                    <i class="material-icons">chat_bubble_outline</i>
+                    <span class="badge-count">1</span>
+                </button>
+            </div>
+
+            <!-- User Profile Link -->
+            <div class="header-user-profile">
+                <a class="profile-button" href="./profile.html">
+                    <div class="avatar-status-wrapper">
+                        <img src="./asset/userlogo.png" id="pmler" alt="User Avatar" class="user-avatar-img">
+                        <span class="status-indicator online"></span>
+                    </div>
+                    <span class="user-name-text hide-mobile" id="weuss_header"></span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Overlay for Mobile Sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- App Body Layout -->
+    <div class="app-layout">
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-user-card">
+                <img id="pmler2" src="./asset/userlogo.png" alt="User" class="avatar-circle">
+                <div class="user-details">
+                    <span class="user-name" id="weuss"></span>
+                    <span class="user-country" id="country">United States</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="./index.html"><i class="material-icons">dashboard</i><span>Dashboard</span></a></li>
+                    <li><a href="./deposit.html"><i class="material-icons">account_balance_wallet</i><span>Fund
+                                Account</span></a></li>
+                    <li><a href="deposit-history.html"><i class="material-icons">dns</i><span>Deposit History</span></a>
+                    </li>
+                    <li><a href="./invest.html"><i class="material-icons">shopping_bag</i><span>Invest</span></a></li>
+                    <li><a href="./trade-history.html"><i class="material-icons">history</i><span>Trade
+                                History</span></a></li>
+                    <li><a href="./withdraw-funds.html"><i class="material-icons">attach_money</i><span>Withdraw
+                                Funds</span></a></li>
+                    <li><a href="withdrawal-history.html"><i class="material-icons">folder_open</i><span>Withdrawal
+                                History</span></a></li>
+                    <li class="active"><a href="#"><i class="material-icons">folder</i><span>KYC</span></a></li>
+                    <li><a href="./referrals.html"><i class="material-icons">group</i><span>Referrals</span></a></li>
+                    <li><a href="./profile.html"><i class="material-icons">person</i><span>Profile</span></a>
+                    </li>
+                    <li><a href="./settings.html"><i class="material-icons">settings</i><span>Settings</span></a></li>
+                    <li id="out"><a href="#"><i class="material-icons">exit_to_app</i><span>Logout</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Workspace Content -->
+        <main class="main-content">
+
+            <!-- Page Heading -->
+            <div class="page-heading">
+                <h2>KYC Identity Verification</h2>
+                <p>Complete regulatory identity verification to unlock full account features and higher withdrawal
+                    limits.</p>
+            </div>
+
+            <!-- Top Balance & User Info Metrics Box -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="material-icons">account_balance_wallet</i>
+                    </div>
+                    <div class="stat-info">
+                        <p>ACCOUNT BALANCE</p>
+                        <h4 id="top-user-balance">$0.00</h4>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="material-icons">account_circle</i>
+                    </div>
+                    <div class="stat-info">
+                        <p>ACCOUNT HOLDER FULL NAME</p>
+                        <h4 id="top-user-name"></h4>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="material-icons">public</i>
+                    </div>
+                    <div class="stat-info">
+                        <p>COUNTRY</p>
+                        <h4 id="top-user-country"></h4>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Shortcuts Section (Settings Replaced KYC) -->
+            <section class="quick-actions-bar">
+                <div class="quick-actions-header">
+                    <h4><i class="material-icons">bolt</i> Quick Shortcuts</h4>
+                </div>
+                <div class="quick-actions-grid">
+                    <a href="./invest.html" class="quick-action-card">
+                        <div class="action-icon invest-icon">
+                            <i class="material-icons">trending_up</i>
+                        </div>
+                        <div class="action-text">
+                            <span class="action-title">Start New Trade</span>
+                            <span class="action-sub">Explore investment plans</span>
+                        </div>
+                        <i class="material-icons action-arrow">chevron_right</i>
+                    </a>
+
+                    <a href="./withdraw-funds.html" class="quick-action-card">
+                        <div class="action-icon withdraw-icon">
+                            <i class="material-icons">attach_money</i>
+                        </div>
+                        <div class="action-text">
+                            <span class="action-title">Request Payout</span>
+                            <span class="action-sub">Withdraw profit or funds</span>
+                        </div>
+                        <i class="material-icons action-arrow">chevron_right</i>
+                    </a>
+
+                    <a href="./deposit.html" class="quick-action-card">
+                        <div class="action-icon deposit-icon">
+                            <i class="material-icons">account_balance_wallet</i>
+                        </div>
+                        <div class="action-text">
+                            <span class="action-title">Fund Account</span>
+                            <span class="action-sub">Add money to start trading</span>
+                        </div>
+                        <i class="material-icons action-arrow">chevron_right</i>
+                    </a>
+
+                    <a href="./settings.html" class="quick-action-card">
+                        <div class="action-icon settings-icon">
+                            <i class="material-icons">settings</i>
+                        </div>
+                        <div class="action-text">
+                            <span class="action-title">Settings</span>
+                            <span class="action-sub">Account & Security</span>
+                        </div>
+                        <i class="material-icons action-arrow">chevron_right</i>
+                    </a>
+                </div>
+            </section>
+
+            <!-- 1. KYC INTRO / START CONTAINER -->
+            <div class="card kyc-container-card" id="kycIntroContainer">
+                <div class="kyc-hero-box">
+                    <div class="kyc-icon-badge">
+                        <i class="material-icons">verified_user</i>
+                    </div>
+                    <h2>Verify Your Identity</h2>
+                    <p class="kyc-intro-text">
+                        To comply with financial regulations and keep your account secure, please provide your personal
+                        details, proof of residence, and official government-issued ID.
+                    </p>
+
+                    <div class="kyc-features-list">
+                        <div class="feature-item">
+                            <i class="material-icons">lock</i>
+                            <div>
+                                <h5>Data Privacy & Encryption</h5>
+                                <p>Your personal information is encrypted with bank-grade security protocols.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="material-icons">flash_on</i>
+                            <div>
+                                <h5>Fast Review Process</h5>
+                                <p>Automated verification completed within 24 to 48 hours.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="material-icons">stars</i>
+                            <div>
+                                <h5>Unlock Full Features</h5>
+                                <p>Gain unlimited withdrawals, higher investment limits, and instant trading
+                                    permissions.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-primary start-kyc-btn" id="startKycBtn">
+                        <i class="material-icons">play_arrow</i> Start Verification
+                    </button>
+                </div>
+            </div>
+
+            <!-- 2. KYC MULTI-STEP FORM CONTAINER (Hidden by default) -->
+            <div class="card kyc-container-card hidden" id="kycFormContainer">
+                <!-- Wizard Stepper Indicator -->
+                <div class="stepper-wrapper">
+                    <div class="step-item active" data-step="1">
+                        <div class="step-counter">1</div>
+                        <div class="step-name">Personal Details</div>
+                    </div>
+                    <div class="step-divider"></div>
+                    <div class="step-item" data-step="2">
+                        <div class="step-counter">2</div>
+                        <div class="step-name">Location & Contact</div>
+                    </div>
+                    <div class="step-divider"></div>
+                    <div class="step-item" data-step="3">
+                        <div class="step-counter">3</div>
+                        <div class="step-name">ID Verification</div>
+                    </div>
+                </div>
+
+                <!-- KYC Form -->
+                <form id="kycForm" novalidate>
+                    <!-- STEP 1: PERSONAL DETAILS -->
+                    <div class="form-step step-1 active">
+                        <h3 class="step-title"><i class="material-icons">person</i> Personal Information</h3>
+                        <p class="step-desc">Please provide accurate personal information matching your official
+                            documents.</p>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label" for="userAge">Date of birth *</label>
+                                <input type="date" id="userAge" class="form-control" placeholder="" min="18" max="100"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="userGender">Gender *</label>
+                                <select id="userGender" class="form-control" required>
+                                    <option value="" disabled selected>Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Non-Binary">Non-Binary</option>
+                                    <option value="Prefer not to say">Prefer not to say</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label class="form-label" for="employmentStatus">Employment Status *</label>
+                                <select id="employmentStatus" class="form-control" required>
+                                    <option value="" disabled selected>Select Employment Status</option>
+                                    <option value="Employed">Employed</option>
+                                    <option value="Self-Employed">Self-Employed</option>
+                                    <option value="Business Owner">Business Owner / Entrepreneur</option>
+                                    <option value="Student">Student</option>
+                                    <option value="Retired">Retired</option>
+                                    <option value="Unemployed">Unemployed</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="wizard-actions">
+                            <div></div>
+                            <button type="button" class="btn-primary next-step-btn">
+                                Next Step <i class="material-icons">arrow_forward</i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: LOCATION & CONTACT -->
+                    <div class="form-step step-2">
+                        <h3 class="step-title"><i class="material-icons">location_on</i> Location & Contact</h3>
+                        <p class="step-desc">Enter your primary residential address and phone contact details.</p>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label" for="userPhone">Phone Number *</label>
+                                <input type="tel" id="userPhone" class="form-control" placeholder="+1 (555) 000-0000"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="userCity">City *</label>
+                                <input type="text" id="userCity" class="form-control" placeholder="e.g. New York"
+                                    required>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label class="form-label" for="userAddress">Residential Address *</label>
+                                <input type="text" id="userAddress" class="form-control"
+                                    placeholder="Street address, Apartment, Suite, etc." required>
+                            </div>
+                        </div>
+
+                        <div class="wizard-actions">
+                            <button type="button" class="btn-secondary prev-step-btn">
+                                <i class="material-icons">arrow_back</i> Previous
+                            </button>
+                            <button type="button" class="btn-primary next-step-btn">
+                                Next Step <i class="material-icons">arrow_forward</i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: ID DOCUMENT & SELFIE UPLOADS -->
+                    <div class="form-step step-3">
+                        <h3 class="step-title"><i class="material-icons">badge</i> Identity Document & Selfie</h3>
+                        <p class="step-desc">Upload clear images of your National ID/Passport (Front & Back) and a clear
+                            Selfie.</p>
+
+                        <div class="upload-grid">
+                            <!-- ID Front -->
+                            <div class="form-group">
+                                <label class="form-label">National ID (Front) *</label>
+                                <div class="file-upload-wrapper" id="idFrontWrapper">
+                                    <input type="file" id="idFrontFile" accept="image/*" required>
+                                    <div class="file-upload-info" id="idFrontInfo">
+                                        <i class="material-icons">add_photo_alternate</i>
+                                        <span>Click or drag Front ID image here</span>
+                                        <small>.jpg, .png or .pdf (Max 10MB)</small>
+                                    </div>
+                                    <img src="" id="idFrontPreview" class="file-preview-img hidden"
+                                        alt="ID Front Preview">
+                                </div>
+                            </div>
+
+                            <!-- ID Back -->
+                            <div class="form-group">
+                                <label class="form-label">National ID (Back) *</label>
+                                <div class="file-upload-wrapper" id="idBackWrapper">
+                                    <input type="file" id="idBackFile" accept="image/*" required>
+                                    <div class="file-upload-info" id="idBackInfo">
+                                        <i class="material-icons">add_photo_alternate</i>
+                                        <span>Click or drag Back ID image here</span>
+                                        <small>.jpg, .png or .pdf (Max 10MB)</small>
+                                    </div>
+                                    <img src="" id="idBackPreview" class="file-preview-img hidden"
+                                        alt="ID Back Preview">
+                                </div>
+                            </div>
+
+                            <!-- Selfie -->
+                            <div class="form-group full-width">
+                                <label class="form-label">Selfie Photo *</label>
+                                <div class="file-upload-wrapper" id="selfieWrapper">
+                                    <input type="file" id="selfieFile" accept="image/*" required>
+                                    <div class="file-upload-info" id="selfieInfo">
+                                        <i class="material-icons">face</i>
+                                        <span>Click or drag clear Selfie photo here</span>
+                                        <small>Ensure your face is clearly visible with good lighting</small>
+                                    </div>
+                                    <img src="" id="selfiePreview" class="file-preview-img hidden" alt="Selfie Preview">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="wizard-actions">
+                            <button type="button" class="btn-secondary prev-step-btn">
+                                <i class="material-icons">arrow_back</i> Previous
+                            </button>
+                            <button type="submit" class="btn-primary submit-kyc-btn">
+                                <i class="material-icons">verified_user</i> Submit Verification
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 3. KYC PENDING STATE CONTAINER (Hidden by default) -->
+            <div class="card kyc-container-card hidden" id="kycPendingContainer">
+                <div class="status-state-box pending-box">
+                    <div class="status-icon-wrapper yellow">
+                        <i class="material-icons">hourglass_top</i>
+                    </div>
+                    <h2>Verification Under Review</h2>
+                    <p>Your documents and personal details have been submitted successfully. Our compliance team is
+                        currently reviewing your application.</p>
+                    <div class="status-pill-large warning-pill">
+                        <i class="material-icons">schedule</i> Status: Pending Review
+                    </div>
+                    <small>Expected review completion: 24 - 48 Hours</small>
+                </div>
+            </div>
+
+            <!-- 4. KYC APPROVED / VERIFIED STATE CONTAINER (Hidden by default) -->
+            <div class="card kyc-container-card hidden" id="kycApprovedContainer">
+                <div class="status-state-box success-box">
+                    <div class="status-icon-wrapper green">
+                        <i class="material-icons">verified</i>
+                    </div>
+                    <h2>Account Verified!</h2>
+                    <p>Congratulations! Your identity has been fully verified. All restrictions have been removed from
+                        your account.</p>
+                    <div class="status-pill-large success-pill">
+                        <i class="material-icons">check_circle</i> Status: Verified Tier 2
+                    </div>
+                    <a href="./index.html" class="btn-primary dashboard-link-btn">
+                        <i class="material-icons">dashboard</i> Return to Dashboard
+                    </a>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="app-footer">
+                <p>&copy; 2026 Flexboldx. All rights reserved.</p>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Slide-in Chat UI Panel -->
+    <div class="chat-drawer-overlay" id="chatDrawerOverlay"></div>
+    <div class="chat-drawer" id="chatDrawer">
+        <div class="chat-drawer-header">
+            <div class="chat-title">
+                <i data-lucide="message-square"></i>
+                <span>Support Channel</span>
+            </div>
+            <div class="chat-header-actions">
+                <button type="button" id="closeChatDrawerBtn" class="chat-action-btn" title="Close Chat">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="chat-feed-container" id="chat-message-feed"></div>
+
+        <div class="chat-drawer-footer">
+            <input type="file" id="chat-image-attachment-input" style="display: none;" accept="image/*">
+            <button type="button" id="chat-attachment-trigger-btn" class="chat-tool-btn" title="Attach Document/Image">
+                <i data-lucide="paperclip"></i>
+            </button>
+            <input type="text" id="chat-terminal-text-field" class="chat-input-field" placeholder="Type a message...">
+            <button type="button" id="chat-send-message-btn" class="btn-primary chat-send-btn">
+                <i data-lucide="send"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom App Bar -->
+    <nav class="bottom-app-bar">
+        <a href="index.html" class="nav-item">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </a>
+        <a href="./deposit.html" class="nav-item">
+            <i class="material-icons">add_circle_outline</i>
+            <span>Deposit</span>
+        </a>
+        <a href="./invest.html" class="nav-item">
+            <i class="material-icons">trending_up</i>
+            <span>Invest</span>
+        </a>
+        <a href="./withdraw-funds.html" class="nav-item">
+            <i class="material-icons">payments</i>
+            <span>Withdraw</span>
+        </a>
+        <a href="./profile.html" class="nav-item active">
+            <i class="material-icons">person</i>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <!-- Custom JS Scripts -->
+    <script src="./js/theme.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/kyc.js"></script>
+
+    <!-- Chat Drawer Controller Script -->
+    <script type="module">
+        import { setupSecureChatChannel } from './js/chat.js';
+
+        const chatDrawer = document.getElementById('chatDrawer');
+        const chatOverlay = document.getElementById('chatDrawerOverlay');
+        const openBtn = document.getElementById('openChatDrawerBtn');
+        const closeBtn = document.getElementById('closeChatDrawerBtn');
+
+        function openChat() {
+            chatDrawer.classList.add('open');
+            chatOverlay.classList.add('active');
+            const userUuid = localStorage.getItem("user_uuid") || "current_user_uuid";
+            setupSecureChatChannel(userUuid);
+        }
+
+        function closeChat() {
+            chatDrawer.classList.remove('open');
+            chatOverlay.classList.remove('active');
+        }
+
+        openBtn?.addEventListener('click', openChat);
+        closeBtn?.addEventListener('click', closeChat);
+        chatOverlay?.addEventListener('click', closeChat);
+    </script>
+</body>
+
+</html>

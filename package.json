@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@supabase/supabase-js": "^2.50.0",
+    "firebase": "^11.10.0",
+    "spin.js": "^4.1.2"
+  }
+}

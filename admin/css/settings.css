@@ -1,0 +1,240 @@
+/* Override any body/html layout locks from list.css */
+html,
+body {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+.settings-page-wrapper {
+    min-height: 100vh;
+    height: auto;
+    background-color: var(--bg-app-darker, #0b141a);
+    color: var(--text-primary-bright, #e9edef);
+    padding: 24px 24px 100px 24px;
+    /* 100px bottom padding ensures submit button is never clipped */
+    box-sizing: border-box;
+}
+
+.settings-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-divider-line, #222d34);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.back-link-btn {
+    background: var(--bg-input-search, #202c33);
+    color: var(--text-primary-bright, #e9edef);
+    padding: 10px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.settings-content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    align-items: start;
+    /* Prevents cards from stretching unnaturally */
+}
+
+@media (max-width: 1024px) {
+    .settings-content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.settings-card {
+    background: var(--bg-sidebar-dark, #111b21);
+    border: 1px solid var(--border-divider-line, #222d34);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.card-header-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    color: var(--text-chat-green, #00a884);
+}
+
+.form-section-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-chat-green, #00a884);
+    margin: 16px 0 10px 0;
+}
+
+.tier-box {
+    background: var(--bg-input-search, #202c33);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.tier-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #3b82f6;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-row {
+    display: grid;
+    gap: 12px;
+}
+
+.dual-fields {
+    grid-template-columns: 1fr 1fr;
+}
+
+.triple-fields {
+    grid-template-columns: 1fr 1fr 2fr;
+}
+
+@media (max-width: 640px) {
+
+    .dual-fields,
+    .triple-fields {
+        grid-template-columns: 1fr;
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.form-group label {
+    font-size: 11px;
+    color: var(--text-secondary-muted, #8696a0);
+}
+
+.form-group input {
+    background: #111b21;
+    border: 1px solid #222d34;
+    border-radius: 6px;
+    padding: 8px 12px;
+    color: #fff;
+    outline: none;
+}
+
+.save-settings-btn,
+.add-asset-btn {
+    background: #00a884;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.save-settings-btn:hover,
+.add-asset-btn:hover {
+    background: #008f70;
+}
+
+.add-asset-input-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.add-asset-input-row input {
+    background: #202c33;
+    border: 1px solid #222d34;
+    border-radius: 6px;
+    padding: 10px;
+    color: #fff;
+}
+
+.todo-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.todo-item {
+    background: #202c33;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.todo-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.todo-item-info input {
+    background: #111b21;
+    border: 1px solid #334155;
+    border-radius: 4px;
+    padding: 6px 8px;
+    color: #fff;
+    font-size: 13px;
+}
+
+.todo-item-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.action-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 4px;
+}
+
+.update-btn {
+    color: #10b981;
+}
+
+.delete-btn {
+    color: #ef4444;
+}
+
+.empty-item {
+    text-align: center;
+    color: #8696a0;
+    font-size: 13px;
+    padding: 12px;
+}
+
+.form-action-footer {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-divider-line, #222d34);
+    display: flex;
+    justify-content: flex-end;
+}

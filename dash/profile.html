@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Profile | Flexboldx</title>
+
+    <!-- Material Icons & Google Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/profile.css">
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+
+    <!-- Header Navbar -->
+    <header class="topbar" id="header">
+        <div class="header-left">
+            <a href="../index.html" class="brand-logo">
+                <img src="./asset/logo.png" alt="Flexboldx Logo">
+            </a>
+        </div>
+
+        <div class="header-right">
+            <!-- Theme Toggle Button -->
+            <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+                <i class="material-icons" id="themeIcon">brightness_4</i>
+            </button>
+
+            <!-- Agent Assist Chat Icon Trigger -->
+            <div class="header-icon-item">
+                <button type="button" id="openChatDrawerBtn" class="agent-assist-btn" title="Agent Assist / Support">
+                    <i class="material-icons">chat_bubble_outline</i>
+                    <span class="badge-count">1</span>
+                </button>
+            </div>
+
+            <!-- User Profile Link -->
+            <div class="header-user-profile">
+                <a class="profile-button" href="./profile.html">
+                    <div class="avatar-status-wrapper">
+                        <img src="./asset/userlogo.png" id="pmler" alt="User Avatar" class="user-avatar-img">
+                        <span class="status-indicator online"></span>
+                    </div>
+                    <span class="user-name-text hide-mobile" id="weuss_header"></span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Overlay for Mobile Sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- App Body Layout -->
+    <div class="app-layout">
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-user-card">
+                <img id="pmler2" src="./asset/userlogo.png" alt="User" class="avatar-circle">
+                <div class="user-details">
+                    <span class="user-name" id="weuss">loading...</span>
+                    <span class="user-country" id="country">loading...</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="./index.html"><i class="material-icons">dashboard</i><span>Dashboard</span></a></li>
+                    <li><a href="./deposit.html"><i class="material-icons">account_balance_wallet</i><span>Fund
+                                Account</span></a></li>
+                    <li><a href="deposit-history.html"><i class="material-icons">dns</i><span>Deposit History</span></a>
+                    </li>
+                    <li><a href="./invest.html"><i class="material-icons">shopping_bag</i><span>Invest</span></a></li>
+                    <li><a href="./trade-history.html"><i class="material-icons">history</i><span>Trade
+                                History</span></a></li>
+                    <li><a href="./withdraw-funds.html"><i class="material-icons">attach_money</i><span>Withdraw
+                                Funds</span></a></li>
+                    <li><a href="withdrawal-history.html"><i class="material-icons">folder_open</i><span>Withdrawal
+                                History</span></a></li>
+                    <li><a href="./kyc.html"><i class="material-icons">folder</i><span>KYC</span></a></li>
+                    <li><a href="./referrals.html"><i class="material-icons">group</i><span>Referrals</span></a></li>
+                    <li class="active"><a href="#"><i class="material-icons">person</i><span>Profile</span></a></li>
+                    <li><a href="./settings.html"><i class="material-icons">settings</i><span>Settings</span></a></li>
+                    <li id="out"><a href="#"><i class="material-icons">exit_to_app</i><span>Logout</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Workspace Content -->
+        <main class="main-content">
+
+            <!-- Profile Overview Header Card -->
+            <section class="card profile-banner-card trading-hero-bg profile-hero-container">
+                <div class="profile-avatar-wrapper" id="avatarUploadContainer" title="Click to upload profile picture">
+                    <img src="./asset/userlogo.png" id="profileDisplayImage" alt="Profile Picture"
+                        class="avatar-large profile-avatar">
+                    <div class="avatar-upload-overlay">
+                        <i class="material-icons">photo_camera</i>
+                        <span>Upload</span>
+                    </div>
+                </div>
+                <!-- Hidden file input triggered by avatar container -->
+                <input type="file" id="profileImageInput" accept="image/*" style="display: none;">
+
+                <div class="profile-header-meta">
+                    <h2 id="profileDisplayName">Loading...</h2>
+                    <p id="profileDisplayUsername">@user</p>
+
+                    <!-- Dynamic KYC Verification Badge -->
+                    <span id="kycBadgeContainer" class="badge-status-verified pending">
+                        <i class="material-icons" id="kycBadgeIcon">hourglass_empty</i>
+                        <span id="kycBadgeText">Checking Status...</span>
+                    </span>
+                </div>
+            </section>
+
+            <!-- Quick Actions Section -->
+            <section class="quick-actions-grid">
+                <a href="./invest.html" class="quick-action-card">
+                    <div class="quick-action-icon icon-invest">
+                        <i class="material-icons">trending_up</i>
+                    </div>
+                    <div class="quick-action-text">
+                        <h4>Invest Funds</h4>
+                        <p>Browse growth plans</p>
+                    </div>
+                </a>
+
+                <a href="./kyc.html" class="quick-action-card">
+                    <div class="quick-action-icon icon-kyc">
+                        <i class="material-icons">verified_user</i>
+                    </div>
+                    <div class="quick-action-text">
+                        <h4>KYC Verification</h4>
+                        <p>Upload identity docs</p>
+                    </div>
+                </a>
+
+                <a href="./referrals.html" class="quick-action-card">
+                    <div class="quick-action-icon icon-referral">
+                        <i class="material-icons">groups</i>
+                    </div>
+                    <div class="quick-action-text">
+                        <h4>Referral System</h4>
+                        <p>Invite & earn bonuses</p>
+                    </div>
+                </a>
+
+                <a href="./settings.html" class="quick-action-card">
+                    <div class="quick-action-icon icon-settings">
+                        <i class="material-icons">settings</i>
+                    </div>
+                    <div class="quick-action-text">
+                        <h4>Account Settings</h4>
+                        <p>Security & preferences</p>
+                    </div>
+                </a>
+            </section>
+
+            <!-- Personal Information Form Card -->
+            <section class="card profile-form-card">
+                <div class="card-section-title">
+                    <h3>Personal Information & KYC Details</h3>
+                    <p>Update your personal identity details, contact, and employment information below.</p>
+                </div>
+
+                <form id="profileDetailsForm" class="profile-form">
+                    <!-- Names Row -->
+                    <div class="form-grid-3">
+                        <div class="form-group">
+                            <label for="firstNameInput" class="form-label">First Name</label>
+                            <input type="text" id="firstNameInput" class="form-control" placeholder="Enter first name"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="middleNameInput" class="form-label">Middle Name</label>
+                            <input type="text" id="middleNameInput" class="form-control"
+                                placeholder="Enter middle name">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastNameInput" class="form-label">Last Name</label>
+                            <input type="text" id="lastNameInput" class="form-control" placeholder="Enter last name"
+                                required>
+                        </div>
+                    </div>
+
+                    <!-- Account Credentials Row -->
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="usernameInput" class="form-label">Username</label>
+                            <input type="text" id="usernameInput" class="form-control" placeholder="Enter username"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="emailInput" class="form-label">Email Address</label>
+                            <input type="email" id="emailInput" class="form-control" placeholder="Enter email address"
+                                required>
+                        </div>
+                    </div>
+
+                    <!-- Phone Number & Country Row -->
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="phoneInput" class="form-label">Phone Number (KYC)</label>
+                            <input type="tel" id="phoneInput" class="form-control" placeholder="Enter phone number">
+                        </div>
+                        <div class="form-group">
+                            <label for="countryInput" class="form-label">Country</label>
+                            <input type="text" id="countryInput" class="form-control" placeholder="Enter country"
+                                required>
+                        </div>
+                    </div>
+
+                    <!-- City & Street Address Row -->
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="cityInput" class="form-label">City (KYC)</label>
+                            <input type="text" id="cityInput" class="form-control" placeholder="Enter city">
+                        </div>
+                        <div class="form-group">
+                            <label for="addressInput" class="form-label">Street Address (KYC)</label>
+                            <input type="text" id="addressInput" class="form-control"
+                                placeholder="Enter street address">
+                        </div>
+                    </div>
+
+                    <!-- Date of Birth/Age, Gender, Employment Status Row -->
+                    <div class="form-grid-3">
+                        <div class="form-group">
+                            <label for="dobInput" class="form-label">Date of Birth / Age</label>
+                            <input type="text" id="dobInput" class="form-control" placeholder="e.g. 1995-08-20 or 29">
+                        </div>
+                        <div class="form-group">
+                            <label for="genderSelect" class="form-label">Gender</label>
+                            <select id="genderSelect" class="form-control">
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="employmentSelect" class="form-label">Employment Status</label>
+                            <select id="employmentSelect" class="form-control">
+                                <option value="">Select Status</option>
+                                <option value="Employed">Employed</option>
+                                <option value="Self-Employed">Self-Employed</option>
+                                <option value="Unemployed">Unemployed</option>
+                                <option value="Student">Student</option>
+                                <option value="Retired">Retired</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-actions-bar">
+                        <button type="submit" id="updateProfileBtn" class="btn-primary profile-submit-btn">
+                            <i class="material-icons">save</i>
+                            <span>Update Profile</span>
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Footer -->
+            <footer class="app-footer">
+                <p>&copy; 2026 Flexboldx. All rights reserved.</p>
+            </footer>
+        </main>
+
+    </div>
+
+    <!-- Slide-in Chat UI Panel -->
+    <div class="chat-drawer-overlay" id="chatDrawerOverlay"></div>
+    <div class="chat-drawer" id="chatDrawer">
+        <div class="chat-drawer-header">
+            <div class="chat-title">
+                <i data-lucide="message-square"></i>
+                <span>Support Channel</span>
+            </div>
+            <div class="chat-header-actions">
+                <button type="button" id="closeChatDrawerBtn" class="chat-action-btn" title="Close Chat">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="chat-feed-container" id="chat-message-feed"></div>
+
+        <div class="chat-drawer-footer">
+            <input type="file" id="chat-image-attachment-input" style="display: none;" accept="image/*">
+            <button type="button" id="chat-attachment-trigger-btn" class="chat-tool-btn" title="Attach Document/Image">
+                <i data-lucide="paperclip"></i>
+            </button>
+            <input type="text" id="chat-terminal-text-field" class="chat-input-field" placeholder="Type a message...">
+            <button type="button" id="chat-send-message-btn" class="btn-primary chat-send-btn">
+                <i data-lucide="send"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom App Bar -->
+    <nav class="bottom-app-bar">
+        <a href="index.html" class="nav-item">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </a>
+        <a href="./deposit.html" class="nav-item">
+            <i class="material-icons">add_circle_outline</i>
+            <span>Deposit</span>
+        </a>
+        <a href="./invest.html" class="nav-item">
+            <i class="material-icons">trending_up</i>
+            <span>Invest</span>
+        </a>
+        <a href="./withdraw-funds.html" class="nav-item">
+            <i class="material-icons">payments</i>
+            <span>Withdraw</span>
+        </a>
+        <a href="#" class="nav-item active">
+            <i class="material-icons">person</i>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <!-- Custom JS Scripts -->
+    <script src="./js/theme.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/profile.js"></script>
+
+    <!-- Chat Drawer Controller Script -->
+    <script type="module">
+        import { setupSecureChatChannel } from './js/chat.js';
+
+        const chatDrawer = document.getElementById('chatDrawer');
+        const chatOverlay = document.getElementById('chatDrawerOverlay');
+        const openBtn = document.getElementById('openChatDrawerBtn');
+        const closeBtn = document.getElementById('closeChatDrawerBtn');
+
+        function openChat() {
+            chatDrawer?.classList.add('open');
+            chatOverlay?.classList.add('active');
+            const userUuid = localStorage.getItem("user_uuid") || "current_user_uuid";
+            setupSecureChatChannel(userUuid);
+        }
+
+        function closeChat() {
+            chatDrawer?.classList.remove('open');
+            chatOverlay?.classList.remove('active');
+        }
+
+        openBtn?.addEventListener('click', openChat);
+        closeBtn?.addEventListener('click', closeChat);
+        chatOverlay?.addEventListener('click', closeChat);
+    </script>
+</body>
+
+</html>

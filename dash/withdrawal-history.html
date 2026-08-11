@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdrawal History | Flexboldx</title>
+
+    <!-- Material Icons & Google Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/withdraw-history.css">
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- HTML2Canvas (Required for saving receipt modal preview as an image) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Header Navbar -->
+    <header class="topbar" id="header">
+        <div class="header-left">
+
+            <a href="../index.html" class="brand-logo">
+                <img src="./asset/logo.png" alt="Flexboldx Logo">
+            </a>
+        </div>
+
+        <div class="header-right">
+            <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+                <i class="material-icons" id="themeIcon">brightness_4</i>
+            </button>
+
+            <div class="header-icon-item">
+                <button type="button" id="openChatDrawerBtn" class="agent-assist-btn" title="Agent Assist / Support">
+                    <i class="material-icons">chat_bubble_outline</i>
+                    <span class="badge-count">1</span>
+                </button>
+            </div>
+
+            <div class="header-user-profile">
+                <a class="profile-button" href="./profile.html">
+                    <div class="avatar-status-wrapper">
+                        <img src="./asset/userlogo.png" id="pmler" alt="User Avatar" class="user-avatar-img">
+                        <span class="status-indicator online"></span>
+                    </div>
+                    <span class="user-name-text hide-mobile" id="weuss_header"></span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="app-layout">
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-user-card">
+                <img id="pmler2" src="./asset/userlogo.png" alt="User" class="avatar-circle">
+                <div class="user-details">
+                    <span class="user-name" id="weuss"></span>
+                    <span class="user-country" id="country">United States</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="./index.html"><i class="material-icons">dashboard</i><span>Dashboard</span></a></li>
+                    <li><a href="./deposit.html"><i class="material-icons">account_balance_wallet</i><span>Fund
+                                Account</span></a></li>
+                    <li><a href="deposit-history.html"><i class="material-icons">dns</i><span>Deposit History</span></a>
+                    </li>
+                    <li><a href="./invest.html"><i class="material-icons">shopping_bag</i><span>Invest</span></a></li>
+                    <li><a href="./trade-history.html"><i class="material-icons">history</i><span>Trade
+                                History</span></a></li>
+                    <li><a href="./withdraw-funds.html"><i class="material-icons">attach_money</i><span>Withdraw
+                                Funds</span></a></li>
+                    <li class="active"><a href="#"><i class="material-icons">folder_open</i><span>Withdrawal
+                                History</span></a></li>
+                    <li><a href="./kyc.html"><i class="material-icons">folder</i><span>KYC</span></a></li>
+                    <li><a href="./referrals.html"><i class="material-icons">group</i><span>Referrals</span></a></li>
+                    <li><a href="./profile.html"><i class="material-icons">person</i><span>Profile</span></a>
+                    </li>
+                    <li><a href="./settings.html"><i class="material-icons">settings</i><span>Settings</span></a></li>
+                    <li id="out"><a href="#"><i class="material-icons">exit_to_app</i><span>Logout</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content Workspace -->
+        <main class="main-content">
+
+            <!-- Page Heading -->
+            <div class="page-heading">
+                <h2>Withdrawal History</h2>
+                <p>Monitor and track your payout requests across crypto, bank, and internal transfers.</p>
+            </div>
+
+            <!-- Top Balance Metrics Box -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="material-icons">account_balance_wallet</i>
+                    </div>
+                    <div class="stat-info">
+                        <p>ACCOUNT BALANCE</p>
+                        <h4 id="user-balance">$0.00</h4>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="material-icons">hourglass_empty</i>
+                    </div>
+                    <div class="stat-info">
+                        <p>PENDING WITHDRAWAL</p>
+                        <h4 id="pending-withdraw">$0.00</h4>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="material-icons">payments</i>
+                    </div>
+                    <div class="stat-info">
+                        <p>TOTAL WITHDRAWN</p>
+                        <h4 id="total-withdrawn">$0.00</h4>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Shortcuts Section -->
+            <section class="quick-actions-bar">
+                <div class="quick-actions-header">
+                    <h4><i class="material-icons">bolt</i> Quick Shortcuts</h4>
+                </div>
+                <div class="quick-actions-grid">
+                    <a href="./withdraw-funds.html" class="quick-action-card">
+                        <div class="action-icon withdraw-icon">
+                            <i class="material-icons">attach_money</i>
+                        </div>
+                        <div class="action-text">
+                            <span class="action-title">Request Payout</span>
+                            <span class="action-sub">Withdraw or transfer funds</span>
+                        </div>
+                        <i class="material-icons action-arrow">chevron_right</i>
+                    </a>
+
+                    <a href="./invest.html" class="quick-action-card">
+                        <div class="action-icon invest-icon">
+                            <i class="material-icons">trending_up</i>
+                        </div>
+                        <div class="action-text">
+                            <span class="action-title">Invest Portfolios</span>
+                            <span class="action-sub">Explore trading plans</span>
+                        </div>
+                        <i class="material-icons action-arrow">chevron_right</i>
+                    </a>
+
+                    <a href="./deposit-history.html" class="quick-action-card">
+                        <div class="action-icon deposit-icon">
+                            <i class="material-icons">dns</i>
+                        </div>
+                        <div class="action-text">
+                            <span class="action-title">Deposit Records</span>
+                            <span class="action-sub">Check funding history</span>
+                        </div>
+                        <i class="material-icons action-arrow">chevron_right</i>
+                    </a>
+
+                    <a href="./kyc.html" class="quick-action-card">
+                        <div class="action-icon kyc-icon">
+                            <i class="material-icons">verified_user</i>
+                        </div>
+                        <div class="action-text">
+                            <span class="action-title">KYC Verification</span>
+                            <span class="action-sub">Account security status</span>
+                        </div>
+                        <i class="material-icons action-arrow">chevron_right</i>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Withdrawal History Table Card -->
+            <section class="card history-table-card">
+                <div class="table-card-header">
+                    <div class="header-left-title">
+                        <h3><i class="material-icons">folder_open</i> Payout Logs</h3>
+                        <span class="record-counter" id="recordCounter">Showing 0 entries</span>
+                    </div>
+
+                    <!-- Filter Tabs -->
+                    <div class="table-filter-tabs">
+                        <button type="button" class="tab-btn active" data-tab="all">All</button>
+                        <button type="button" class="tab-btn" data-tab="Crypto Transfer">Crypto</button>
+                        <button type="button" class="tab-btn" data-tab="Bank Transfer">Bank</button>
+                        <button type="button" class="tab-btn" data-tab="Internal Transfer">Internal</button>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table class="responsive-table">
+                        <thead>
+                            <tr>
+                                <th>Transaction ID</th>
+                                <th>Type</th>
+                                <th>Details / Recipient</th>
+                                <th>Amount ($)</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="withdrawalTableBody">
+                            <!-- Populated dynamically via withdraw-history.js -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination Nav Controls -->
+                <div class="pagination-container" id="paginationControls">
+                    <button id="prevBtn" class="btn-primary pagination-btn" style="display: none;">
+                        <i class="material-icons">chevron_left</i> Previous
+                    </button>
+                    <span id="pageIndicator" class="page-indicator">Page 1</span>
+                    <button id="nextBtn" class="btn-primary pagination-btn" style="display: none;">
+                        Next <i class="material-icons">chevron_right</i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="app-footer">
+                <p>&copy; 2026 Flexboldx. All rights reserved.</p>
+            </footer>
+        </main>
+    </div>
+
+
+    <!-- Transaction Details / Receipt Modal -->
+    <div class="modal-overlay" id="txModalOverlay">
+        <div class="modal-card receipt-modal-wrapper">
+            <button class="modal-close-btn" id="closeModalBtn" title="Close">
+                <i class="material-icons">close</i>
+            </button>
+
+            <!-- Designed Receipt Preview Box -->
+            <div id="receiptPreviewBox" class="receipt-card-container">
+
+                <!-- Brand Header -->
+                <div class="receipt-brand-header">
+                    <img src="./asset/logo.png" alt="Logo" class="receipt-brand-logo">
+                </div>
+
+                <!-- Status Badge & Heading -->
+                <div class="receipt-status-header">
+                    <div class="receipt-success-icon" id="modalStatusBadgeIcon">
+                        <i class="material-icons">check</i>
+                    </div>
+                    <h2 class="receipt-main-title" id="modalStatusTitle">SUCCESS</h2>
+                    <p class="receipt-sub-title" id="modalStatusSubtitle">Your payout request was logged successfully.
+                    </p>
+                </div>
+
+                <!-- Section 1: Transaction Summary -->
+                <div class="receipt-section-box">
+                    <div class="receipt-section-header">
+                        <i class="material-icons">assignment</i>
+                        <span>Transaction Summary</span>
+                    </div>
+
+                    <div class="receipt-grid-2col">
+                        <div class="receipt-grid-item">
+                            <label>Transaction ID</label>
+                            <span id="modalTxId" class="receipt-value-bold">-</span>
+                        </div>
+                        <div class="receipt-grid-item">
+                            <label>Date & Time</label>
+                            <span id="modalDate" class="receipt-value-bold">-</span>
+                        </div>
+                    </div>
+
+                    <div class="receipt-grid-2col">
+                        <div class="receipt-grid-item">
+                            <label>Amount Debited</label>
+                            <span id="modalAmount" class="receipt-value-green">$0.00 USD</span>
+                            <small id="modalAmountInWords" class="receipt-value-subtext">Zero US Dollars</small>
+                        </div>
+                        <div class="receipt-grid-item">
+                            <label>Payout Method / Provider</label>
+                            <span id="modalType" class="receipt-value-bold">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Destination & Account Details -->
+                <div class="receipt-section-box">
+                    <div class="receipt-section-header">
+                        <i class="material-icons">account_circle</i>
+                        <span>Beneficiary / Destination</span>
+                    </div>
+
+                    <div class="receipt-user-flex">
+                        <div class="receipt-user-icon-box">
+                            <i class="material-icons">person</i>
+                        </div>
+                        <div class="receipt-user-info">
+                            <h4 id="modalName">-</h4>
+                            <p id="modalDetails" class="break-all">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Status & Reference Footer Box -->
+                <div class="receipt-section-box receipt-footer-box">
+                    <div class="receipt-grid-2col align-center">
+                        <div class="receipt-grid-item">
+                            <label>Status</label>
+                            <span id="modalStatus" class="receipt-status-pill status-completed">COMPLETED</span>
+                        </div>
+                        <div class="receipt-grid-item text-right">
+                            <label>Reference</label>
+                            <span id="modalReference" class="receipt-value-mono">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Branding & QR Code -->
+                <div class="receipt-bottom-branding">
+                    <div class="receipt-branding-text">
+                        <div class="receipt-shield-icon">
+                            <i class="material-icons">verified_user</i>
+                        </div>
+                        <div>
+                            <strong>Secure. Fast. Reliable.</strong>
+                            <p>Thank you for trading with Flexboldx.</p>
+                        </div>
+                    </div>
+                    <div class="receipt-qr-code">
+                        <img id="modalQrImg"
+                            src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=Flexboldx" alt="QR Code">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" id="saveReceiptBtn" class="btn-primary save-receipt-btn">
+                    <i class="material-icons">download</i> Save Receipt as Image
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Slide-in Chat Panel -->
+    <div class="chat-drawer-overlay" id="chatDrawerOverlay"></div>
+    <div class="chat-drawer" id="chatDrawer">
+        <div class="chat-drawer-header">
+            <div class="chat-title">
+                <i data-lucide="message-square"></i>
+                <span>Support Channel</span>
+            </div>
+            <div class="chat-header-actions">
+                <button type="button" id="closeChatDrawerBtn" class="chat-action-btn" title="Close Chat">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="chat-feed-container" id="chat-message-feed"></div>
+
+        <div class="chat-drawer-footer">
+            <input type="file" id="chat-image-attachment-input" style="display: none;" accept="image/*">
+            <button type="button" id="chat-attachment-trigger-btn" class="chat-tool-btn" title="Attach Document/Image">
+                <i data-lucide="paperclip"></i>
+            </button>
+            <input type="text" id="chat-terminal-text-field" class="chat-input-field" placeholder="Type a message...">
+            <button type="button" id="chat-send-message-btn" class="btn-primary chat-send-btn">
+                <i data-lucide="send"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Bottom Nav Bar -->
+    <nav class="bottom-app-bar">
+        <a href="index.html" class="nav-item">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </a>
+        <a href="./deposit.html" class="nav-item">
+            <i class="material-icons">add_circle_outline</i>
+            <span>Deposit</span>
+        </a>
+        <a href="./invest.html" class="nav-item">
+            <i class="material-icons">trending_up</i>
+            <span>Invest</span>
+        </a>
+        <a href="#" class="nav-item active">
+            <i class="material-icons">payments</i>
+            <span>Withdraw</span>
+        </a>
+        <a href="./profile.html" class="nav-item">
+            <i class="material-icons">person</i>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <!-- Custom Scripts -->
+    <script src="./js/theme.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/withdraw-history.js"></script>
+
+    <script type="module">
+        import { setupSecureChatChannel } from './js/chat.js';
+
+        const chatDrawer = document.getElementById('chatDrawer');
+        const chatOverlay = document.getElementById('chatDrawerOverlay');
+        const openBtn = document.getElementById('openChatDrawerBtn');
+        const closeBtn = document.getElementById('closeChatDrawerBtn');
+
+        function openChat() {
+            chatDrawer.classList.add('open');
+            chatOverlay.classList.add('active');
+            const userUuid = localStorage.getItem("user_uuid") || "current_user_uuid";
+            setupSecureChatChannel(userUuid);
+        }
+
+        function closeChat() {
+            chatDrawer.classList.remove('open');
+            chatOverlay.classList.remove('active');
+        }
+
+        openBtn?.addEventListener('click', openChat);
+        closeBtn?.addEventListener('click', closeChat);
+        chatOverlay?.addEventListener('click', closeChat);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,896 @@
+/* ==========================================================================
+   1. CORE GLOBAL VARIABLES & ROOT CONFIGURATION
+   ========================================================================== */
+:root {
+    --bg-app-darker: #0b141a;
+    --bg-sidebar-dark: #111b21;
+    --bg-workspace-dark: #222e35;
+    --bg-card-element: #2a3942;
+    --bg-input-search: #202c33;
+
+    --border-divider-line: #222d34;
+    --border-interactive: #3b82f6;
+
+    --text-primary-bright: #e9edef;
+    --text-secondary-muted: #8696a0;
+    --text-chat-green: #00a884;
+
+    --status-active-green: #10b981;
+    --status-blocked-red: #ef4444;
+    --btn-hover-state: #374248;
+
+    --font-stack-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-stack-system);
+}
+
+body {
+    background-color: var(--bg-app-darker);
+    color: var(--text-primary-bright);
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   2. APP CONTAINER & MASTER GRID LAYOUT
+   ========================================================================== */
+.admin-app-layout {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+/* ==========================================================================
+   3. LEFT SIDEBAR AREA (User List Feed & Actions Deck)
+   ========================================================================== */
+.directory-sidebar {
+    width: 35%;
+    max-width: 440px;
+    min-width: 320px;
+    background-color: var(--bg-sidebar-dark);
+    border-right: 1px solid var(--border-divider-line);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    z-index: 10;
+}
+
+.sidebar-header {
+    height: 60px;
+    background-color: var(--bg-input-search);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.admin-profile-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar-mock-icon {
+    width: 40px;
+    height: 40px;
+    background-color: var(--border-interactive);
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.admin-identity-tag {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary-bright);
+}
+
+/* Search Actions Deck Box */
+.search-filter-deck {
+    padding: 8px 12px;
+    background-color: var(--bg-sidebar-dark);
+    border-bottom: 1px solid var(--border-divider-line);
+    flex-shrink: 0;
+}
+
+.search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-bar-icon {
+    position: absolute;
+    left: 14px;
+    color: var(--text-secondary-muted);
+    width: 16px;
+    height: 16px;
+}
+
+#directory-search-input {
+    width: 100%;
+    background-color: var(--bg-input-search);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px 8px 44px;
+    color: var(--text-primary-bright);
+    font-size: 14px;
+    outline: none;
+}
+
+/* User Directory Stream Scroll Container */
+.directory-scroll-container {
+    flex: 1;
+    overflow-y: auto;
+    background-color: var(--bg-sidebar-dark);
+}
+
+.user-stream-item-card {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-divider-line);
+    transition: background-color 0.1s ease;
+    gap: 14px;
+}
+
+.user-stream-item-card:hover {
+    background-color: var(--bg-input-search);
+}
+
+.user-stream-item-card.is-active-card {
+    background-color: var(--bg-card-element);
+}
+
+.card-avatar-node {
+    width: 48px;
+    height: 48px;
+    background-color: #4b5563;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 16px;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.card-text-details-pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.card-row-top,
+.card-row-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-user-fullname {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-primary-bright);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-user-balance-badge {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-chat-green);
+}
+
+.card-user-account-no {
+    font-size: 13px;
+    color: var(--text-secondary-muted);
+}
+
+.card-status-flag {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.flag-active {
+    background-color: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+}
+
+.flag-restricted {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+}
+
+/* Sidebar Bottom Logout Strip Header */
+.sidebar-footer-deck {
+    background-color: var(--bg-input-search);
+    border-top: 1px solid var(--border-divider-line);
+    padding: 12px 16px;
+    flex-shrink: 0;
+    /* Prevents button row compressed out on mobile viewport lists */
+}
+
+.sidebar-logout-action-btn {
+    width: 100%;
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 8px;
+    padding: 12px;
+    color: #f87171;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sidebar-logout-action-btn:hover {
+    background-color: var(--status-blocked-red);
+    color: #ffffff;
+}
+
+.sidebar-logout-action-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* ==========================================
+   4. RIGHT PANEL - MAIN WORKSPACE WRAPPERS
+   ========================================== */
+.workspace-viewport {
+    flex: 1;
+    background-color: var(--bg-workspace-dark);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+
+/* Placeholder Empty Default Frame State */
+.unselected-viewport-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+    text-align: center;
+}
+
+.fallback-graphic-card {
+    max-width: 480px;
+}
+
+.fallback-icon-ring {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: var(--bg-card-element);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px auto;
+}
+
+.fallback-vector {
+    width: 40px;
+    height: 40px;
+    color: var(--text-secondary-muted);
+}
+
+.fallback-graphic-card h2 {
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 12px;
+    color: var(--text-primary-bright);
+}
+
+.fallback-graphic-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-secondary-muted);
+}
+
+/* Active Workspace Sheet */
+.active-record-workspace {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.workspace-header {
+    height: 60px;
+    background-color: var(--bg-input-search);
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border-divider-line);
+    flex-shrink: 0;
+}
+
+.mobile-nav-back-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-primary-bright);
+    margin-right: 16px;
+    cursor: pointer;
+}
+
+.active-user-meta-summary {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+}
+
+.active-avatar-circle {
+    width: 40px;
+    height: 40px;
+    background-color: var(--border-interactive);
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    overflow: hidden;
+}
+
+.meta-title-stack h3 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.meta-title-stack p {
+    font-size: 13px;
+    color: var(--text-secondary-muted);
+}
+
+.workspace-scrollable-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+}
+
+/* ==========================================================================
+   5. PROFILE FORMS & MANAGEMENT UTILITY METRICS (WhatsApp Vertical Stack)
+   ========================================================================== */
+.profile-dashboard-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 640px;
+    /* Slimmer max-width to keep inputs looking elegant and centered */
+    margin: 0 auto;
+    padding-bottom: 40px;
+}
+
+/* Big Profile Photo Card Top Anchor */
+.whatsapp-profile-avatar-card {
+    background-color: transparent;
+    /* Seamless blend */
+    padding: 16px 0;
+    text-align: center;
+}
+
+.avatar-interactive-wrapper {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 16px auto;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+.whatsapp-profile-avatar-card h4 {
+    color: var(--text-primary-bright);
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.whatsapp-profile-avatar-card p {
+    color: var(--text-secondary-muted);
+    font-size: 13px;
+}
+
+/* Horizontal Options Menu Bar Block (Instead of a sidebar layout) */
+.account-pills {
+    display: flex;
+    flex-direction: column;
+    /* Default stack format */
+    background-color: var(--bg-input-search);
+    border-radius: 10px;
+    border: 1px solid var(--border-divider-line);
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+/* Form Layout Restructuring - STACKED VERTICALLY LIKE WHATSAPP */
+.spa-form-grid {
+    display: flex;
+    flex-direction: column;
+    /* 🚀 Forces fields to show below each other, never sideways */
+    gap: 16px;
+    width: 100%;
+}
+
+.form-group-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: var(--bg-input-search);
+    padding: 12px 16px;
+    border-radius: 8px;
+    border-bottom: 1px solid var(--border-divider-line);
+}
+
+.form-group-item:last-child {
+    border-bottom: none;
+}
+
+.form-label {
+    font-size: 12px;
+    color: var(--text-chat-green);
+    /* WhatsApp style green label identifiers */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-control {
+    background-color: transparent;
+    /* Cleaner flat-input styling setup */
+    border: none;
+    padding: 4px 0 0 0;
+    color: var(--text-primary-bright);
+    font-size: 15px;
+    outline: none;
+    width: 100%;
+}
+
+/* Inline Dynamic Interactive Widgets */
+.live-balance-display-box {
+    background-color: var(--bg-input-search);
+    padding: 24px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: 1px solid var(--border-divider-line);
+}
+
+.live-numeric-balance {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text-primary-bright);
+}
+
+/* Active functional content canvas panel wrapper */
+.workspace-metric-card {
+    background-color: transparent;
+    /* Blend smoothly into main content stack container */
+    border: none;
+    padding: 0;
+}
+
+/* ==========================================================================
+   6. REAL-TIME CHAT SUB-COMPONENTS (WhatsApp Theme Mapping UI)
+   ========================================================================== */
+.chat-messages-container-stream {
+    flex: 1;
+    overflow-y: auto;
+    background-image: linear-gradient(rgba(11, 20, 26, 0.95), rgba(11, 20, 26, 0.95)), url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+    background-blend-mode: overlay;
+    padding: 16px 20px;
+    /* Safe left/right inner gutter padding spacing */
+}
+
+#chat-message-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 10px 4px;
+    /* Internal spacing keeping elements off boundaries */
+    overflow-y: auto;
+    width: 100%;
+}
+
+.system-security-notice-bubble {
+    background-color: #182229;
+    border: 1px solid #222d34;
+    color: #ffd279;
+    font-size: 12px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    max-width: 450px;
+    margin: 12px auto;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    line-height: 1.4;
+}
+
+.system-security-notice-bubble svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+/* Interactive Message Speech Clusters */
+.msg-bubble {
+    max-width: 65%;
+    padding: 10px 14px;
+    border-radius: 8px;
+    position: relative;
+    word-wrap: break-word;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.msg-bubble.incoming {
+    align-self: flex-start;
+    background-color: #202c33;
+    color: #e9edef;
+    border-top-left-radius: 0px;
+}
+
+.msg-bubble.outgoing {
+    align-self: flex-end;
+    background-color: #005c4b;
+    color: #e9edef;
+    border-top-right-radius: 0px;
+}
+
+.msg-bubble p {
+    margin: 0;
+    padding: 0;
+}
+
+.msg-timestamp {
+    display: block;
+    font-size: 11px;
+    color: #8696a0;
+    text-align: right;
+    margin-top: 4px;
+}
+
+/* Input Command Utility Action Bar */
+.chat-input-dock-footer {
+    height: 64px;
+    background-color: var(--bg-input-search);
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-top: 1px solid var(--border-divider-line);
+    flex-shrink: 0;
+}
+
+.chat-input-text-container {
+    flex: 1;
+}
+
+.chat-input-text-container input {
+    width: 100%;
+    background-color: var(--bg-workspace-dark);
+    border: none;
+    border-radius: 8px;
+    padding: 11px 16px;
+    color: var(--text-primary-bright);
+    font-size: 14px;
+    outline: none;
+    transition: background-color 0.15s ease;
+}
+
+.chat-input-text-container input:focus {
+    background-color: #2a3942;
+}
+
+.chat-send-payload-btn {
+    color: var(--text-chat-green) !important;
+}
+
+/* Navigation Link Items Menu Grid */
+.whatsapp-menu-list-links {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-input-search);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border-divider-line);
+}
+
+.whatsapp-menu-item-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    text-decoration: none;
+    color: var(--text-primary-bright);
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--border-divider-line);
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.whatsapp-menu-item-link:last-child {
+    border-bottom: none;
+}
+
+.whatsapp-menu-item-link:hover {
+    background-color: var(--bg-card-element);
+}
+
+.menu-item-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.menu-item-left svg {
+    color: var(--border-interactive);
+    width: 22px;
+    height: 22px;
+}
+
+.menu-text-stack span {
+    font-size: 15px;
+    font-weight: 500;
+    display: block;
+}
+
+.menu-text-stack p {
+    font-size: 12px;
+    color: var(--text-secondary-muted);
+    margin-top: 2px;
+}
+
+/* ==========================================================================
+   7. SHARED UI CLASSES & UTILITY SYSTEMS (SPA Tabs, Spinners)
+   ========================================================================== */
+.display-none {
+    display: none !important;
+}
+
+.utility-action-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary-muted);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.utility-action-btn:hover {
+    background-color: var(--btn-hover-state);
+    color: var(--text-primary-bright);
+}
+
+.utility-action-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Tab Switching Control Framework */
+.tab-pane-custom {
+    display: none !important;
+}
+
+.tab-pane-custom.active-tab {
+    display: block !important;
+}
+
+.account-pills .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 14px 20px;
+    color: var(--text-secondary-muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-divider-line);
+    transition: background-color 0.15s ease, color 0.15s ease;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.account-pills .nav-link svg {
+    width: 18px;
+    height: 18px;
+    margin-right: 12px;
+}
+
+.account-pills .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+    color: var(--text-primary-bright);
+}
+
+.account-pills .nav-link.active {
+    background-color: var(--bg-workspace-dark);
+    color: var(--text-chat-green);
+    border-left: 3px solid var(--text-chat-green);
+}
+
+/* Image Assets Global Modifiers */
+.card-avatar-node img,
+.chat-header-avatar img,
+.avatar-circle-display img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 50%;
+}
+
+/* Dynamic Spinner Engine Overlay */
+.stream-loading-placeholder {
+    padding: 40px;
+    text-align: center;
+    color: var(--text-secondary-muted);
+}
+
+.loading-spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--border-divider-line);
+    border-top-color: var(--border-interactive);
+    border-radius: 50%;
+    margin: 0 auto 12px auto;
+    animation: loop-spin 0.6s linear infinite;
+}
+
+@keyframes loop-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ==========================================================================
+   8. RESPONSIVE CONTEXT MANAGEMENT (Mobile Viewport Structural Rules)
+   ========================================================================== */
+@media (max-width: 768px) {
+
+    /* Stack components and force viewport safety layers */
+    .admin-app-layout {
+        display: block;
+        position: relative;
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    /* 🚀 FIXED: Sidebar fills entire screen and structures contents via Flexbox */
+    .directory-sidebar {
+        width: 100% !important;
+        max-width: none;
+        min-width: 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    /* List element stretches out correctly between headers and absolute footer row */
+    .directory-scroll-container {
+        flex: 1 !important;
+        overflow-y: auto !important;
+    }
+
+    /* Logout container remains securely fixed to the absolute viewport baseline */
+    .sidebar-footer-deck {
+        width: 100%;
+        position: relative;
+        bottom: 0;
+        left: 0;
+        z-index: 20;
+    }
+
+    /* Absolute position the sheet panes so they slide gracefully over the sidebar */
+    #workspace-chat-pane,
+    #active-profile-pane,
+    #fallback-view-pane {
+        position: fixed;
+        top: 0;
+        left: 100%;
+        /* Hidden off-screen right by default */
+        width: 100%;
+        height: 100%;
+        z-index: 999;
+        background: #111b21;
+        transition: left 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    /* Slide sheet window directly forward when active view utility flags match */
+    #workspace-chat-pane.mobile-active-view-pane,
+    #active-profile-pane.mobile-active-view-pane {
+        left: 0 !important;
+    }
+
+    .mobile-nav-back-btn {
+        display: block;
+    }
+}
+
+
+/* Only highlight the profile image + text block when hovered, matching WhatsApp web */
+.chat-header-interactive {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background-color 0.15s ease;
+}
+
+.chat-header-interactive:hover {
+    background-color: var(--bg-card-element) !important;
+}
+
+/* Ensure header background stays static */
+.workspace-header {
+    height: 60px;
+    background-color: var(--bg-input-search);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border-divider-line);
+    flex-shrink: 0;
+}
+
+
+/* Custom Input Border Enhancements */
+#user-approvals-fields input.form-control,
+#user-approvals-fields select.form-control {
+    background-color: #111b21 !important;
+    border: 1px solid #334155 !important;
+    border-radius: 6px !important;
+    padding: 8px 12px !important;
+    color: var(--text-primary-bright) !important;
+    outline: none !important;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+#user-approvals-fields input.form-control:focus,
+#user-approvals-fields select.form-control:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+}
