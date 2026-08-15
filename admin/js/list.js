@@ -150,6 +150,22 @@ function bindStaticUIEventListeners() {
             }
         });
     });
+
+    const backToListTrigger = document.querySelector(".back-to-list-trigger");
+    if (backToListTrigger) {
+        backToListTrigger.addEventListener("click", (e) => {
+            e.stopPropagation();
+
+            const chatPane = document.getElementById("workspace-chat-pane");
+            if (chatPane) {
+                chatPane.classList.add("display-none");
+                chatPane.classList.remove("mobile-active-view-pane");
+            }
+
+            // Reset selected user styling if desired
+            document.querySelectorAll(".user-stream-item-card").forEach(c => c.classList.remove("is-active-card"));
+        });
+    }
 }
 
 // ==========================================================================
