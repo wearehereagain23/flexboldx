@@ -485,12 +485,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isChatOpen) {
             elements.drawer.classList.add('active');
             elements.overlay.style.display = 'block';
+            document.body.classList.add('lc-chat-open'); // Prevent background scroll
             if (elements.toaster) elements.toaster.style.display = 'none';
             renderInitialView();
             resetInactivityTimer();
         } else {
             elements.drawer.classList.remove('active');
             elements.overlay.style.display = 'none';
+            document.body.classList.remove('lc-chat-open'); // Restore background scroll
         }
     }
 
