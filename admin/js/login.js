@@ -102,8 +102,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     showConfirmButton: false,
                     allowOutsideClick: false
                 }).then(() => {
-                    // Open the dashboard console in a new browser tab
-                    window.open("list.html", "_blank");
+                    // Redirect on the same page instead of opening a new tab
+                    window.location.href = "list.html";
                 });
 
             } catch (networkProcessingFaultError) {

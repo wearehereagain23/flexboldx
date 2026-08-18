@@ -543,3 +543,48 @@ function triggerLegalAgreementModalDialog() {
         }
     });
 }
+
+// =========================================================================
+// MOBILE BACK BUTTON NAVIGATION INTERCEPTOR & WARNING MODAL
+// =========================================================================
+document.addEventListener("DOMContentLoaded", () => {
+    // Push a dummy state to trap the first back button click
+    history.pushState({ page: "dashboard_active" }, "", window.location.href);
+
+    window.addEventListener("popstate", (event) => {
+        // Immediately push another state to lock the user on the page until they choose an option
+        history.pushState({ page: "dashboard_active" }, "", window.location.href);
+
+        if (typeof Swal !== "undefined") {
+            Swal.fire({
+                title: "Navigation Warning",
+                text: "Are you trying to leave the console or log out?",
+                icon: "warning",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Logout",
+                denyButtonText: "Back to List",
+                cancelButtonText: "Cancel",
+                confirmButtonColor: "#dc2626", // Red for logout
+                denyButtonColor: "#3b82f6",    // Blue for refresh/back to list
+                cancelButtonColor: "#64748b",  // Slate for cancel
+                allowOutsideClick: true,
+                allowEscapeKey: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Option 1: Logout
+                    handleAdministrativeSignOut();
+                } else if (result.isDenied) {
+                    // Option 2: Back to list / Refresh page state
+                    window.location.reload();
+                } else {
+                    // Option 3: Cancel (Modal closes automatically via 'Cancel' or 'X' icon)
+                    console.log("Navigation attempt cancelled by administrator.");
+                }
+            });
+        } else {
+            // Fallback if SweetAlert isn't loaded
+            handleAdministrativeSignOut();
+        }
+    });
+});
