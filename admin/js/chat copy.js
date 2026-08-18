@@ -20,11 +20,6 @@ export function setupSecureChatChannel(userUuid, userEmail = null) {
 
     const deleteAllBtn = document.getElementById("chat-header-delete-all-btn");
 
-    textInput.addEventListener("input", function () {
-        this.style.height = "auto";
-        this.style.height = (this.scrollHeight) + "px";
-    });
-
     if (deleteAllBtn) deleteAllBtn.onclick = null;
 
     // Header Trigger: Delete All Chat Thread
@@ -101,42 +96,16 @@ export function setupSecureChatChannel(userUuid, userEmail = null) {
     sendBtn.onclick = null;
     attachBtn.onclick = null;
     hiddenFile.onchange = null;
-    textInput.onkeydown = null;
-    textInput.onkeypress = null;
 
-    const handleSendMessage = async () => {
+    sendBtn.onclick = async () => {
         const text = textInput.value.trim();
         if (!text) return;
 
         textInput.value = "";
-        textInput.style.height = "auto"; // 🚀 Forces the textarea to shrink back to its original single-line height
-
         const temporaryMessageId = `temp_msg_${Date.now()}`;
         injectOptimisticChatBubbleNode(text, null, temporaryMessageId);
         await dispatchMessagePayload(text, null, temporaryMessageId);
     };
-
-    // Bind click event to send handler
-    sendBtn.onclick = handleSendMessage;
-
-    // Handle Return/Enter key presses directly on the field
-    const handleKeySubmission = async (e) => {
-        if (e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault();
-            e.stopPropagation();
-            await handleSendMessage();
-            return false;
-        }
-    };
-
-    textInput.addEventListener("keydown", handleKeySubmission);
-
-    // Prevent container form submission if element is wrapped inside a <form>
-    if (textInput.form) {
-        textInput.form.onsubmit = (e) => {
-            e.preventDefault();
-        };
-    }
 
     attachBtn.onclick = () => hiddenFile.click();
     hiddenFile.onchange = async (e) => {
