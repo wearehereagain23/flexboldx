@@ -113,7 +113,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         setElementText("active", user.accountStatus);
         setElementText("kycStatus", kycDisplay);
-        setElementText("tradeStatus", user.tradeStatus);
         setElementText("withdrawStatus", user.withdrawStatus === true ? 'Eligible' : 'Ineligible');
 
         setElementText("totalReferralsCount", refs.totalReferrals || 0);
