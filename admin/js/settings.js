@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://broker-chi-five.vercel.app/api';
+const API_BASE_URL = 'http://localhost:5000/api';
 const WS_URL = 'ws://localhost:5000';
 const HARDCODED_WORKSPACE_SIGNATURE = 'flexboldx';
 

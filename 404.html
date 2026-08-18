@@ -108,7 +108,7 @@
                     {
                         event: 'UPDATE',
                         schema: 'public',
-                        table: 'admin',
+                        table: 'admin_2',
                         filter: 'id=eq.1'
                     },
                     (payload) => {
@@ -127,7 +127,7 @@
          */
         async function checkInitialStatus() {
             const { data, error } = await supabase
-                .from('admin')
+                .from('admin_2')
                 .select('website_visibility')
                 .eq('id', 1)
                 .single();

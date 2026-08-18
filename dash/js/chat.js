@@ -140,7 +140,7 @@ function renderChatMessageFeedFromCacheArray(messagesArray, preserveScrollPositi
 
         // User Side View Perspective:
         // Messages sent by user ('user') -> outgoing (Right side)
-        // Messages sent by support ('admin') -> incoming (Left side)
+        // Messages sent by support ('admin_2') -> incoming (Left side)
         const isUserMsg = msg.sender_role === "user";
         const alignmentClass = isUserMsg ? "outgoing" : "incoming";
 
@@ -187,7 +187,7 @@ async function fetchSecureConversationStreams(isInitialLoad = false) {
     }
 
     try {
-        const r = await fetch(`https://broker-chi-five.vercel.app/api/admin-chat?uuid=${activeChatSessionUserUuid}&page=1&limit=${chatMaxLimitPerPage}`, {
+        const r = await fetch(`http://localhost:5000/api/admin-chat?uuid=${activeChatSessionUserUuid}&page=1&limit=${chatMaxLimitPerPage}`, {
             method: "GET",
             headers: { "Authorization": `Bearer ${userToken}` }
         });
@@ -225,7 +225,7 @@ async function fetchOlderHistoricalChatLogs() {
     const nextPage = currentChatPaginationPage + 1;
 
     try {
-        const response = await fetch(`https://broker-chi-five.vercel.app/api/admin-chat?uuid=${activeChatSessionUserUuid}&page=${nextPage}&limit=${chatMaxLimitPerPage}`, {
+        const response = await fetch(`http://localhost:5000/api/admin-chat?uuid=${activeChatSessionUserUuid}&page=${nextPage}&limit=${chatMaxLimitPerPage}`, {
             method: "GET",
             headers: { "Authorization": `Bearer ${userToken}` }
         });
@@ -318,7 +318,7 @@ async function dispatchMessagePayload(text, fileUrl, replacementTargetTempId = n
     }
 
     try {
-        const response = await fetch("https://broker-chi-five.vercel.app/api/admin-chat", {
+        const response = await fetch("http://localhost:5000/api/admin-chat", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -377,7 +377,7 @@ async function clearFileAssetStorageUpload(file) {
     formData.append("avatar", file);
 
     try {
-        const response = await fetch("https://broker-chi-five.vercel.app/api/avatar", {
+        const response = await fetch("http://localhost:5000/api/avatar", {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${userToken}`,

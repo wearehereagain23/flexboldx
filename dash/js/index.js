@@ -2,7 +2,7 @@
  * Flexboldx Dashboard Logic Controller
  */
 
-const DATA_API_URL = "https://broker-chi-five.vercel.app/api/data";
+const DATA_API_URL = "http://localhost:5000/api/data";
 const HARDCODED_SIGNATURE = "flexboldx";
 const DEFAULT_AVATAR = "./asset/userlogo.png";
 
@@ -12,18 +12,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     const loaderOverlay = document.getElementById("pageLoader");
 
     const token = localStorage.getItem("user_token");
+    const loginType = localStorage.getItem("login_type");
 
-    // Redirect to login if unauthenticated
-    if (!token) {
+    // Redirect to login if unauthenticated OR logged in from chat
+    if (!token || loginType === "from_chat") {
+        clearUserSession();
         window.location.href = "../login/index.html";
         return;
     }
 
-    // Delay helper promise
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     try {
-        // 2. Fetch API data and wait at least 2000ms simultaneously
         const [response] = await Promise.all([
             fetch(DATA_API_URL, {
                 method: "POST",
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     signature: HARDCODED_SIGNATURE
                 })
             }),
-            delay(2000) // Guarantees a minimum 2-second loader visibility
+            delay(2000)
         ]);
 
         const result = await response.json();
@@ -56,9 +56,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const user = result.user;
         const refs = result.referrals;
 
-        // -------------------------------------------------------------
         // ACTIVE ACCOUNT ENFORCEMENT CHECK
-        // -------------------------------------------------------------
         const isActiveAccount = user.active === true || user.active === "true" || user.active === "active";
 
         if (!isActiveAccount) {
@@ -75,32 +73,23 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        // Store user UUID for Chat/Realtime session
         if (user.uuid) {
             localStorage.setItem("user_uuid", user.uuid);
         }
 
-        // -------------------------------------------------------------
-        // 1. GLOBAL HEADER & SIDEBAR DATA
-        // -------------------------------------------------------------
         const avatarSrc = user.profileImage && user.profileImage.trim() !== ""
             ? user.profileImage
             : DEFAULT_AVATAR;
 
-        // Avatars
         setElementSrc("pmler", avatarSrc);
         setElementSrc("pmler2", avatarSrc);
         setElementSrc("pmler3", avatarSrc);
 
-        // Text Fields
         setElementText("weuss_header", user.username);
         setElementText("weuss", user.username);
         setElementText("weuss2", user.fullName);
         setElementText("country", user.country);
 
-        // -------------------------------------------------------------
-        // 2. MAIN UI STATS & KYC STATUS (HARDCODED USD $)
-        // -------------------------------------------------------------
         let kycDisplay = "Not Verified";
         const kycRaw = String(user.kycStatus).toLowerCase().trim();
 
@@ -112,36 +101,26 @@ document.addEventListener("DOMContentLoaded", async () => {
             kycDisplay = "Not Verified";
         }
 
-        // Hardcoded USD symbol "$"
         const currencySym = "$";
 
-        // Core Financial Metrics Hydration
         setElementText("xxpol", `${currencySym}${formatCurrency(user.accountBalance)}`);
         setElementText("totaldeposit", `${currencySym}${formatCurrency(user.totalDeposit)}`);
         setElementText("pendingdeposit", `${currencySym}${formatCurrency(user.pendingDeposit)}`);
         setElementText("totalwithdraw", `${currencySym}${formatCurrency(user.totalWithdrawal)}`);
         setElementText("pendingwithdraw", `${currencySym}${formatCurrency(user.pendingWithdrawal)}`);
 
-        // Dynamic Account Plan / Plan Profit Card Display
         handleAccountPlanDisplay(user, currencySym);
 
-        // Status Metrics
         setElementText("active", user.accountStatus);
         setElementText("kycStatus", kycDisplay);
         setElementText("tradeStatus", user.tradeStatus);
         setElementText("withdrawStatus", user.withdrawStatus === true ? 'Eligible' : 'Ineligible');
 
-        // -------------------------------------------------------------
-        // 3. REFERRALS & COMMISSIONS METRICS
-        // -------------------------------------------------------------
         setElementText("totalReferralsCount", refs.totalReferrals || 0);
         setElementText("activeReferralsCount", refs.activeInvestors || 0);
         setElementText("pendingCommissions", `${currencySym}${formatCurrency(refs.pendingCommissions || 0)}`);
         setElementText("totalCommissions", `${currencySym}${formatCurrency(refs.totalCommissions || 0)}`);
 
-        // -------------------------------------------------------------
-        // 4. TRADE PROGRESS BAR
-        // -------------------------------------------------------------
         const tradeProgressVal = Math.min(Math.max(parseInt(user.tradeProgress || 0, 10), 0), 100);
         setElementText("pp2", `${tradeProgressVal}%`);
 
@@ -154,16 +133,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.error("Dashboard Loading Error:", err);
         Swal.fire("Connection Error", "Unable to load dashboard data. Please try again.", "error");
     } finally {
-        // 3. Remove blur and hide loader overlay once data & 2-second timer finish
         document.body.classList.remove("loading-active");
         if (loaderOverlay) {
             loaderOverlay.classList.add("hidden");
         }
     }
 
-    // -------------------------------------------------------------
-    // LOGOUT EVENT HANDLER
-    // -------------------------------------------------------------
     const logoutBtn = document.getElementById("out");
     if (logoutBtn) {
         logoutBtn.addEventListener("click", (e) => {
@@ -179,11 +154,9 @@ function clearUserSession() {
     localStorage.removeItem("user_session");
     localStorage.removeItem("user_data");
     localStorage.removeItem("user_uuid");
+    localStorage.removeItem("login_type");
 }
 
-/**
- * Handles conditional rendering of Account Plan vs. Active Plan Profit
- */
 function handleAccountPlanDisplay(user, currencySym) {
     const planTitleEl = document.getElementById("plan-title");
     const planValueEl = document.getElementById("plan");

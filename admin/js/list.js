@@ -10,7 +10,7 @@ export let currentlySelectedAccountObj = null;
 
 // HARDCODED WORKSPACE SIGNATURE
 const HARDCODED_WORKSPACE_SIGNATURE = "flexboldx";
-const BASE_CHECK_ENDPOINT = "https://broker-chi-five.vercel.app/api/check";
+const BASE_CHECK_ENDPOINT = "http://localhost:5000/api/check";
 
 // ==========================================================================
 // CENTRALIZED SECURE SESSION SIGN-OUT PIPELINE
@@ -24,10 +24,8 @@ export function handleAdministrativeSignOut() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Immediately bind critical UI event triggers (Ensures Logout works even if API fails)
     bindStaticUIEventListeners();
 
-    // 2. Validate Authentication Token
     const adminToken = localStorage.getItem("admin_session_token");
     if (!adminToken) {
         console.warn("⚠️ No admin session token found in localStorage. Redirecting to login...");
@@ -35,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    // 3. Hydrate from Cache if available
     const localSavedCache = localStorage.getItem("admin_users_directory_cache");
     if (localSavedCache) {
         try {
@@ -48,12 +45,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // 4. Fetch live directory registry
     fetchUserDirectoryRegistry(adminToken).catch(err => {
         console.error("❌ Uncaught exception during fetch pipeline:", err);
     });
 
-    // 5. Enforce Administrative Agreement Routines
     enforceAdministrativeAgreementRoutines();
 });
 
@@ -62,18 +57,14 @@ function bindStaticUIEventListeners() {
         try { window.lucide.createIcons(); } catch (e) { console.warn("Lucide render warning:", e); }
     }
 
-    // Global Logout Trigger
     const logoutActionTrigger = document.getElementById("system-logout-trigger");
     if (logoutActionTrigger) {
         logoutActionTrigger.addEventListener("click", (e) => {
             e.preventDefault();
             handleAdministrativeSignOut();
         });
-    } else {
-        console.warn("⚠️ Warning: Element #system-logout-trigger was not found in the DOM.");
     }
 
-    // Search Filter Input
     const searchFilterInput = document.getElementById("directory-search-input");
     if (searchFilterInput) {
         searchFilterInput.addEventListener("input", (e) => {
@@ -81,7 +72,6 @@ function bindStaticUIEventListeners() {
         });
     }
 
-    // Header Mobile Navigation Triggers
     const chatHeaderNavigationTrigger = document.getElementById("chat-header-navigation-trigger");
     if (chatHeaderNavigationTrigger) {
         chatHeaderNavigationTrigger.addEventListener("click", (e) => {
@@ -123,7 +113,6 @@ function bindStaticUIEventListeners() {
         });
     }
 
-    // Sidebar & Navigation Tabs
     document.querySelectorAll(".sidebar-navigation-anchor-links, .tab-trigger-element, .account-pills .nav-link, .whatsapp-menu-item-link").forEach(tabAnchor => {
         tabAnchor.addEventListener("click", (e) => {
             if (tabAnchor.tagName === "A" || tabAnchor.classList.contains("nav-link")) {
@@ -162,20 +151,16 @@ function bindStaticUIEventListeners() {
                 chatPane.classList.remove("mobile-active-view-pane");
             }
 
-            // Reset selected user styling if desired
             document.querySelectorAll(".user-stream-item-card").forEach(c => c.classList.remove("is-active-card"));
         });
     }
 }
 
-// ==========================================================================
-// PULLS USER REGISTRY VIA API ROUTE
-// ==========================================================================
 export async function fetchUserDirectoryRegistry(bearerTokenString) {
     const streamTargetNode = document.getElementById("user-stream-target");
 
     try {
-        const response = await fetch("https://broker-chi-five.vercel.app/api/admin-users", {
+        const response = await fetch("http://localhost:5000/api/admin-users", {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${bearerTokenString}`,
@@ -229,13 +214,9 @@ export async function fetchUserDirectoryRegistry(bearerTokenString) {
     }
 }
 
-// Safe renderer function aligned to PostgreSQL Schema
 function hydrateUserStreamInterface(targetAccountsList) {
     const streamTargetNode = document.getElementById("user-stream-target");
-    if (!streamTargetNode) {
-        console.error("❌ Target DOM element #user-stream-target missing from HTML layout.");
-        return;
-    }
+    if (!streamTargetNode) return;
 
     streamTargetNode.innerHTML = "";
 
@@ -268,7 +249,7 @@ function hydrateUserStreamInterface(targetAccountsList) {
                 maximumFractionDigits: 2
             });
 
-            const currencySymbol = account.currency || "$";
+            const currencySymbol = "$";
             const calculatedBalanceName = `${currencySymbol}${formattedNumericValue}`;
 
             const userPlan = account.plan || "No Active Plan";
@@ -301,7 +282,7 @@ function hydrateUserStreamInterface(targetAccountsList) {
     });
 
     if (window.lucide) {
-        try { window.lucide.createIcons(); } catch (e) { /* ignore lucide errors */ }
+        try { window.lucide.createIcons(); } catch (e) { }
     }
 }
 
@@ -409,7 +390,7 @@ function executeRegistrySearchFilter(searchQueryString) {
 // INACTIVITY & TAB VISIBILITY MONITORING (5-MINUTE AUTO LOGOUT)
 // =========================================================================
 (() => {
-    const INACTIVITY_LIMIT_MS = 5 * 60 * 1000; // 5 minutes in milliseconds
+    const INACTIVITY_LIMIT_MS = 5 * 60 * 1000;
     let inactivityTimer = null;
 
     const performLogout = () => {

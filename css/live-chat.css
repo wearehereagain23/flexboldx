@@ -1,0 +1,227 @@
+/* Component Root Reset & Isolation */
+.lc-widget-launcher-wrapper,
+.lc-widget-drawer,
+.lc-widget-drawer-overlay,
+.lc-widget-drawer * {
+    box-sizing: border-box !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+    line-height: normal;
+    margin: 0;
+    padding: 0;
+}
+
+/* Create an isolated stacking context for widget elements */
+.lc-widget-launcher-wrapper,
+.lc-widget-drawer-overlay,
+.lc-widget-drawer {
+    position: fixed !important;
+    isolation: isolate !important;
+}
+
+/* Launcher Wrapper */
+.lc-widget-launcher-wrapper {
+    bottom: 20px;
+    right: 20px;
+    z-index: 2147483647 !important;
+}
+
+/* Bubble Trigger */
+.lc-widget-bubble-launcher {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #1f263f;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+/* Toaster Popup */
+.lc-widget-toaster-popup {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    background: #ffffff;
+    color: #333333;
+    padding: 12px 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.lc-widget-toaster-close-btn {
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #888888;
+}
+
+/* Drawer & Overlay */
+.lc-widget-drawer-overlay {
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 2147483646 !important;
+    display: none;
+}
+
+.lc-widget-drawer {
+    top: 0;
+    right: -400px;
+    width: 380px;
+    height: 100vh;
+    background: #ffffff;
+    z-index: 2147483647 !important;
+    box-shadow: -2px 0 12px rgba(0, 0, 0, 0.1);
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+    .lc-widget-drawer {
+        width: 100vw;
+        right: -100vw;
+    }
+}
+
+.lc-widget-drawer.active {
+    right: 0;
+}
+
+/* Drawer Header */
+.lc-widget-drawer-header {
+    padding: 16px;
+    background: #1f263f;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lc-widget-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.lc-widget-action-btn {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+/* Feed Container */
+.lc-widget-feed-container {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    background: #f9f9f9;
+}
+
+/* Footer & Inputs */
+.lc-widget-drawer-footer {
+    padding: 12px;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffffff;
+}
+
+.lc-widget-input-field {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid #cccccc;
+    border-radius: 20px;
+    outline: none;
+    font-size: 14px;
+    color: #000000;
+}
+
+.lc-widget-tool-btn,
+.lc-widget-send-btn {
+    background: #1f263f;
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* Message Items Layout */
+.lc-widget-feed-container .lc-message-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+    width: 100%;
+}
+
+/* Sender/User Messages (Right Side) */
+.lc-widget-feed-container .lc-message-item.sent {
+    align-items: flex-end;
+}
+
+.lc-widget-feed-container .lc-message-item.sent .lc-message-bubble {
+    background-color: #1f263f !important;
+    color: #ffffff !important;
+    max-width: 75%;
+    padding: 10px 14px;
+    border-radius: 12px 12px 0px 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.lc-widget-feed-container .lc-message-item.sent .lc-message-bubble p {
+    color: #ffffff !important;
+    font-size: 14px;
+}
+
+.lc-widget-feed-container .lc-message-item.sent .lc-message-time {
+    color: #e2e8f0 !important;
+    font-size: 10px;
+    text-align: right;
+    margin-top: 4px;
+}
+
+/* Receiver/Admin Messages (Left Side) */
+.lc-widget-feed-container .lc-message-item.received {
+    align-items: flex-start;
+}
+
+.lc-widget-feed-container .lc-message-item.received .lc-message-bubble {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #e2e8f0;
+    max-width: 75%;
+    padding: 10px 14px;
+    border-radius: 12px 12px 12px 0px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.lc-widget-feed-container .lc-message-item.received .lc-message-bubble p {
+    color: #000000 !important;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.lc-widget-feed-container .lc-message-item.received .lc-message-time {
+    color: #475569 !important;
+    font-size: 10px;
+    text-align: right;
+    margin-top: 4px;
+}

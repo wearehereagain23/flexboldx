@@ -1,13 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const API_BASE = window.API_BASE || "https://broker-chi-five.vercel.app/api";
+    const API_BASE = window.API_BASE || "http://localhost:5000/api";
 
-    // Helper to get platform/tenant signature
-    function getStoredSignature() {
-        return localStorage.getItem("signature") ||
-            localStorage.getItem("broker_signature") ||
-            window.SIGNATURE ||
-            "default";
-    }
+    // Hardcoded tenant signature
+    const HARDCODED_SIGNATURE = "flexboldx";
 
     function getStoredEmail() {
         let email = localStorage.getItem("email") ||
@@ -119,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return Swal.fire("Session Expired", "Please log in again to perform this action.", "error");
         }
 
-        const currentPin = document.getElementById("currentPin").value;
+        const currentPassword = document.getElementById("currentPasswordPin").value;
         const newPin = document.getElementById("newPin").value;
         const confirmPin = document.getElementById("confirmPin").value;
 
@@ -137,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
                 body: JSON.stringify({
                     action: "change_pin",
-                    currentPin,
+                    currentPassword,
                     newPin
                 })
             });
@@ -161,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
 
         const activeEmail = getStoredEmail();
-        const activeSignature = getStoredSignature();
+        const activeSignature = HARDCODED_SIGNATURE;
 
         if (!activeEmail) {
             return Swal.fire("Error", "Email address not found in active session.", "error");

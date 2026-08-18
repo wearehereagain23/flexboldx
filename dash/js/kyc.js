@@ -1,7 +1,7 @@
 (() => {
     // Local scope variables (prevents redeclaration errors)
-    const DATA_API_URL = "https://broker-chi-five.vercel.app/api/data";
-    const KYC_API_URL = "https://broker-chi-five.vercel.app/api/kyc/submit-kyc";
+    const DATA_API_URL = "http://localhost:5000/api/data";
+    const KYC_API_URL = "http://localhost:5000/api/kyc/submit-kyc";
     const HARDCODED_SIGNATURE = "flexboldx";
 
     document.addEventListener("DOMContentLoaded", async () => {

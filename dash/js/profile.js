@@ -2,7 +2,7 @@
  * Profile Page Logic
  */
 document.addEventListener("DOMContentLoaded", async () => {
-    const PROFILE_API_URL = window.PROFILE_API_URL || "https://broker-chi-five.vercel.app/api/profile";
+    const PROFILE_API_URL = window.PROFILE_API_URL || "http://localhost:5000/api/profile";
     const token = localStorage.getItem("user_token");
 
     if (!token) {

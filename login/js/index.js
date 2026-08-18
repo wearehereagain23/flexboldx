@@ -1,5 +1,5 @@
 // Dynamic Base API URL Detection
-const API_BASE = "https://broker-chi-five.vercel.app/api";
+const API_BASE = "http://localhost:5000/api";
 
 const LOGIN_API_URL = `${API_BASE}/login-user`;
 const FORGOT_API_URL = `${API_BASE}/forgot-password`;
@@ -54,6 +54,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 localStorage.setItem("user_session", JSON.stringify({ token: result.token, uuid: result.user?.uuid, email: result.user?.email }));
                 localStorage.setItem("user_token", result.token);
                 localStorage.setItem("user_data", JSON.stringify(result.user));
+
+                // Explicitly state full login from the official login page
+                localStorage.setItem("login_type", "from_login_page");
 
                 Swal.fire({
                     icon: "success",

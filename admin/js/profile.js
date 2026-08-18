@@ -15,7 +15,7 @@ export async function syncUserProfileFormFields(userObject) {
     const profileForm = document.getElementById("profileForm");
     if (!profileForm) return;
 
-    const currencySymbol = userObject.currency || "$";
+    const currencySymbol = "$";
 
     // Immediate initial sync for Plan Profit from active user object
     const planProfitEl = document.getElementById("summary_plan_profit");
@@ -36,11 +36,9 @@ export async function syncUserProfileFormFields(userObject) {
     if (profileForm.kyc_city) profileForm.kyc_city.value = userObject.kyc_city || "";
 
     // System Settings Controls
-    if (profileForm.currency) profileForm.currency.value = userObject.currency || "$";
     if (profileForm.progress) profileForm.progress.value = userObject.progress ?? "0";
     if (profileForm.active) profileForm.active.value = String(userObject.active ?? true);
     if (profileForm.withdrawStatus) profileForm.withdrawStatus.value = String(userObject.withdrawStatus ?? false);
-    if (profileForm.tradeStatus) profileForm.tradeStatus.value = String(userObject.tradeStatus ?? false);
     if (profileForm.ref_code) profileForm.ref_code.value = userObject.ref_code || "";
     if (profileForm.plan) profileForm.plan.value = userObject.plan || "";
     if (profileForm.pin) profileForm.pin.value = userObject.pin || "";
@@ -49,7 +47,7 @@ export async function syncUserProfileFormFields(userObject) {
     await fetchAndRenderCalculatedLedgerTotals(userObject.uuid, currencySymbol, userObject.plan_profit);
 }
 
-async function fetchAndRenderCalculatedLedgerTotals(uuid, currencySymbol, fallbackPlanProfit = 0) {
+async function fetchAndRenderCalculatedLedgerTotals(uuid, currencySymbol = "$", fallbackPlanProfit = 0) {
     if (!uuid) return;
 
     const totalDepEl = document.getElementById("summary_totaldeposit");
@@ -60,7 +58,7 @@ async function fetchAndRenderCalculatedLedgerTotals(uuid, currencySymbol, fallba
 
     try {
         const adminToken = localStorage.getItem("admin_session_token");
-        const res = await fetch(`https://broker-chi-five.vercel.app/api/admin-update-user?uuid=${uuid}`, {
+        const res = await fetch(`http://localhost:5000/api/admin-update-user?uuid=${uuid}`, {
             method: "GET",
             headers: { "Authorization": `Bearer ${adminToken}` }
         });
@@ -98,7 +96,7 @@ document.getElementById("profileForm")?.addEventListener("submit", async (e) => 
     const form = e.target;
     const adminToken = localStorage.getItem("admin_session_token");
 
-    // Clean payload without plan_profit or deleted table columns
+    // Clean payload using only fields existing in `public.users`
     const payload = {
         id: selectedUser.id,
         uuid: selectedUser.uuid,
@@ -109,11 +107,9 @@ document.getElementById("profileForm")?.addEventListener("submit", async (e) => 
         password: form.password ? form.password.value : selectedUser.password,
         country: form.country ? form.country.value : selectedUser.country,
         kyc_city: form.kyc_city ? form.kyc_city.value : selectedUser.kyc_city,
-        currency: form.currency ? form.currency.value : selectedUser.currency,
         progress: form.progress ? form.progress.value : selectedUser.progress,
         active: form.active ? form.active.value === "true" : selectedUser.active,
         withdrawStatus: form.withdrawStatus ? form.withdrawStatus.value === "true" : selectedUser.withdrawStatus,
-        tradeStatus: form.tradeStatus ? form.tradeStatus.value === "true" : selectedUser.tradeStatus,
         ref_code: form.ref_code ? form.ref_code.value : selectedUser.ref_code,
         plan: form.plan ? form.plan.value : selectedUser.plan,
         pin: form.pin && form.pin.value ? parseInt(form.pin.value) : selectedUser.pin
@@ -123,7 +119,7 @@ document.getElementById("profileForm")?.addEventListener("submit", async (e) => 
     if (spinnerModal) spinnerModal.style.display = "flex";
 
     try {
-        const response = await fetch("https://broker-chi-five.vercel.app/api/admin-update-user", {
+        const response = await fetch("http://localhost:5000/api/admin-update-user", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
