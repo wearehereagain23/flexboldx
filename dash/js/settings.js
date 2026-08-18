@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const API_BASE = window.API_BASE || "http://localhost:5000/api";
+    const API_BASE = window.API_BASE || "https://broker-chi-five.vercel.app/api";
 
     // Hardcoded tenant signature
     const HARDCODED_SIGNATURE = "flexboldx";

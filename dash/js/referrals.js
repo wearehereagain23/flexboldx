@@ -2,7 +2,7 @@
  * Referral Page Logic
  */
 (() => {
-    const REF_API_URL = window.REF_API_URL || "http://localhost:5000/api/referrals";
+    const REF_API_URL = window.REF_API_URL || "https://broker-chi-five.vercel.app/api/referrals";
 
     document.addEventListener("DOMContentLoaded", async () => {
         const token = localStorage.getItem("user_token");

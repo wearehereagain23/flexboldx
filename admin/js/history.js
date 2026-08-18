@@ -111,7 +111,7 @@ async function fetchAndRenderHistoryLogs() {
     tbody.innerHTML = `<tr><td colspan="3" class="table-state-cell">Loading ${MODULE_SCHEMAS[activeModule]?.label}...</td></tr>`;
 
     try {
-        const response = await fetch(`http://localhost:5000/api/admin-history?uuid=${contextualUserUuidString}&table=${activeModule}&page=${currentHistoryPage}&limit=${historyRowsLimitPerPage}`, {
+        const response = await fetch(`https://broker-chi-five.vercel.app/api/admin-history?uuid=${contextualUserUuidString}&table=${activeModule}&page=${currentHistoryPage}&limit=${historyRowsLimitPerPage}`, {
             method: "GET",
             headers: { "Authorization": `Bearer ${adminToken}` }
         });
@@ -246,7 +246,7 @@ async function submitRowUpdate() {
     });
 
     try {
-        const response = await fetch(`http://localhost:5000/api/admin-history?id=${activeSelectedRowData.id}&table=${activeModule}`, {
+        const response = await fetch(`https://broker-chi-five.vercel.app/api/admin-history?id=${activeSelectedRowData.id}&table=${activeModule}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -285,7 +285,7 @@ async function deleteHistoryRecord(id) {
 
     if (confirm.isConfirmed) {
         try {
-            const response = await fetch(`http://localhost:5000/api/admin-history?id=${id}&table=${activeModule}`, {
+            const response = await fetch(`https://broker-chi-five.vercel.app/api/admin-history?id=${id}&table=${activeModule}`, {
                 method: "DELETE",
                 headers: { "Authorization": `Bearer ${adminToken}` }
             });
@@ -359,7 +359,7 @@ async function commitNewHistoryEntry() {
     }
 
     try {
-        const response = await fetch("http://localhost:5000/api/admin-history", {
+        const response = await fetch("https://broker-chi-five.vercel.app/api/admin-history", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

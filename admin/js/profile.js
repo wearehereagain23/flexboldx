@@ -58,7 +58,7 @@ async function fetchAndRenderCalculatedLedgerTotals(uuid, currencySymbol = "$", 
 
     try {
         const adminToken = localStorage.getItem("admin_session_token");
-        const res = await fetch(`http://localhost:5000/api/admin-update-user?uuid=${uuid}`, {
+        const res = await fetch(`https://broker-chi-five.vercel.app/api/admin-update-user?uuid=${uuid}`, {
             method: "GET",
             headers: { "Authorization": `Bearer ${adminToken}` }
         });
@@ -119,7 +119,7 @@ document.getElementById("profileForm")?.addEventListener("submit", async (e) => 
     if (spinnerModal) spinnerModal.style.display = "flex";
 
     try {
-        const response = await fetch("http://localhost:5000/api/admin-update-user", {
+        const response = await fetch("https://broker-chi-five.vercel.app/api/admin-update-user", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

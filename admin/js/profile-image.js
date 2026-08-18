@@ -75,7 +75,7 @@ function triggerNativeFileUploaderSequence(account) {
 
 async function executeAvatarNetworkAction(account, fileObject, streamActionType) {
     const adminToken = localStorage.getItem("admin_session_token");
-    const targetUrl = "http://localhost:5000/api/avatar";
+    const targetUrl = "https://broker-chi-five.vercel.app/api/avatar";
 
     const headers = {
         "Authorization": `Bearer ${adminToken}`,
@@ -115,7 +115,7 @@ async function executeAvatarNetworkAction(account, fileObject, streamActionType)
             account.profileImage = finalImage;
 
             // FIX 2: Pass full user object or ensure active defaults to true
-            const dbSyncResponse = await fetch("http://localhost:5000/api/admin-update-user", {
+            const dbSyncResponse = await fetch("https://broker-chi-five.vercel.app/api/admin-update-user", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

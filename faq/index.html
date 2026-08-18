@@ -1581,7 +1581,7 @@
       const HARDCODED_SIGNATURE = "flexboldx";
 
       try {
-        const response = await fetch(`http://localhost:5000/api/check?signature=${encodeURIComponent(HARDCODED_SIGNATURE)}`);
+        const response = await fetch(`https://broker-chi-five.vercel.app/api/check?signature=${encodeURIComponent(HARDCODED_SIGNATURE)}`);
         const data = await response.json();
 
         if (!data.success) return;

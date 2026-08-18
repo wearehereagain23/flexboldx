@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let inactivityTimer = null;
 
     // API Configuration
-    const API_BASE = "http://localhost:5000/api";
+    const API_BASE = "https://broker-chi-five.vercel.app/api";
     const CHAT_LIMIT = 20;
 
     // Chat State Tracking

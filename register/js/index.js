@@ -2,7 +2,7 @@
  * Flexboldx Registration Logic & API Integration
  */
 
-const API_BASE_URL = "http://localhost:5000/api/register-user";
+const API_BASE_URL = "https://broker-chi-five.vercel.app/api/register-user";
 const APP_SIGNATURE = "flexboldx";
 
 document.addEventListener("DOMContentLoaded", () => {

@@ -1,5 +1,5 @@
 // Dynamic Base API URL Detection
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = "https://broker-chi-five.vercel.app/api";
 
 const LOGIN_API_URL = `${API_BASE}/login-user`;
 const FORGOT_API_URL = `${API_BASE}/forgot-password`;

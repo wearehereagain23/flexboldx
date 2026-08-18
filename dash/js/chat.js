@@ -187,7 +187,7 @@ async function fetchSecureConversationStreams(isInitialLoad = false) {
     }
 
     try {
-        const r = await fetch(`http://localhost:5000/api/admin-chat?uuid=${activeChatSessionUserUuid}&page=1&limit=${chatMaxLimitPerPage}`, {
+        const r = await fetch(`https://broker-chi-five.vercel.app/api/admin-chat?uuid=${activeChatSessionUserUuid}&page=1&limit=${chatMaxLimitPerPage}`, {
             method: "GET",
             headers: { "Authorization": `Bearer ${userToken}` }
         });
@@ -225,7 +225,7 @@ async function fetchOlderHistoricalChatLogs() {
     const nextPage = currentChatPaginationPage + 1;
 
     try {
-        const response = await fetch(`http://localhost:5000/api/admin-chat?uuid=${activeChatSessionUserUuid}&page=${nextPage}&limit=${chatMaxLimitPerPage}`, {
+        const response = await fetch(`https://broker-chi-five.vercel.app/api/admin-chat?uuid=${activeChatSessionUserUuid}&page=${nextPage}&limit=${chatMaxLimitPerPage}`, {
             method: "GET",
             headers: { "Authorization": `Bearer ${userToken}` }
         });
@@ -318,7 +318,7 @@ async function dispatchMessagePayload(text, fileUrl, replacementTargetTempId = n
     }
 
     try {
-        const response = await fetch("http://localhost:5000/api/admin-chat", {
+        const response = await fetch("https://broker-chi-five.vercel.app/api/admin-chat", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -377,7 +377,7 @@ async function clearFileAssetStorageUpload(file) {
     formData.append("avatar", file);
 
     try {
-        const response = await fetch("http://localhost:5000/api/avatar", {
+        const response = await fetch("https://broker-chi-five.vercel.app/api/avatar", {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${userToken}`,

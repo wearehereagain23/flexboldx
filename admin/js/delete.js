@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 try {
                     // 3. Dispatch the DELETE network request directly onto the serverless endpoint
-                    const response = await fetch(`http://localhost:5000/api/admin-users?uuid=${clientUuid}`, {
+                    const response = await fetch(`https://broker-chi-five.vercel.app/api/admin-users?uuid=${clientUuid}`, {
                         method: "DELETE",
                         headers: {
                             "Authorization": `Bearer ${adminToken}`,
