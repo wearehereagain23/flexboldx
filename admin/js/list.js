@@ -545,14 +545,22 @@ function triggerLegalAgreementModalDialog() {
 }
 
 // =========================================================================
-// MOBILE BACK BUTTON NAVIGATION INTERCEPTOR & WARNING MODAL
+// MOBILE & DESKTOP ROBUST BACK-BUTTON INTERCEPTOR
 // =========================================================================
 document.addEventListener("DOMContentLoaded", () => {
-    // Push a dummy state to trap the first back button click
+    // 1. Ensure a hash exists to anchor mobile browser history stacks
+    if (!window.location.hash.includes("#dashboard")) {
+        window.location.hash = "#dashboard";
+    }
+
+    // 2. Push state to lock the history entry
     history.pushState({ page: "dashboard_active" }, "", window.location.href);
 
     window.addEventListener("popstate", (event) => {
-        // Immediately push another state to lock the user on the page until they choose an option
+        // Re-lock the history stack immediately to prevent escape
+        if (!window.location.hash.includes("#dashboard")) {
+            window.location.hash = "#dashboard";
+        }
         history.pushState({ page: "dashboard_active" }, "", window.location.href);
 
         if (typeof Swal !== "undefined") {
@@ -565,25 +573,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 confirmButtonText: "Logout",
                 denyButtonText: "Back to List",
                 cancelButtonText: "Cancel",
-                confirmButtonColor: "#dc2626", // Red for logout
-                denyButtonColor: "#3b82f6",    // Blue for refresh/back to list
-                cancelButtonColor: "#64748b",  // Slate for cancel
+                confirmButtonColor: "#dc2626",
+                denyButtonColor: "#3b82f6",
+                cancelButtonColor: "#64748b",
                 allowOutsideClick: true,
                 allowEscapeKey: true
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Option 1: Logout
+                    // Option 1: Logout (Clear session & send back to login)
                     handleAdministrativeSignOut();
                 } else if (result.isDenied) {
-                    // Option 2: Back to list / Refresh page state
+                    // Option 2: Back to list / Refresh view
                     window.location.reload();
                 } else {
-                    // Option 3: Cancel (Modal closes automatically via 'Cancel' or 'X' icon)
-                    console.log("Navigation attempt cancelled by administrator.");
+                    // Option 3: Cancel (Modal closes normally)
+                    console.log("Navigation cancelled.");
                 }
             });
         } else {
-            // Fallback if SweetAlert isn't loaded
             handleAdministrativeSignOut();
         }
     });
