@@ -595,7 +595,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (elements.textField) {
         elements.textField.addEventListener('keydown', (e) => {
             resetInactivityTimer();
-            if (e.key === 'Enter') {
+            // Send on Enter without Shift key, allow new line with Shift + Enter
+            if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
                 handleSend();
             }

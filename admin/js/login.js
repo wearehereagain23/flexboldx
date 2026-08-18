@@ -91,6 +91,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 // 🔑 Check/Generate unique device ID without overwriting an existing one
                 initializeAdminDeviceId();
 
+                // Reset the form fields cleanly after success
+                authFormPipeline.reset();
+
                 Swal.fire({
                     title: "Terminal Authorized",
                     text: "Access credentials verified. Instantiating dashboard console environment...",
@@ -99,7 +102,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     showConfirmButton: false,
                     allowOutsideClick: false
                 }).then(() => {
-                    window.location.href = "list.html";
+                    // Open the dashboard console in a new browser tab
+                    window.open("list.html", "_blank");
                 });
 
             } catch (networkProcessingFaultError) {

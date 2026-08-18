@@ -327,6 +327,37 @@
         </main>
     </div>
 
+    <!-- Slide-in Chat UI Panel -->
+    <div class="chat-drawer-overlay" id="chatDrawerOverlay"></div>
+    <div class="chat-drawer" id="chatDrawer">
+        <div class="chat-drawer-header">
+            <div class="chat-title">
+                <i data-lucide="message-square"></i>
+                <span>Support Channel</span>
+            </div>
+            <div class="chat-header-actions">
+                <button type="button" id="closeChatDrawerBtn" class="chat-action-btn" title="Close Chat">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="chat-feed-container" id="chat-message-feed">
+            <!-- Dynamically Hydrated by chat.js -->
+        </div>
+
+        <div class="chat-drawer-footer">
+            <input type="file" id="chat-image-attachment-input" style="display: none;" accept="image/*">
+            <button type="button" id="chat-attachment-trigger-btn" class="chat-tool-btn" title="Attach Document/Image">
+                <i data-lucide="paperclip"></i>
+            </button>
+            <textarea id="chat-terminal-text-field" class="chat-input-field" placeholder="Type a message..."></textarea>
+            <button type="button" id="chat-send-message-btn" class="btn-primary chat-send-btn">
+                <i data-lucide="send"></i>
+            </button>
+        </div>
+    </div>
+
     <nav class="bottom-app-bar">
         <a href="./index.html" class="nav-item">
             <i class="material-icons">home</i>
@@ -352,8 +383,8 @@
 
     <!-- Custom JS Scripts -->
     <script src="./js/theme.js"></script>
-    <script src="./js/index.js"></script>
     <script src="./js/invest.js"></script>
+    <script src="./js/index.js"></script>
 
     <!-- Chat Drawer Controller Script -->
     <script type="module">

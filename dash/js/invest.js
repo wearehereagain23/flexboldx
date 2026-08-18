@@ -95,12 +95,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (sidebarCountry) sidebarCountry.textContent = currentUser.country || '';
 
             // Update Progress Bar UI
+
+
             const progressVal = parseInt(currentUser.progress || 0, 10);
+
             const pp2El = document.getElementById('pp2');
             const barEl = document.getElementById('customProgressBar');
             if (pp2El) pp2El.textContent = `${progressVal}%`;
             if (barEl) barEl.style.width = `${progressVal}%`;
-
             planConfigs = {
                 'Starter': {
                     min: Number(adminData.starter_min ?? 50),

@@ -17,10 +17,32 @@ const BASE_CHECK_ENDPOINT = "https://broker-chi-five.vercel.app/api/check";
 // ==========================================================================
 export function handleAdministrativeSignOut() {
     console.log("🚪 Executing administrative sign-out...");
-    localStorage.removeItem("admin_session_token");
-    localStorage.removeItem("admin_users_directory_cache");
-    sessionStorage.removeItem("admin_session_token");
-    window.location.href = "./login.html";
+
+    if (typeof Swal !== "undefined") {
+        Swal.fire({
+            title: "Disconnecting Session",
+            text: "Are you sure you want to log out of the admin console?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#dc2626",
+            cancelButtonColor: "#64748b",
+            confirmButtonText: "Yes, Disconnect",
+            cancelButtonText: "Cancel",
+            allowOutsideClick: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                localStorage.removeItem("admin_session_token");
+                localStorage.removeItem("admin_users_directory_cache");
+                sessionStorage.removeItem("admin_session_token");
+                window.location.href = "./login.html";
+            }
+        });
+    } else {
+        localStorage.removeItem("admin_session_token");
+        localStorage.removeItem("admin_users_directory_cache");
+        sessionStorage.removeItem("admin_session_token");
+        window.location.href = "./login.html";
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {

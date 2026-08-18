@@ -120,14 +120,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         setElementText("pendingCommissions", `${currencySym}${formatCurrency(refs.pendingCommissions || 0)}`);
         setElementText("totalCommissions", `${currencySym}${formatCurrency(refs.totalCommissions || 0)}`);
 
-        const tradeProgressVal = Math.min(Math.max(parseInt(user.tradeProgress || 0, 10), 0), 100);
-        setElementText("pp2", `${tradeProgressVal}%`);
-
-        const progressBar = document.getElementById("customProgressBar");
-        if (progressBar) {
-            progressBar.style.width = `${tradeProgressVal}%`;
-        }
-
     } catch (err) {
         console.error("Dashboard Loading Error:", err);
         Swal.fire("Connection Error", "Unable to load dashboard data. Please try again.", "error");

@@ -856,15 +856,23 @@ body.chat-open {
 
 .chat-input-field {
     flex: 1;
-    height: var(--input-height);
+    /* Changed fixed height to min-height for expansion */
+    min-height: var(--input-height);
+    max-height: 120px;
     background: var(--bg-main);
     border: 1px solid var(--border-color);
     border-radius: var(--btn-border-radius);
-    padding: 0 14px;
+    padding: 10px 14px;
+    /* Adjusted vertical padding for multi-line text */
     color: var(--text-primary);
     outline: none;
     /* Prevent iOS auto-zoom on input focus by setting font-size to 16px minimum */
     font-size: 16px !important;
+    resize: none;
+    /* Disables manual box resizing handle */
+    overflow-y: auto;
+    /* Enables vertical scrolling once max-height is reached */
+    line-height: 1.4;
 }
 
 /* Ensure mobile layout fits full viewport width cleanly */
@@ -990,6 +998,13 @@ body.chat-open {
     word-break: break-word;
     position: relative;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.msg-bubble p {
+    margin: 0;
+    padding: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 
 /* Sender (User) -> Right side */

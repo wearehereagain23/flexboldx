@@ -201,6 +201,9 @@
 .lc-widget-feed-container .lc-message-item.sent .lc-message-bubble p {
     color: #ffffff !important;
     font-size: 14px;
+    white-space: pre-wrap;
+    /* Preserves newlines and spaces */
+    word-break: break-word;
 }
 
 .lc-widget-feed-container .lc-message-item.sent .lc-message-time {
@@ -229,6 +232,9 @@
     color: #000000 !important;
     font-weight: 500;
     font-size: 14px;
+    white-space: pre-wrap;
+    /* Preserves newlines and spaces */
+    word-break: break-word;
 }
 
 .lc-widget-feed-container .lc-message-item.received .lc-message-time {

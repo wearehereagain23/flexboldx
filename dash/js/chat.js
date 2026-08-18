@@ -48,6 +48,33 @@ export function setupSecureChatChannel(userUuid) {
     const hiddenFile = document.getElementById("chat-image-attachment-input");
     const feedElementContainer = document.getElementById("chat-message-feed");
 
+
+    // Auto-resize functionality while typing
+    textInput.addEventListener("input", () => {
+        textInput.style.height = "auto";
+        textInput.style.height = `${Math.min(textInput.scrollHeight, 120)}px`;
+    });
+
+    // Handle pressing Enter to send (Shift + Enter creates a new line)
+    textInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            sendBtn.click();
+        }
+    });
+
+    sendBtn.onclick = async () => {
+        const text = textInput.value.trim();
+        if (!text) return;
+
+        textInput.value = "";
+        textInput.style.height = "auto"; // 🚀 Resets textarea height back to default after sending
+
+        const temporaryMessageId = `temp_msg_${Date.now()}`;
+        injectOptimisticChatBubbleNode(text, null, temporaryMessageId);
+        await dispatchMessagePayload(text, null, temporaryMessageId);
+    };
+
     if (!activeChatSessionUserUuid) {
         console.error("🔒 Cannot initialize chat: User UUID is missing from session.");
         return;
