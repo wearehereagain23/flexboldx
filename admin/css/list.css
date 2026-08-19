@@ -811,6 +811,7 @@ body {
         overflow: hidden;
         width: 100vw;
         height: 100vh;
+        height: 100dvh;
     }
 
     /* 🚀 FIXED: Sidebar fills entire screen and structures contents via Flexbox */
@@ -822,19 +823,24 @@ body {
         left: 0;
         top: 0;
         height: 100% !important;
+        height: 100dvh !important;
         display: flex !important;
         flex-direction: column !important;
+        overflow: hidden;
+        /* Prevents outer leakage */
     }
 
     /* List element stretches out correctly between headers and absolute footer row */
     .directory-scroll-container {
-        flex: 1 !important;
+        flex: 1 1 auto !important;
         overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
     }
 
-    /* Logout container remains securely fixed to the absolute viewport baseline */
+    /* Logout container remains securely pinned at the bottom baseline */
     .sidebar-footer-deck {
         width: 100%;
+        flex-shrink: 0;
         position: relative;
         bottom: 0;
         left: 0;
