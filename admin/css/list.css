@@ -803,15 +803,17 @@ body {
    8. RESPONSIVE CONTEXT MANAGEMENT (Mobile Viewport Structural Rules)
    ========================================================================== */
 @media (max-width: 768px) {
+
+    /* Stack components and force viewport safety layers */
     .admin-app-layout {
         display: block;
         position: relative;
         overflow: hidden;
         width: 100vw;
         height: 100vh;
-        height: 100dvh;
     }
 
+    /* 🚀 FIXED: Sidebar fills entire screen and structures contents via Flexbox */
     .directory-sidebar {
         width: 100% !important;
         max-width: none;
@@ -820,26 +822,48 @@ body {
         left: 0;
         top: 0;
         height: 100% !important;
-        height: 100dvh !important;
         display: flex !important;
         flex-direction: column !important;
     }
 
+    /* List element stretches out correctly between headers and absolute footer row */
     .directory-scroll-container {
         flex: 1 !important;
         overflow-y: auto !important;
-        /* Ensures the last item scrolls fully above the footer deck */
-        padding-bottom: 20px;
     }
 
+    /* Logout container remains securely fixed to the absolute viewport baseline */
     .sidebar-footer-deck {
         width: 100%;
         position: relative;
         bottom: 0;
         left: 0;
         z-index: 20;
-        /* Adds support for iOS home indicator notch padding */
-        padding-bottom: env(safe-area-inset-bottom, 12px);
+    }
+
+    /* Absolute position the sheet panes so they slide gracefully over the sidebar */
+    #workspace-chat-pane,
+    #active-profile-pane,
+    #fallback-view-pane {
+        position: fixed;
+        top: 0;
+        left: 100%;
+        /* Hidden off-screen right by default */
+        width: 100%;
+        height: 100%;
+        z-index: 999;
+        background: #111b21;
+        transition: left 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    /* Slide sheet window directly forward when active view utility flags match */
+    #workspace-chat-pane.mobile-active-view-pane,
+    #active-profile-pane.mobile-active-view-pane {
+        left: 0 !important;
+    }
+
+    .mobile-nav-back-btn {
+        display: block;
     }
 }
 
