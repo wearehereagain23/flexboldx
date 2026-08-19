@@ -1,0 +1,14 @@
+{
+    "caseSensitive": false,
+    "rules": {
+        "realOrgName": "organization",
+        "projectName": "project"
+    },
+    "default": {
+        "caseSensitive": false,
+        "rules": {
+            "realOrgName": "organization",
+            "projectName": "project"
+        }
+    }
+}
