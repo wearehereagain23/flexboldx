@@ -1,4 +1,210 @@
-<!DOCTYPE html><html lang="en" data-theme="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,interactive-widget=resizes-content"><title>Fund Account | Flexboldx</title><link rel="icon" type="image/png" sizes="16x16" href="./asset/favicon.png"><!-- Material Icons & Google Fonts --><link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"><!-- Lucide Icons --><script src="https://unpkg.com/lucide@latest"></script><!-- Custom Stylesheets --><link rel="stylesheet" href="./css/style.css"><link rel="stylesheet" href="./css/deposit.css"><link rel="stylesheet" href="./css/trade-history.css"><!-- SweetAlert2 --><script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script></head><body><!-- Full-Page Loading Spinner & Blur Overlay --><div class="loader-overlay" id="pageLoader"><div class="spinner"></div><p class="loader-text">Loading Dashboard...</p></div><!-- Header Navbar --><header class="topbar" id="header"><div class="header-left"><a href="../index.html" class="brand-logo"><img src="./asset/logo.png" alt="Flexboldx Logo"></a></div><div class="header-right"><!-- Theme Toggle Button --> <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light/Dark Theme"><i class="material-icons" id="themeIcon">brightness_4</i></button><!-- Agent Assist Chat Icon Trigger --><div class="header-icon-item"><button type="button" id="openChatDrawerBtn" class="agent-assist-btn" title="Agent Assist / Support"><i class="material-icons">chat_bubble_outline</i> <span class="badge-count">1</span></button></div><!-- User Profile Link --><div class="header-user-profile"><a class="profile-button" href="./profile.html"><div class="avatar-status-wrapper"><img src="./asset/userlogo.png" id="pmler" alt="User Avatar" class="user-avatar-img"> <span class="status-indicator online"></span></div><span class="user-name-text hide-mobile" id="weuss_header"></span></a></div></div></header><!-- Overlay for Mobile Sidebar --><div class="sidebar-overlay" id="sidebarOverlay"></div><!-- App Body Layout --><div class="app-layout"><!-- Sidebar Navigation --><aside class="sidebar" id="sidebar"><div class="sidebar-user-card"><img id="pmler2" src="./asset/userlogo.png" alt="User" class="avatar-circle"><div class="user-details"><span class="user-name" id="weuss">loading...</span> <span class="user-country" id="country">loading...</span></div></div><nav class="sidebar-nav"><ul><li><a href="./index.html"><i class="material-icons">dashboard</i><span>Dashboard</span></a></li><li class="active"><a href="#"><i class="material-icons">account_balance_wallet</i><span>Fund Account</span></a></li><li><a href="./deposit-history.html"><i class="material-icons">dns</i><span>Deposit History</span></a></li><li><a href="./invest.html"><i class="material-icons">shopping_bag</i><span>Invest</span></a></li><li><a href="./trade-history.html"><i class="material-icons">history</i><span>Trade History</span></a></li><li><a href="./withdraw-funds.html"><i class="material-icons">attach_money</i><span>Withdraw Funds</span></a></li><li><a href="./withdrawal-history.html"><i class="material-icons">folder_open</i><span>Withdrawal History</span></a></li><li><a href="./kyc.html"><i class="material-icons">folder</i><span>KYC</span></a></li><li><a href="./referrals.html"><i class="material-icons">group</i><span>Referrals</span></a></li><li><a href="./profile.html"><i class="material-icons">person</i><span>Profile</span></a></li><li><a href="./settings.html"><i class="material-icons">settings</i><span>Settings</span></a></li><li id="out"><a href="#"><i class="material-icons">exit_to_app</i><span>Logout</span></a></li></ul></nav></aside><!-- Main Workspace Content --><main class="main-content"><!-- 1. Top Metrics Section --><section class="stats-grid"><div class="stat-card"><div class="stat-icon"><i class="material-icons">account_balance_wallet</i></div><div class="stat-info"><p>CURRENT BALANCE</p><h4 id="userBalance">$0.00</h4></div></div><div class="stat-card"><div class="stat-icon"><i class="material-icons">hourglass_empty</i></div><div class="stat-info"><p>PENDING DEPOSIT</p><h4 id="pendingDeposit">$0.00</h4></div></div><div class="stat-card"><div class="stat-icon"><i class="material-icons">attach_money</i></div><div class="stat-info"><p>TOTAL DEPOSIT</p><h4 id="totalDeposit">$0.00</h4></div></div></section><!-- Quick Shortcuts Section --><section class="quick-actions-bar"><div class="quick-actions-header"><h4><i class="material-icons">bolt</i> Quick Shortcuts</h4></div><div class="quick-actions-grid"><a href="./invest.html" class="quick-action-card"><div class="action-icon invest-icon"><i class="material-icons">trending_up</i></div><div class="action-text"><span class="action-title">Start New Trade</span> <span class="action-sub">Explore investment plans</span></div><i class="material-icons action-arrow">chevron_right</i> </a><a href="./withdraw-funds.html" class="quick-action-card"><div class="action-icon withdraw-icon"><i class="material-icons">attach_money</i></div><div class="action-text"><span class="action-title">Request Payout</span> <span class="action-sub">Withdraw profit or funds</span></div><i class="material-icons action-arrow">chevron_right</i> </a><a href="./deposit.html" class="quick-action-card"><div class="action-icon deposit-icon"><i class="material-icons">account_balance_wallet</i></div><div class="action-text"><span class="action-title">Fund Account</span> <span class="action-sub">Add money to start trading</span></div><i class="material-icons action-arrow">chevron_right</i> </a><a href="./withdrawal-history.html" class="quick-action-card"><div class="action-icon history-icon"><i class="material-icons">folder_open</i></div><div class="action-text"><span class="action-title">Payout Logs</span> <span class="action-sub">Check withdrawal history</span></div><i class="material-icons action-arrow">chevron_right</i></a></div></section><!-- 2. Deposit Form UI Container --><section class="card deposit-card"><div class="deposit-header"><h2><i class="material-icons">add_card</i> Fund Your Flexboldx Wallet</h2><p>Select your preferred cryptocurrency asset, scan the payment barcode or copy the address below, and submit your proof of payment for fast verification.</p></div><form id="depositForm" novalidate><!-- Crypto Currency Selector --><div class="form-group"><label class="form-label" for="cryptoSelect">Select Asset / Payment Gateway</label> <select id="cryptoSelect" class="form-control" required><option value="" disabled selected>-- Select Popular Crypto Asset --</option><option value="BTC">Bitcoin (BTC)</option><option value="ETH">Ethereum (ETH - ERC20)</option><option value="USDT">Tether USD (USDT - TRC20)</option><option value="BNB">Binance Coin (BNB - BEP20)</option><option value="SOL">Solana (SOL)</option></select></div><!-- Address & QR Display Area (Revealed on Select) --><div id="paymentAddressBox" class="payment-address-box hidden"><div class="qr-container"><img id="cryptoQrImg" src="" alt="Deposit QR Code"></div><div class="address-details"><span class="network-badge" id="cryptoNetworkBadge">USDT TRC20</span><p class="address-instruction">Send exact payment to the following address:</p><div class="copy-address-field"><input type="text" id="walletAddressInput" class="form-control" readonly> <button type="button" id="copyAddressBtn" class="btn-primary copy-btn" title="Copy Address"><i class="material-icons">content_copy</i></button></div></div></div><!-- Deposit Amount Input --><div class="form-group"><label class="form-label" for="depositAmount">Deposit Amount ($ USD)</label> <input type="number" id="depositAmount" class="form-control" placeholder="e.g. 500" min="10" step="any" required><!-- Realtime Conversion Preview Display --><div id="cryptoConversionDisplay" style="margin-top:8px;font-size:14px;color:#38bdf8;font-weight:600;display:none">≈ <span id="convertedCryptoAmount">0.00000000</span> <span id="convertedCryptoSymbol">BTC</span></div></div><!-- Proof File Upload Input --><div class="form-group"><label class="form-label">Upload Proof of Payment (Receipt / Screenshot)</label><div class="file-upload-wrapper" id="fileUploadBox"><input type="file" id="proofFileInput" accept="image/*,.pdf" required><div class="file-upload-info"><i class="material-icons">cloud_upload</i> <span id="fileNameDisplay">Click or drag & drop payment proof image here</span> <small>(Max file size: 5MB)</small></div></div></div><!-- Submit Action Button --> <button type="submit" class="btn-primary submit-deposit-btn"><i class="material-icons">check_circle</i> Confirm Deposit & Submit</button></form></section><!-- Sticky Footer --><footer class="app-footer"><p>&copy; 2026 Flexboldx. All rights reserved.</p></footer></main></div><!-- Slide-in Chat UI Panel --><div class="chat-drawer-overlay" id="chatDrawerOverlay"></div><div class="chat-drawer" id="chatDrawer"><div class="chat-drawer-header"><div class="chat-title"><i data-lucide="message-square"></i> <span>Support Channel</span></div><div class="chat-header-actions"><button type="button" id="closeChatDrawerBtn" class="chat-action-btn" title="Close Chat"><i data-lucide="x"></i></button></div></div><div class="chat-feed-container" id="chat-message-feed"><!-- Dynamically Hydrated by chat.js --></div><div class="chat-drawer-footer"><input type="file" id="chat-image-attachment-input" style="display:none" accept="image/*"> <button type="button" id="chat-attachment-trigger-btn" class="chat-tool-btn" title="Attach Document/Image"><i data-lucide="paperclip"></i></button> <textarea id="chat-terminal-text-field" class="chat-input-field" placeholder="Type a message..."></textarea> <button type="button" id="chat-send-message-btn" class="btn-primary chat-send-btn"><i data-lucide="send"></i></button></div></div><!-- Mobile Bottom App Bar --><nav class="bottom-app-bar"><a href="index.html" class="nav-item"><i class="material-icons">home</i> <span>Home</span> </a><a href="#" class="nav-item active"><i class="material-icons">add_circle_outline</i> <span>Deposit</span> </a><a href="./invest.html" class="nav-item"><i class="material-icons">trending_up</i> <span>Invest</span> </a><a href="./withdraw-funds.html" class="nav-item"><i class="material-icons">payments</i> <span>Withdraw</span> </a><a href="./profile.html" class="nav-item"><i class="material-icons">person</i> <span>Profile</span></a></nav><!-- JS Controllers --><script src="./js/theme.js"></script><script src="./js/index.js"></script><script src="./js/deposit.js"></script><script type="module">import { setupSecureChatChannel } from './js/chat.js';
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,interactive-widget=resizes-content">
+    <title>Fund Account | Flexboldx</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="./asset/favicon.png"><!-- Material Icons & Google Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script><!-- Custom Stylesheets -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/deposit.css">
+    <link rel="stylesheet" href="./css/trade-history.css"><!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body><!-- Full-Page Loading Spinner & Blur Overlay -->
+    <div class="loader-overlay" id="pageLoader">
+        <div class="spinner"></div>
+        <p class="loader-text">Loading Dashboard...</p>
+    </div><!-- Header Navbar -->
+    <header class="topbar" id="header">
+        <div class="header-left"><a href="../index.html" class="brand-logo"><img src="./asset/logo.png"
+                    alt="Flexboldx Logo"></a></div>
+        <div class="header-right"><!-- Theme Toggle Button --> <button class="theme-toggle-btn" id="themeToggleBtn"
+                title="Toggle Light/Dark Theme"><i class="material-icons"
+                    id="themeIcon">brightness_4</i></button><!-- Agent Assist Chat Icon Trigger -->
+            <div class="header-icon-item"><button type="button" id="openChatDrawerBtn" class="agent-assist-btn"
+                    title="Agent Assist / Support"><i class="material-icons">chat_bubble_outline</i> <span
+                        class="badge-count">1</span></button></div><!-- User Profile Link -->
+            <div class="header-user-profile"><a class="profile-button" href="./profile.html">
+                    <div class="avatar-status-wrapper"><img src="./asset/userlogo.png" id="pmler" alt="User Avatar"
+                            class="user-avatar-img"> <span class="status-indicator online"></span></div><span
+                        class="user-name-text hide-mobile" id="weuss_header"></span>
+                </a></div>
+        </div>
+    </header><!-- Overlay for Mobile Sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div><!-- App Body Layout -->
+    <div class="app-layout"><!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-user-card"><img id="pmler2" src="./asset/userlogo.png" alt="User" class="avatar-circle">
+                <div class="user-details"><span class="user-name" id="weuss">loading...</span> <span
+                        class="user-country" id="country">loading...</span></div>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="./index.html"><i class="material-icons">dashboard</i><span>Dashboard</span></a></li>
+                    <li class="active"><a href="#"><i class="material-icons">account_balance_wallet</i><span>Fund
+                                Account</span></a></li>
+                    <li><a href="./deposit-history.html"><i class="material-icons">dns</i><span>Deposit
+                                History</span></a></li>
+                    <li><a href="./invest.html"><i class="material-icons">shopping_bag</i><span>Invest</span></a></li>
+                    <li><a href="./trade-history.html"><i class="material-icons">history</i><span>Trade
+                                History</span></a></li>
+                    <li><a href="./withdraw-funds.html"><i class="material-icons">attach_money</i><span>Withdraw
+                                Funds</span></a></li>
+                    <li><a href="./withdrawal-history.html"><i class="material-icons">folder_open</i><span>Withdrawal
+                                History</span></a></li>
+                    <li><a href="./kyc.html"><i class="material-icons">folder</i><span>KYC</span></a></li>
+                    <li><a href="./referrals.html"><i class="material-icons">group</i><span>Referrals</span></a></li>
+                    <li><a href="./profile.html"><i class="material-icons">person</i><span>Profile</span></a></li>
+                    <li><a href="./settings.html"><i class="material-icons">settings</i><span>Settings</span></a></li>
+                    <li id="out"><a href="#"><i class="material-icons">exit_to_app</i><span>Logout</span></a></li>
+                </ul>
+            </nav>
+        </aside><!-- Main Workspace Content -->
+        <main class="main-content"><!-- 1. Top Metrics Section -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="material-icons">account_balance_wallet</i></div>
+                    <div class="stat-info">
+                        <p>CURRENT BALANCE</p>
+                        <h4 id="userBalance">$0.00</h4>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="material-icons">hourglass_empty</i></div>
+                    <div class="stat-info">
+                        <p>PENDING DEPOSIT</p>
+                        <h4 id="pendingDeposit">$0.00</h4>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="material-icons">attach_money</i></div>
+                    <div class="stat-info">
+                        <p>TOTAL DEPOSIT</p>
+                        <h4 id="totalDeposit">$0.00</h4>
+                    </div>
+                </div>
+            </section><!-- Quick Shortcuts Section -->
+            <section class="quick-actions-bar">
+                <div class="quick-actions-header">
+                    <h4><i class="material-icons">bolt</i> Quick Shortcuts</h4>
+                </div>
+                <div class="quick-actions-grid"><a href="./invest.html" class="quick-action-card">
+                        <div class="action-icon invest-icon"><i class="material-icons">trending_up</i></div>
+                        <div class="action-text"><span class="action-title">Start New Trade</span> <span
+                                class="action-sub">Explore investment plans</span></div><i
+                            class="material-icons action-arrow">chevron_right</i>
+                    </a><a href="./withdraw-funds.html" class="quick-action-card">
+                        <div class="action-icon withdraw-icon"><i class="material-icons">attach_money</i></div>
+                        <div class="action-text"><span class="action-title">Request Payout</span> <span
+                                class="action-sub">Withdraw profit or funds</span></div><i
+                            class="material-icons action-arrow">chevron_right</i>
+                    </a>
+
+                    <a href="./trade-history.html" class="quick-action-card">
+                        <div class="action-icon deposit-icon">
+                            <i class="material-icons">history</i>
+                        </div>
+                        <div class="action-text">
+                            <span class="action-title">Trade History</span>
+                            <span class="action-sub">Explore investment history</span>
+                        </div>
+                        <i class="material-icons action-arrow">chevron_right</i>
+                    </a>
+
+                    <a href="./withdrawal-history.html" class="quick-action-card">
+                        <div class="action-icon history-icon"><i class="material-icons">folder_open</i></div>
+                        <div class="action-text"><span class="action-title">Payout Logs</span> <span
+                                class="action-sub">Check withdrawal history</span></div><i
+                            class="material-icons action-arrow">chevron_right</i>
+                    </a>
+                </div>
+            </section><!-- 2. Deposit Form UI Container -->
+            <section class="card deposit-card">
+                <div class="deposit-header">
+                    <h2><i class="material-icons">add_card</i> Fund Your Flexboldx Wallet</h2>
+                    <p>Select your preferred cryptocurrency asset, scan the payment barcode or copy the address below,
+                        and submit your proof of payment for fast verification.</p>
+                </div>
+                <form id="depositForm" novalidate><!-- Crypto Currency Selector -->
+                    <div class="form-group"><label class="form-label" for="cryptoSelect">Select Asset / Payment
+                            Gateway</label> <select id="cryptoSelect" class="form-control" required>
+                            <option value="" disabled selected>-- Select Popular Crypto Asset --</option>
+                            <option value="BTC">Bitcoin (BTC)</option>
+                            <option value="ETH">Ethereum (ETH - ERC20)</option>
+                            <option value="USDT">Tether USD (USDT - TRC20)</option>
+                            <option value="BNB">Binance Coin (BNB - BEP20)</option>
+                            <option value="SOL">Solana (SOL)</option>
+                        </select></div><!-- Address & QR Display Area (Revealed on Select) -->
+                    <div id="paymentAddressBox" class="payment-address-box hidden">
+                        <div class="qr-container"><img id="cryptoQrImg" src="" alt="Deposit QR Code"></div>
+                        <div class="address-details"><span class="network-badge" id="cryptoNetworkBadge">USDT
+                                TRC20</span>
+                            <p class="address-instruction">Send exact payment to the following address:</p>
+                            <div class="copy-address-field"><input type="text" id="walletAddressInput"
+                                    class="form-control" readonly> <button type="button" id="copyAddressBtn"
+                                    class="btn-primary copy-btn" title="Copy Address"><i
+                                        class="material-icons">content_copy</i></button></div>
+                        </div>
+                    </div><!-- Deposit Amount Input -->
+                    <div class="form-group"><label class="form-label" for="depositAmount">Deposit Amount ($ USD)</label>
+                        <input type="number" id="depositAmount" class="form-control" placeholder="e.g. 500" min="10"
+                            step="any" required><!-- Realtime Conversion Preview Display -->
+                        <div id="cryptoConversionDisplay"
+                            style="margin-top:8px;font-size:14px;color:#38bdf8;font-weight:600;display:none">≈ <span
+                                id="convertedCryptoAmount">0.00000000</span> <span id="convertedCryptoSymbol">BTC</span>
+                        </div>
+                    </div><!-- Proof File Upload Input -->
+                    <div class="form-group"><label class="form-label">Upload Proof of Payment (Receipt /
+                            Screenshot)</label>
+                        <div class="file-upload-wrapper" id="fileUploadBox"><input type="file" id="proofFileInput"
+                                accept="image/*,.pdf" required>
+                            <div class="file-upload-info"><i class="material-icons">cloud_upload</i> <span
+                                    id="fileNameDisplay">Click or drag & drop payment proof image here</span>
+                                <small>(Max file size: 5MB)</small>
+                            </div>
+                        </div>
+                    </div><!-- Submit Action Button --> <button type="submit" class="btn-primary submit-deposit-btn"><i
+                            class="material-icons">check_circle</i> Confirm Deposit & Submit</button>
+                </form>
+            </section><!-- Sticky Footer -->
+            <footer class="app-footer">
+                <p>&copy; 2026 Flexboldx. All rights reserved.</p>
+            </footer>
+        </main>
+    </div><!-- Slide-in Chat UI Panel -->
+    <div class="chat-drawer-overlay" id="chatDrawerOverlay"></div>
+    <div class="chat-drawer" id="chatDrawer">
+        <div class="chat-drawer-header">
+            <div class="chat-title"><i data-lucide="message-square"></i> <span>Support Channel</span></div>
+            <div class="chat-header-actions"><button type="button" id="closeChatDrawerBtn" class="chat-action-btn"
+                    title="Close Chat"><i data-lucide="x"></i></button></div>
+        </div>
+        <div class="chat-feed-container" id="chat-message-feed"><!-- Dynamically Hydrated by chat.js --></div>
+        <div class="chat-drawer-footer"><input type="file" id="chat-image-attachment-input" style="display:none"
+                accept="image/*"> <button type="button" id="chat-attachment-trigger-btn" class="chat-tool-btn"
+                title="Attach Document/Image"><i data-lucide="paperclip"></i></button> <textarea
+                id="chat-terminal-text-field" class="chat-input-field" placeholder="Type a message..."></textarea>
+            <button type="button" id="chat-send-message-btn" class="btn-primary chat-send-btn"><i
+                    data-lucide="send"></i></button>
+        </div>
+    </div><!-- Mobile Bottom App Bar -->
+    <nav class="bottom-app-bar"><a href="index.html" class="nav-item"><i class="material-icons">home</i>
+            <span>Home</span> </a><a href="#" class="nav-item active"><i class="material-icons">add_circle_outline</i>
+            <span>Deposit</span> </a><a href="./invest.html" class="nav-item"><i class="material-icons">trending_up</i>
+            <span>Invest</span> </a><a href="./withdraw-funds.html" class="nav-item"><i
+                class="material-icons">payments</i> <span>Withdraw</span> </a><a href="./profile.html"
+            class="nav-item"><i class="material-icons">person</i> <span>Profile</span></a></nav><!-- JS Controllers -->
+    <script src="./js/theme.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/deposit.js"></script>
+    <script type="module">import { setupSecureChatChannel } from './js/chat.js';
 
         const chatDrawer = document.getElementById('chatDrawer');
         const chatOverlay = document.getElementById('chatDrawerOverlay');
@@ -38,4 +244,7 @@
                 }
                 window.scrollTo(0, 0);
             }, 300);
-        });</script></body></html>
+        });</script>
+</body>
+
+</html>
